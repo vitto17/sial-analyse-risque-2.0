@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+
+
+<class schema="analyse_risque"
+    name="fr.gouv.agriculture.dal.sial.arq.businessshared.VUaClasseNoteRisque" 
+    table="v_ua_classe_note_risque_v1_0"
+    mutable="false"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+	batch-size="60"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+    
+    <cache usage="read-only" />
+    <id
+        name="uaClasseNoteRisqueRfa"
+        type="java.lang.String"
+        column="UA_CLASSE_NOTE_RISQUE_RFA"
+    >
+        <generator class="assigned" />
+    </id>
+
+        <!-- Associations -->
+    <many-to-one
+        name="uniteActivite"
+        class="fr.gouv.agriculture.dal.sial.usagers.businessshared.VUniteActivite"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="ua_rfa" />
+    </many-to-one>
+    
+    <many-to-one
+        name="campagne"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VCampagne"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="camp_rfa" />
+    </many-to-one>
+  
+    <many-to-one
+        name="domaineTechnique"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDomaineTechnique"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="dt_rfa" />
+    </many-to-one>
+    
+    <many-to-one
+        name="noteRisque"
+        class="fr.gouv.agriculture.dal.sial.arq.businessshared.VNoteRisque"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="note_rfa" />
+    </many-to-one> 
+    
+    <many-to-one
+        name="classeRisque"
+        class="fr.gouv.agriculture.dal.sial.arq.businessshared.VClasseRisque"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="classe_rfa" />
+    </many-to-one>  
+    
+</class>
+</hibernate-mapping>

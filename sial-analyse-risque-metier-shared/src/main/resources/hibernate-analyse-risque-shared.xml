@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--Les lignes suivantes doivent être incluses dans le fichier hibernate.cfg.xml de la webapp-->
+
+<!-- Mapping analyse-risque-metier-shared -->     
+<mapping resource="fr/gouv/agriculture/dal/sial/arq/businessshared/VClasseRisque.hbm.xml"/>
+<mapping resource="fr/gouv/agriculture/dal/sial/arq/businessshared/VNoteRisque.hbm.xml"/>
+<mapping resource="fr/gouv/agriculture/dal/sial/arq/businessshared/VUaClasseNoteRisque.hbm.xml"/>

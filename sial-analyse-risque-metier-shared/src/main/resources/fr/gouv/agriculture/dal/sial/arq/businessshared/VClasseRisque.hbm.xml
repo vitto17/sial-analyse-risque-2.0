@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table classe_risque vers la classe fr.gouv.agriculture.dal.sial.arq.business.ClasseRisque.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class schema="analyse_risque"
+    name="fr.gouv.agriculture.dal.sial.arq.businessshared.VClasseRisque" 
+    table="v_classe_risque_v1_0"
+    mutable="false"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+	batch-size="60"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+    <cache usage="read-only"/>
+
+    <id
+        name="classeRfa"
+	type="java.lang.String"
+        column="classe_rfa"
+        length="20"
+    >
+        <generator class="assigned" />        
+    </id>
+    
+    <property
+        name="classeLb"
+		type="java.lang.String"
+        column="classe_lb"
+        length="255"
+    />
+    <property
+        name="classeValeurNb"
+		type="long"
+        column="classe_valeur_nb"
+        not-null="true"
+        length="19"
+    />
+    <property
+        name="classeMinNb2"
+		type="java.math.BigDecimal"
+        column="classe_min_nb2"
+        not-null="true"
+        length="131089"
+    />
+    <property
+        name="classeMaxNb2"
+		type="java.math.BigDecimal"
+        column="classe_max_nb2"
+        length="131089"
+    />
+
+    <!-- Associations -->
+    <many-to-one
+        name="domaineTechnique"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDomaineTechnique"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="dt_rfa" />
+    </many-to-one>  
+
+    <many-to-one
+        name="campagne"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VCampagne"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="camp_rfa" />
+    </many-to-one>  
+
+</class>
+</hibernate-mapping>
