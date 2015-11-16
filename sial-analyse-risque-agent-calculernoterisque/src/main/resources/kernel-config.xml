@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd">
+
+    <!-- Les post processeurs pour utiliser les fichiers env.properties -->
+    <bean
+        name="fr.gouv.agriculture.o2.kernel.spring.processor.EnvConfigurationPostProcessor"
+        classname="fr.gouv.agriculture.o2.kernel.spring.processor.EnvConfigurationPostProcessor" />
+
+    <bean
+        name="fr.gouv.agriculture.o2.kernel.spring.processor.ExtensibleEnvConfigurationPostProcessor"
+        classname="fr.gouv.agriculture.o2.kernel.spring.processor.ExtensibleEnvConfigurationPostProcessor" />
+
+    <!-- inclusion de la configuration camel pour le kernel -->
+    <include resource="/fr/gouv/agriculture/o2/kernel/camel/kernel-camel.xml" />
+
+    <!-- inclusion de la configuration standard du gestionnaire de transaction -->
+    <include
+        resource="fr/gouv/agriculture/o2/transaction/impl/kernel-core-config.xml" />
+    
+    <!-- configuration par defaut en mode JDBC -->
+    <include
+        resource="fr/gouv/agriculture/o2/transaction/impl/kernel/kernel-jdbc-config.xml" />
+
+    <!-- Configuration JDBC du gestionnaire de transaction -->
+    <!-- Providers -->
+    <bean name="fr.gouv.agriculture.o2.transaction.TransactionProvider"
+          classname="fr.gouv.agriculture.o2.transaction.impl.jdbc.JDBCTransactionProvider"
+          depends="arqJdbcDataSource" scope="application">
+        <property name="dataSource" value-ref="arqJdbcDataSource" />
+    </bean>
+
+    <bean name="arqJdbcDataSource"
+          classname="fr.gouv.agriculture.o2.sql.pool.c3p0.C3P0DataSourceProvider">
+        <property name="driverClass" value="${dataSource.driverClassName}" />
+        <property name="url" value="${dataSource.url}" />
+        <property name="username" value="${dataSource.username}" />
+        <property name="password" value="${dataSource.password}" />
+        <property name="autoCommit" value="true" />
+    </bean>
+
+    <!-- Declation du bean de management JMX -->
+    <bean name="agentManagementBean"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.jmx.impl.CalculerNoteRisqueAgentManagementBean" />
+
+    <bean
+        name="fr.gouv.agriculture.dal.sial.arq.agent.management.CalculerNoteRisqueAgentAgent"
+        classname="fr.gouv.agriculture.dal.sial.arq.agent.management.CalculerNoteRisqueAgentAgent" />
+
+    <!-- Le bean définissant les routes Camel -->
+    <bean name="camelRouteBuilder"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.eip.CamelRouteBuilder" />
+
+    <!-- Declation des beans ServiceMetier et DAO -->
+
+
+    <!-- Ce service doit être instancié à chaque @Injection car il manipule des DAO qui doivent être instanciés à chaque @Injection (voir explication sur les DAo ci-dessous).-->
+    <bean
+        name="fr.gouv.agriculture.dal.sial.arq.agent.services.CalculerNoteRisqueAgentService"
+        classname="fr.gouv.agriculture.dal.sial.arq.agent.services.CalculerNoteRisqueAgentService"
+        scope="none"
+    />
+
+   
+    <!-- Ce DAO doit être instancié à chaque @Injection car il contient des PreparedStatement spécifiques de la formule de risque, donc ces PS doivent être rechargés à chaque traitement d'une demande.-->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.BatchDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.BatchDAO" 
+          scope="none"
+    />
+    
+    <!-- Ce DAO doit être instancié à chaque @Injection car il contient des PreparedStatement spécifiques de la formule de risque, donc ces PS doivent être rechargés à chaque traitement d'une demande.-->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.NoteRisqueDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.NoteRisqueDAO" 
+          scope="none"
+    />
+
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.UniteActiviteDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.UniteActiviteDAO" />
+
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.FormuleRisqueDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.FormuleRisqueDAO" 
+    />
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.ApprobationValideDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.ApprobationValideDAO" 
+    />
+
+    
+    <!-- Ce DAO doit être instancié à chaque @Injection car on gère des caches spécifiques de la formule de risque, donc ces caches doivent être rechargés à chaque traitement d'une demande.-->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.PVolumeDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.PVolumeDAO" 
+          scope="none"
+    />
+
+    <!-- Ce DAO doit être instancié à chaque @Injection car on gère des caches spécifiques de la formule de risque, donc ces caches doivent être rechargés à chaque traitement d'une demande.-->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.PRisqueDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.PRisqueDAO" 
+          scope="none"
+    />
+
+    <!-- Ce DAO doit être instancié à chaque @Injection car on gère des caches spécifiques de la formule de risque, donc ces caches doivent être rechargés à chaque traitement d'une demande.-->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.PZoneDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.PZoneDAO" 
+          scope="none"
+    />
+
+    <!-- Ce DAO doit être instancié à chaque @Injection car on gère des caches spécifiques de la formule de risque, donc ces caches doivent être rechargés à chaque traitement d'une demande.-->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.PDiffDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.PDiffDAO" 
+          scope="none"
+    />
+
+    <!-- Ce DAO doit être instancié à chaque @Injection car on gère des caches spécifiques de la formule de risque, donc ces caches doivent être rechargés à chaque traitement d'une demande.-->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.PDestDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.PDestDAO" 
+          scope="none"
+    />
+
+    <!-- Ce DAO doit être instancié à chaque @Injection car on gère des caches spécifiques de la formule de risque, donc ces caches doivent être rechargés à chaque traitement d'une demande.-->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.agent.dao.PInspectionDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.agent.dao.PInspectionDAO" 
+          scope="none"
+    />
+
+</p:kernel-config>

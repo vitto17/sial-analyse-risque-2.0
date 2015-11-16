@@ -1,0 +1,37 @@
+<!-- For assistance related to logback-translator or configuration files 
+in general, please contact the logback user mailing list at http://www.qos.ch/mailman/listinfo/logback-user. 
+For professional support please see http://www.qos.ch/shop/products/professionalSupport -->
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>%date{yyyy/MM/dd HH:mm:ss.SSS} [%thread] %5level %logger{15} - %message %rootException%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/export/home/toulouse/batchs/int-analyse-risque-presta/analyse-risque-presta/logs/analyse-risque.log
+        </file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>/export/home/toulouse/batchs/int-analyse-risque-presta/analyse-risque-presta/logs/analyse-risque.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>1GB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <pattern>%date{yyyy/MM/dd HH:mm:ss.SSS} [%thread] %5level %logger{15} - %message %rootException%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="fr.gouv.agriculture.dal.sial.arq" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="rollingFile" />
+    </root>
+</configuration>
