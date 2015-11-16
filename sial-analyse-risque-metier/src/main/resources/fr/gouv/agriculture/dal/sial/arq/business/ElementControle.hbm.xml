@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table element_controle vers la classe fr.gouv.agriculture.dal.sial.arq.business.ElementControle.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.ElementControle" 
+    table="element_controle"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="econRfa"
+        type="java.lang.String"
+        column="econ_rfa"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="econCourtLb"
+		type="java.lang.String"
+        column="econ_court_lb"
+        length="25"
+    />
+    <property
+        name="econLb"
+		type="java.lang.String"
+        column="econ_lb"
+        length="100"
+    />
+    <property
+        name="econDebDt"
+		type="java.sql.Date"
+        column="econ_deb_dt"
+        length="13"
+    />
+    <property
+        name="econFinDt"
+		type="java.sql.Date"
+        column="econ_fin_dt"
+        length="13"
+    />
+    <property
+        name="econTriNb"
+		type="short"
+        column="econ_tri_nb"
+        length="5"
+    />
+
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>

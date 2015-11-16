@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table statut vers la classe fr.gouv.agriculture.dal.sial.arq.business.Statut.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.Statut" 
+    table="statut"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+	mutable="false"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+    <cache usage="read-only"/>
+    
+    <id
+        name="statutId"
+        type="int"
+        column="statut_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="statutLb"
+		type="java.lang.String"
+        column="statut_lb"
+        not-null="true"
+        length="20"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional one-to-many association to Batch -->
+    <bag
+        name="batches"
+        lazy="true"
+        inverse="true"
+        batch-size="60"
+		cascade="save-update"
+    >
+        <key>
+            <column name="statut_id" />
+        </key>
+        <one-to-many 
+            class="fr.gouv.agriculture.dal.sial.arq.business.Batch"
+        />
+    </bag>
+
+</class>
+</hibernate-mapping>

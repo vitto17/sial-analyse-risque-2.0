@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd">
+    
+    <!-- Injection des services spécifiques de l'application analyse de risque -->
+
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.CampagneService"
+              classname="fr.gouv.agriculture.dal.sial.arq.service.impl.CampagneServiceImpl"
+              scope="session" />
+
+    <!-- Services utilitaires -->
+    <bean name="fr.gouv.agriculture.dal.sial.arq.helper.Formatter"
+              classname="fr.gouv.agriculture.dal.sial.arq.helper.impl.FormatterImpl"
+              scope="session" />
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.HabilitationsService"
+          classname="fr.gouv.agriculture.dal.sial.arq.service.impl.HabilitationsServiceImpl"
+          scope="session" />
+
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.ExportPonderationRisqueTheoriqueService"
+                      classname="fr.gouv.agriculture.dal.sial.arq.service.impl.ExportPonderationRisqueTheoriqueServiceImpl"
+                      scope="session" />
+                   
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.ExportPonderationZoneService"
+                      classname="fr.gouv.agriculture.dal.sial.arq.service.impl.ExportPonderationZoneServiceImpl"
+                      scope="session" />
+                   
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.ExportPonderationVolumeService"
+                      classname="fr.gouv.agriculture.dal.sial.arq.service.impl.ExportPonderationVolumeServiceImpl"
+                      scope="session" />
+                   
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.ExportPonderationDiffusionService"
+                      classname="fr.gouv.agriculture.dal.sial.arq.service.impl.ExportPonderationDiffusionServiceImpl"
+                      scope="session" />
+                   
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.ExportPonderationDestinationService"
+                      classname="fr.gouv.agriculture.dal.sial.arq.service.impl.ExportPonderationDestinationServiceImpl"
+                      scope="session" />
+                   
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.ExportFormulesRisqueService"
+                      classname="fr.gouv.agriculture.dal.sial.arq.service.impl.ExportFormulesRisqueServiceImpl"
+                      scope="session" />
+                   
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.ExportNotesRisquesService"
+                      classname="fr.gouv.agriculture.dal.sial.arq.service.impl.ExportNotesRisquesServiceImpl"
+                      scope="session" />
+                   
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.DomaineTechniqueService"
+                      classname="fr.gouv.agriculture.dal.sial.arq.service.impl.DomaineTechniqueServiceImpl"
+                      scope="session" />
+                   
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.VNbruaService"
+          classname="fr.gouv.agriculture.dal.sial.arq.service.impl.VNbruaServiceImpl"
+          scope="session" />
+                      
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.FormuleRisqueService"
+          classname="fr.gouv.agriculture.dal.sial.arq.service.impl.FormuleRisqueServiceImpl"
+          scope="session" />
+          
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.BatchService"
+          classname="fr.gouv.agriculture.dal.sial.arq.service.impl.BatchServiceImpl"
+          scope="session" />
+          
+    <bean name="fr.gouv.agriculture.dal.sial.arq.service.PonderationRisqueTheoriqueService"
+          classname="fr.gouv.agriculture.dal.sial.arq.service.impl.PonderationRisqueTheoriqueServiceImpl"
+          scope="session" />
+    
+</p:kernel-config>        
+

@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table vperimetre_ua vers la classe fr.gouv.agriculture.dal.sial.arq.business.VperimetreUa.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.VPerimetreUa" 
+    table="v_perimetre_ua_v1_0"
+    mutable="false"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+	batch-size="60"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+
+
+    <composite-id>
+        <key-property 
+            name="uaRfa" 
+            column="ua_rfa" 
+            type="java.lang.String"
+            length="20"
+        />
+        <key-property 
+            name="localisationAdrRfa" 
+            column="localisation_adr_rfa" 
+            type="int"
+            length="10"
+        />
+        <key-property 
+            name="etbRfa" 
+            column="etb_rfa" 
+            type="int"
+            length="10"
+        />
+        <key-property 
+            name="geoRfa" 
+            column="geo_rfa" 
+            type="int"
+            length="10"
+        />
+        <key-property 
+            name="taRfa" 
+            column="ta_rfa" 
+            type="java.lang.String"
+            length="5"
+        />
+        <key-property 
+            name="diffusionRfa" 
+            column="diffusion_rfa" 
+            type="java.lang.String"
+            length="5"
+        />
+    </composite-id>    
+
+
+    <!-- Associations -->
+    <!-- derived association(s) for compound key -->
+    <!-- end of derived association(s) -->
+  
+
+</class>
+</hibernate-mapping>

@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table note_risque vers la classe fr.gouv.agriculture.dal.sial.arq.business.NoteRisque.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.NoteRisque" 
+    table="note_risque"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="noteId"
+        type="int"
+        column="note_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="noteRfa"
+		type="java.lang.String"
+        column="note_rfa"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="uaRfa"
+		type="java.lang.String"
+        column="ua_rfa"
+        not-null="true"
+        length="20"
+    />
+    <property
+        name="dtRfa"
+		type="java.lang.String"
+        column="dt_rfa"
+        not-null="true"
+        length="20"
+    />
+    <property
+        name="campRfa"
+		type="java.lang.String"
+        column="camp_rfa"
+        not-null="true"
+        length="20"
+    />
+    <property
+        name="noteValNb"
+		type="long"
+        column="note_val_nb"
+        length="19"
+    />
+    <property
+        name="noteDateCalculDs"
+		type="java.sql.Date"
+        column="note_date_calcul_ds"
+        not-null="true"
+        length="13"
+    />
+    <property
+        name="notePRisquNb2"
+		type="java.math.BigDecimal"
+        column="note_p_risqu_nb2"
+        length="131089"
+    />
+    <property
+        name="notePVolNb2"
+		type="java.math.BigDecimal"
+        column="note_p_vol_nb2"
+        length="131089"
+    />
+    <property
+        name="notePZoneNb2"
+		type="java.math.BigDecimal"
+        column="note_p_zone_nb2"
+        length="131089"
+    />
+    <property
+        name="notePDiffNb2"
+		type="java.math.BigDecimal"
+        column="note_p_diff_nb2"
+        length="131089"
+    />
+    <property
+        name="notePDestNb2"
+		type="java.math.BigDecimal"
+        column="note_p_dest_nb2"
+        length="131089"
+    />
+    <property
+        name="notePNiNb2"
+		type="java.math.BigDecimal"
+        column="note_p_ni_nb2"
+        length="131089"
+    />
+    <property
+        name="notePrecValNb"
+		type="long"
+        column="note_prec_val_nb"
+        length="19"
+    />
+
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>

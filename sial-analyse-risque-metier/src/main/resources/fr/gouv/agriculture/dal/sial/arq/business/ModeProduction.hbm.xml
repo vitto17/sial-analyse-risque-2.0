@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table mode_production vers la classe fr.gouv.agriculture.dal.sial.arq.business.ModeProduction.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.ModeProduction" 
+    table="mode_production"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="mprodRfa"
+        type="java.lang.String"
+        column="mprod_rfa"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="mprodCourtLb"
+		type="java.lang.String"
+        column="mprod_court_lb"
+        length="25"
+    />
+    <property
+        name="mprodLb"
+		type="java.lang.String"
+        column="mprod_lb"
+        length="100"
+    />
+    <property
+        name="mprodDebDt"
+		type="java.sql.Date"
+        column="mprod_deb_dt"
+        length="13"
+    />
+    <property
+        name="mprodFinDt"
+		type="java.sql.Date"
+        column="mprod_fin_dt"
+        length="13"
+    />
+    <property
+        name="mprodTriNb"
+		type="short"
+        column="mprod_tri_nb"
+        length="5"
+    />
+
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>

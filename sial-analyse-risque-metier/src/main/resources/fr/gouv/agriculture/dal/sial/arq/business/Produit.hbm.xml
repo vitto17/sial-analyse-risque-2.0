@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table produit vers la classe fr.gouv.agriculture.dal.sial.arq.business.Produit.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.Produit" 
+    table="produit"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="prodId"
+        type="int"
+        column="prod_id"
+    >
+        <generator class="sequence">
+        	<param name="sequence">produit_prod_id_seq</param>
+        </generator>
+    </id>
+
+    <property
+        name="prodRfa"
+		type="java.lang.String"
+        column="prod_rfa"
+        not-null="true"
+        length="20"
+    />
+<!--    <property
+        name="prodLb"
+		type="java.lang.String"
+        column="prod_lb"
+        not-null="true"
+        length="255"
+    />-->
+
+    <!-- Associations -->
+  
+    
+    <many-to-one
+        name="typeProduit"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VTypeProduit"
+        not-null="false"
+        fetch="select"
+    >
+        <column name="tprod_rfa" />
+    </many-to-one>
+    
+    <!-- bi-directional one-to-many association to PonderationRisqueTheoriqueProduit -->
+<!--    <bag
+        name="ponderationRisqueTheoriqueProduits"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+		batch-size="60"
+    >
+        <key>
+            <column name="prod_id" />
+        </key>
+        <one-to-many 
+            class="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheoriqueProduit"
+        />
+    </bag>-->
+
+</class>
+</hibernate-mapping>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table ponderation_diffusion vers la classe fr.gouv.agriculture.dal.sial.arq.business.PonderationDiffusion.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.PonderationDiffusion" 
+    table="ponderation_diffusion"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="pdiffId"
+        type="int"
+        column="pdiff_id"
+    >
+        <generator class="sequence">
+        	<param name="sequence">ponderation_diffusion_pdiff_id_seq</param>
+        </generator>
+    </id>
+    
+    <property
+        name="pdiffPoidsNb2"
+		type="java.math.BigDecimal"
+        column="pdiff_poids_nb2"
+        not-null="true"
+        length="131089"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to FormuleRisque -->
+    <many-to-one
+        name="formuleRisque"
+        class="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="form_id" />
+    </many-to-one>
+
+    <many-to-one
+        name="difRfa"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDiffusion"
+        not-null="false"
+        fetch="select"
+    >
+        <column name="dif_rfa" />
+    </many-to-one>
+    
+</class>
+</hibernate-mapping>

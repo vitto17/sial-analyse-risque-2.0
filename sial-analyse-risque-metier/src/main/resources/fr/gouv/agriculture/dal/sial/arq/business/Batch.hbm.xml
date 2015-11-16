@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table batch vers la classe fr.gouv.agriculture.dal.sial.arq.business.Batch.
+	
+            Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+    -->
+
+    <class 
+        name="fr.gouv.agriculture.dal.sial.arq.business.Batch" 
+        table="batch"
+
+        lazy="false"
+        dynamic-update="true"
+        optimistic-lock="all"
+        batch-size="60"
+    >
+        <meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+        <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+        <meta attribute="gen-identifier">
+        </meta>
+
+
+        <id
+            name="batchId"
+            type="int"
+            column="batch_id"
+        >
+            <generator class="native" />
+        </id>
+
+        <property
+            name="batchUtiLb"
+            type="java.lang.String"
+            column="batch_uti_lb"
+            not-null="true"
+            length="30"
+        />
+        <property
+            name="batchDemandeTs"
+            type="java.util.Date"
+            column="batch_demande_ts"
+            not-null="true"
+            length="13"
+        />
+        <property
+            name="batchDebutTs"
+            type="java.util.Date"
+            column="batch_debut_ts"
+            length="13"
+        />
+        <property
+            name="batchFinTs"
+            type="java.util.Date"
+            column="batch_fin_ts"
+            length="13"
+        />
+        <property
+            name="batchNbrUaTotalNb"
+            type="long"
+            column="batch_nbr_ua_total_nb"
+            length="19"
+        />
+        <property
+            name="batchNbrUaTraiteNb"
+            type="long"
+            column="batch_nbr_ua_traite_nb"
+            length="19"
+        />
+        <property
+            name="campRfa"
+            type="java.lang.String"
+            column="camp_rfa"
+            not-null="true"
+            length="20"
+        />
+        <property
+            name="batchListStructRfa"
+            type="java.lang.String"
+            column="batch_list_struct_rfa"
+            not-null="false"
+            length="300"
+        />
+        <!--<property
+            name="dtRfa"
+                    type="java.lang.String"
+            column="dt_rfa"
+            not-null="true"
+            length="20"
+        />-->
+
+        <!-- Associations -->
+  
+        <!-- bi-directional many-to-one association to Statut -->
+        <many-to-one
+            name="statut"
+            class="fr.gouv.agriculture.dal.sial.arq.business.Statut"
+            not-null="true"
+            fetch="select"
+        >
+            <column name="statut_id" />
+        </many-to-one>
+
+        <many-to-one
+            name="domaineTechnique"
+            class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDomaineTechnique"
+            not-null="true"
+            fetch="select"
+        >
+            <column name="dt_rfa" />
+        </many-to-one>
+    
+    </class>
+</hibernate-mapping>

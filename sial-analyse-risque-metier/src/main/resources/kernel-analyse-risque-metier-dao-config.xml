@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd">
+
+    <!-- Injection des dao spécifiques de l'application analyse de risque -->
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.FormuleRisqueDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.FormuleRisqueDAOImpl"
+          scope="session" />
+     
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.CampagneArqDAO"
+           classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.CampagneArqDAOImpl"
+           scope="session" />
+     
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.PonderationRisqueTheoriqueDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationRisqueTheoriqueDAOImpl"
+          scope="session"/>
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.PonderationRisqueTheoriqueApprobationDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationRisqueTheoriqueApprobationDAOImpl"
+          scope="session"/>
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.PonderationRisqueTheoriqueProcedeDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationRisqueTheoriqueProcedeDAOImpl"
+          scope="session"/>
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.PonderationRisqueTheoriqueProduitDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationRisqueTheoriqueProduitDAOImpl"
+          scope="session"/>
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.PonderationDiffusionDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationDiffusionDAOImpl"
+          scope="session"/>
+     
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.PonderationDestinationDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationDestinationDAOImpl"
+          scope="session"/>
+
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.CalculEtResultatsDAO"
+                classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.CalculEtResultatsDAOImpl"
+                scope="session" />
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.PonderationVolumeDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationVolumeDAOImpl"
+          scope="session"/>
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.PonderationZoneDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationZoneDAOImpl"
+          scope="session"/>
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.BooleanPonderationDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.BooleanPonderationDAOImpl"
+          scope="session" />
+          
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.DomaineTechniqueArqDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.DomaineTechniqueArqDAOImpl"
+          scope="session"/>
+    
+     <bean name="fr.gouv.agriculture.dal.sial.arq.dao.BatchDAO"
+                classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.BatchDAOImpl"
+                scope="session" />
+
+     <bean name="fr.gouv.agriculture.dal.sial.arq.dao.DestinationDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.DestinationDAOImpl"
+          scope="session"/>
+     
+     <bean name="fr.gouv.agriculture.dal.sial.arq.dao.UniteProductionDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.UniteProductionDAOImpl"
+          scope="session"/>
+     
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.FormuleRisqueDuplicationDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.FormuleRisqueDuplicationDAOImpl"
+          scope="session" />
+     
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.ProduitDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.ProduitDAOImpl"
+          scope="session" />
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.VEspeceDgalDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.VEspeceDgalDAOImpl"
+          scope="session" />
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.AlimentationAnimaleDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.AlimentationAnimaleDAOImpl"
+          scope="session" />
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.TypeIntrantDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.TypeIntrantDAOImpl"
+          scope="session" />
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.DenreeDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.DenreeDAOImpl"
+          scope="session" />
+    
+    <bean name="fr.gouv.agriculture.dal.sial.arq.dao.FiliereVegetalDAO"
+          classname="fr.gouv.agriculture.dal.sial.arq.dao.impl.FiliereVegetalDAOImpl"
+          scope="session" />
+    
+</p:kernel-config>        
+

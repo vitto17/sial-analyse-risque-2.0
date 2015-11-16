@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table ponderation_volume vers la classe fr.gouv.agriculture.dal.sial.arq.business.PonderationVolume.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.PonderationVolume" 
+    table="ponderation_volume"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="pvolId"
+        type="int"
+        column="pvol_id"
+    >
+        <generator class="sequence">
+        	<param name="sequence">ponderation_volume_pvol_id_seq</param>
+        </generator>
+    </id>
+
+    <property
+        name="pvolS1Nb2"
+		type="java.math.BigDecimal"
+        column="pvol_s1_nb2"
+        not-null="true"
+        length="131089"
+    />
+    <property
+        name="pvolS2Nb2"
+		type="java.math.BigDecimal"
+        column="pvol_s2_nb2"
+        length="131089"
+    />
+    <property
+        name="pvolS3Nb2"
+		type="java.math.BigDecimal"
+        column="pvol_s3_nb2"
+        length="131089"
+    />
+    <property
+        name="pvolS4Nb2"
+		type="java.math.BigDecimal"
+        column="pvol_s4_nb2"
+        length="131089"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to FormuleRisque -->
+    <many-to-one
+        name="formuleRisque"
+        class="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="form_id" />
+    </many-to-one>
+    
+    <many-to-one
+        name="uprodRfa"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VUniteProduction"
+        not-null="false"
+        fetch="select"
+    >
+        <column name="uprod_rfa" />
+    </many-to-one>
+    
+    <many-to-one
+        name="taRfa"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VTypeActivite"
+        not-null="false"
+        fetch="select"
+    >
+        <column name="ta_rfa" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

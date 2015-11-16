@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping schema="analyse_risque">
+	<!-- Created by the Middlegen Hibernate plugin. Mapping de la table v_export_note_risque 
+		vers la classe fr.gouv.agriculture.dal.sial.arq.business.VExportNoteRisque. 
+		Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger 
+		$. -->
+
+	<class name="fr.gouv.agriculture.dal.sial.arq.business.VExportNoteRisque"
+		table="v_export_note_risque" mutable="false" lazy="false"
+		dynamic-update="true" optimistic-lock="all" batch-size="60">
+		<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+		<meta attribute="implement-equals" inherit="false">true</meta>
+
+		<meta attribute="gen-identifier">
+		</meta>
+
+		<id name="rowId" type="int" column="row_id"/>
+
+		<property name="dtRfaExport" type="java.lang.String" column="dt_rfa"
+			length="20" />
+		<property name="campRfaExport" type="java.lang.String"
+			column="camp_rfa" length="20" />
+		<property name="classeRfaExport" type="java.lang.String"
+			column="classe_rfa" length="20" />
+		<property name="noteValNbExport" type="long" column="note_val_nb"
+			length="19" />
+		<property name="noteDateCalculDsExport" type="java.util.Date"
+			column="note_date_calcul_ds" not-null="true" length="13" />
+		<property name="notePRisquNb2Export" type="java.math.BigDecimal"
+			column="note_p_risqu_nb2" length="131089" />
+		<property name="notePVolNb2Export" type="java.math.BigDecimal"
+			column="note_p_vol_nb2" length="131089" />
+		<property name="notePZoneNb2Export" type="java.math.BigDecimal"
+			column="note_p_zone_nb2" length="131089" />
+		<property name="notePDiffNb2Export" type="java.math.BigDecimal"
+			column="note_p_diff_nb2" length="131089" />
+		<property name="notePDestNb2Export" type="java.math.BigDecimal"
+			column="note_p_dest_nb2" length="131089" />
+		<property name="notePNiNb2Export" type="java.math.BigDecimal"
+			column="note_p_ni_nb2" length="131089" />
+		<property name="notePrecValNbExport" type="long" column="note_prec_val_nb"
+			length="19" />
+		<property name="etbRfaBdnuExport" type="java.lang.String"
+			column="etb_rfa" length="32" />
+		<property name="etaEnseigneUsuelLbExport" type="java.lang.String"
+			column="eta_enseigne_usuel_lb" length="100" />
+		<property name="inseeExport" type="java.lang.String" column="insee"
+			length="5" />
+		<property name="nomofficielExport" type="java.lang.String"
+			column="nomofficiel" length="70" />
+		<property name="idenValeurExport" type="java.lang.String"
+			column="iden_valeur" length="100" />
+		<property name="idenPrincipalBoExport" type="boolean"
+			column="iden_principal_bo" length="1" />
+		<property name="geoLocalisationExport" type="org.hibernatespatial.GeometryUserType"
+			column="geo_localisation" length="2147483647">
+			<meta attribute="postgis-type">POINT</meta>
+			<meta attribute="postgis-srid">4326</meta>
+		</property>
+		<property name="taLbExport" type="java.lang.String" column="ta_lb"
+			length="60" />
+		<property name="identifiantsEtabExport" type="java.lang.String"
+			column="identifiants_etab" length="2147483647" />
+	    <property name="identifiantEdeExport" type="java.lang.String"
+			column="exp_rfa" length="2147483647" />
+
+	</class>
+</hibernate-mapping>

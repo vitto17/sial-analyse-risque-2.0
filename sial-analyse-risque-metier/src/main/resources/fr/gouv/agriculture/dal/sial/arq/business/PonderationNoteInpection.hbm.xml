@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table ponderation_note_inpection vers la classe fr.gouv.agriculture.dal.sial.arq.business.PonderationNoteInpection.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.PonderationNoteInpection" 
+    table="ponderation_note_inpection"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="pniId"
+        type="int"
+        column="pni_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="nomenRfa"
+		type="java.lang.String"
+        column="nomen_rfa"
+        not-null="true"
+        length="20"
+    />
+    <property
+        name="evalRfa"
+		type="java.lang.String"
+        column="eval_rfa"
+        not-null="true"
+        length="20"
+    />
+    <property
+        name="pniPoidsNb2"
+		type="byte"
+        column="pni_poids_nb2"
+        not-null="true"
+        length="2"
+    />
+
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>

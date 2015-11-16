@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping schema="analyse_risque">
+<!--
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table vnbrua vers la classe fr.gouv.agriculture.dal.sial.arq.business.Vnbrua.
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+<class
+    name="fr.gouv.agriculture.dal.sial.arq.business.VNbrua"
+    table="v_nbrua_v1_0"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+	mutable="false"
+	batch-size="60"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+    <meta attribute="implement-equals" inherit="false">true</meta>
+    
+    <composite-id>
+        <key-property
+            name="campRfa"
+            column="camp_rfa"
+            type="java.lang.String"
+            length="20"
+        />
+        <key-property
+            name="dtRfa"
+            column="dt_rfa"
+            type="java.lang.String"
+            length="20"
+        />
+        <key-property
+            name="classeRfa"
+            column="classe_rfa"
+            type="java.lang.String"
+            length="20"
+        />
+        <key-property name="codeInseeCommune"
+                      column="code_insee_commune_rfa"
+                      type="java.lang.String"
+                      length="5" />
+    </composite-id>
+    
+    <property
+        name="nbrUa"
+        column="nbr_ua"
+        type="java.lang.Integer"
+        length="5"
+    />
+    <!-- Associations -->
+    <many-to-one
+        name="campagne"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VCampagne"
+        not-null="true"
+        insert="false" update="false"
+        fetch="select"
+    >
+        <column name="camp_rfa" />
+    </many-to-one>
+    <many-to-one
+        name="domaineTechnique"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDomaineTechnique"
+        not-null="true"
+        insert="false" update="false"
+        fetch="select"
+    >
+        <column name="dt_rfa" />
+    </many-to-one>
+    <many-to-one
+        name="classeRisque"
+        class="fr.gouv.agriculture.dal.sial.arq.business.ClasseRisque"
+        not-null="true"
+        insert="false" update="false"
+        property-ref="classeRfa"
+        fetch="select"
+    >
+        <column name="classe_rfa" />
+    </many-to-one>
+</class>
+
+<!-- Requête permettant de récupérer l'insee des communes de structures définies au niveau régional -->
+    <query name="findCommuneInseeForStructuresByRegion">
+        <query-param name="codesStructure" type="java.util.List" />
+        <![CDATA[
+select comm.insee
+from VStructure struct
+join struct.region.departements as dep
+join dep.arrondissements as arrond
+join arrond.communes as comm
+where struct.structRfa in :codesStructure
+]]>
+
+<!-- Requête permettant de récupérer l'insee des communes de structures définies au niveau départemental -->
+    </query>
+    <query name="findCommuneInseeForStructuresByDepartement">
+        <query-param name="codesStructure" type="java.util.List" />
+        <![CDATA[
+select comm.insee
+from VStructure struct
+join struct.departement.arrondissements as arrond
+join arrond.communes as comm
+where struct.structRfa in :codesStructure
+]]>
+    </query>
+ 
+ <!-- Requête permettant de récupérer les VNbrua groupés par campagne,DT et classe-->   
+      <query name="findByCampDtCommuneAgg">
+        <query-param name="campagne" type="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VCampagne" />
+        <query-param name="domaineTechnique" type="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDomaineTechnique" />
+        <query-param name="codeInseeCommune" type="java.util.List" />
+        <![CDATA[
+select nbrua.campagne.campRfa, nbrua.domaineTechnique.dtRfa, nbrua.domaineTechnique.dtLb, nbrua.classeRisque.classeRfa,sum(nbrua.nbrUa)
+from VNbrua nbrua
+where nbrua.campagne = :campagne
+  and nbrua.domaineTechnique = :domaineTechnique
+  and nbrua.codeInseeCommune in :codeInseeCommune
+group by nbrua.campagne.campRfa, nbrua.domaineTechnique.dtRfa, nbrua.domaineTechnique.dtLb, nbrua.classeRisque.classeRfa
+order by nbrua.campagne.campRfa, nbrua.domaineTechnique.dtRfa, nbrua.domaineTechnique.dtLb, nbrua.classeRisque.classeRfa
+]]>
+    </query>
+    
+     <!-- Requête permettant de récupérer les VNbrua groupés par campagne,DT et classe-->   
+      <query name="findByCampDtAgg">
+        <query-param name="campagne" type="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VCampagne" />
+        <query-param name="domaineTechnique" type="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDomaineTechnique" />
+        <![CDATA[
+select nbrua.campagne.campRfa, nbrua.domaineTechnique.dtRfa, nbrua.domaineTechnique.dtLb, nbrua.classeRisque.classeRfa,sum(nbrua.nbrUa)
+from VNbrua nbrua
+where nbrua.campagne = :campagne
+  and nbrua.domaineTechnique = :domaineTechnique
+group by nbrua.campagne.campRfa, nbrua.domaineTechnique.dtRfa, nbrua.domaineTechnique.dtLb, nbrua.classeRisque.classeRfa
+order by nbrua.campagne.campRfa, nbrua.domaineTechnique.dtRfa, nbrua.domaineTechnique.dtLb, nbrua.classeRisque.classeRfa
+]]>
+    </query>
+    
+</hibernate-mapping>

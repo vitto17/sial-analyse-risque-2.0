@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping schema="analyse_risque">
+<!--
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table formule_risque vers la classe fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque.
+
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class
+    name="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque"
+    table="formule_risque"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="formId"
+        type="int"
+        column="form_id"
+    >
+        <generator class="sequence">
+        	<param name="sequence">formule_risque_form_id_seq</param>
+        </generator>
+    </id>
+
+    <property
+        name="fromAuteurCreationLb"
+		type="java.lang.String"
+        column="from_auteur_creation_lb"
+        not-null="true"
+        length="32"
+    />
+    <property
+        name="formCreationDt"
+		type="java.util.Date"
+        column="form_creation_dt"
+        not-null="true"
+        length="13"
+    />
+    <property
+        name="formAuteurModifLb"
+		type="java.lang.String"
+        column="form_auteur_modif_lb"
+        length="32"
+    />
+    <property
+        name="formDerniereModifTs"
+		type="java.util.Date"
+        column="form_derniere_modif_ts"
+        length="13"
+    />
+    <property
+        name="fromCritRisquetheoriqueOn"
+		type="boolean"
+        column="from_crit_risquetheorique_on"
+        not-null="true"
+        length="1"
+    />
+    <property
+        name="fromCritZoneOn"
+		type="boolean"
+        column="from_crit_zone_on"
+        not-null="true"
+        length="1"
+    />
+    <property
+        name="fromCritVolumeOn"
+		type="boolean"
+        column="from_crit_volume_on"
+        not-null="true"
+        length="1"
+    />
+    <property
+        name="fromCritDiffusionOn"
+		type="boolean"
+        column="from_crit_diffusion_on"
+        not-null="true"
+        length="1"
+    />
+    <property
+        name="fromCritDestinationOn"
+		type="boolean"
+        column="from_crit_destination_on"
+        not-null="true"
+        length="1"
+    />
+    <property
+        name="fromCritNoteInspectionOn"
+		type="boolean"
+        column="from_crit_note_inspection_on"
+        not-null="true"
+        length="1"
+    />
+
+    <!-- Associations -->
+    <many-to-one
+        name="campagne"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VCampagne"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="camp_rfa" />
+    </many-to-one>
+
+    <many-to-one
+        name="domaineTechnique"
+        class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDomaineTechnique"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="dt_rfa" />
+    </many-to-one>
+
+    <!-- bi-directional one-to-many association to PonderationDestination -->
+    <bag
+        name="ponderationDestinations"
+        lazy="true"
+        inverse="true"
+        batch-size="60"
+		cascade="save-update, delete-orphan"
+    >
+        <key>
+            <column name="form_id" />
+        </key>
+        <one-to-many
+            class="fr.gouv.agriculture.dal.sial.arq.business.PonderationDestination"
+        />
+    </bag>
+    <!-- bi-directional one-to-many association to PonderationRisqueTheorique -->
+    <bag
+        name="ponderationRisqueTheoriques"
+        lazy="true"
+        inverse="true"
+        batch-size="60"
+		cascade="save-update, delete-orphan"
+    >
+        <key>
+            <column name="form_id" />
+        </key>
+        <one-to-many
+            class="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheorique"
+        />
+    </bag>
+    <!-- bi-directional one-to-many association to ModificationPonderation -->
+    <bag
+        name="modificationPonderations"
+        lazy="true"
+        inverse="true"
+        batch-size="60"
+		cascade="save-update, delete-orphan"
+    >
+        <key>
+            <column name="form_id" />
+        </key>
+        <one-to-many
+            class="fr.gouv.agriculture.dal.sial.arq.business.ModificationPonderation"
+        />
+    </bag>
+    <!-- bi-directional one-to-many association to PonderationZone -->
+    <bag
+        name="ponderationZones"
+        lazy="true"
+        inverse="true"
+        batch-size="60"
+		cascade="save-update, delete-orphan"
+    >
+        <key>
+            <column name="form_id" />
+        </key>
+        <one-to-many
+            class="fr.gouv.agriculture.dal.sial.arq.business.PonderationZone"
+        />
+    </bag>
+    <!-- bi-directional one-to-many association to PonderationVolume -->
+    <bag
+        name="ponderationVolumes"
+        lazy="true"
+        inverse="true"
+        batch-size="60"
+		cascade="save-update, delete-orphan"
+    >
+        <key>
+            <column name="form_id" />
+        </key>
+        <one-to-many
+            class="fr.gouv.agriculture.dal.sial.arq.business.PonderationVolume"
+        />
+    </bag>
+    <!-- bi-directional one-to-many association to PonderationDiffusion -->
+    <bag
+        name="ponderationDiffusions"
+        lazy="true"
+        inverse="true"
+        batch-size="60"
+		cascade="save-update, delete-orphan"
+    >
+        <key>
+            <column name="form_id" />
+        </key>
+        <one-to-many
+            class="fr.gouv.agriculture.dal.sial.arq.business.PonderationDiffusion"
+        />
+    </bag>
+
+</class>
+
+<!-- Vérification de l'unicité d'une formule de risque -->
+<sql-query name="existsFormuleRisqueCampDtNotId">
+	      	    <![CDATA[	      	    
+			select 1 from formule_risque
+			where formule_risque.camp_rfa = :campagne
+			  and formule_risque.dt_rfa = :domaineTechnique
+			  and formule_risque.form_id <> :formId
+		    	]]>
+</sql-query>
+
+<!-- Vérification de l'unicité d'une formule de risque -->
+<sql-query name="existsFormuleRisqueCampDt">
+	      	    <![CDATA[	      	    
+			select 1 from formule_risque
+			where formule_risque.camp_rfa = :campagne
+			  and formule_risque.dt_rfa = :domaineTechnique
+		    	]]>
+</sql-query>
+
+</hibernate-mapping>

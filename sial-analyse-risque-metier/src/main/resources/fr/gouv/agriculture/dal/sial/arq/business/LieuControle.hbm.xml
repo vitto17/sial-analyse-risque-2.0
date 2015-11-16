@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table lieu_controle vers la classe fr.gouv.agriculture.dal.sial.arq.business.LieuControle.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.LieuControle" 
+    table="lieu_controle"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="lconRfa"
+        type="java.lang.String"
+        column="lcon_rfa"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="lconCourtLb"
+		type="java.lang.String"
+        column="lcon_court_lb"
+        length="25"
+    />
+    <property
+        name="lconLb"
+		type="java.lang.String"
+        column="lcon_lb"
+        length="100"
+    />
+    <property
+        name="lconDebDt"
+		type="java.sql.Date"
+        column="lcon_deb_dt"
+        length="13"
+    />
+    <property
+        name="lconFinDt"
+		type="java.sql.Date"
+        column="lcon_fin_dt"
+        length="13"
+    />
+    <property
+        name="lconTriNb"
+		type="short"
+        column="lcon_tri_nb"
+        length="5"
+    />
+
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>

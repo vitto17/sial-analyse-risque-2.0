@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table modification_ponderation vers la classe fr.gouv.agriculture.dal.sial.arq.business.ModificationPonderation.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.ModificationPonderation" 
+    table="modification_ponderation"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="modpodId"
+        type="int"
+        column="modpod_id"
+    >
+        <generator class="sequence">
+        	<param name="sequence">modification_ponderation_modpod_id_seq</param>
+        </generator>
+    </id>
+
+    <property
+        name="modpodCreaTs"
+		type="java.util.Date"
+        column="modpod_crea_ts"
+        length="13"
+    />
+    <property
+        name="modpodUtiCreaLb"
+		type="java.lang.String"
+        column="modpod_uti_crea_lb"
+        length="255"
+    />
+    <property
+        name="modpodUtiModLb"
+		type="java.lang.String"
+        column="modpod_uti_mod_lb"
+        length="255"
+    />
+    <property
+        name="modpodModTs"
+		type="java.util.Date"
+        column="modpod_mod_ts"
+        length="13"
+    />
+    <property
+        name="modpodTypepondLb"
+		type="java.lang.String"
+        column="modpod_typepond_lb"
+        length="255"
+    />
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to FormuleRisque -->
+    <many-to-one
+        name="formuleRisque"
+        class="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="form_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

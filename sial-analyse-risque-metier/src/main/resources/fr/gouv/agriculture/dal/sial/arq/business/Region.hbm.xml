@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table region vers la classe fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VRegion.
+
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class schema="nomenclatures"
+    name="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VRegion"
+    table="v_region_v1_0"
+    lazy="false"
+	dynamic-update="true"
+	mutable="false"
+	optimistic-lock="all"
+	batch-size="60"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+    <cache usage="read-only" />
+    <id
+        name="insee"
+        type="java.lang.String"
+        column="insee"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="nomsimplifie"
+		type="java.lang.String"
+        column="nomsimplifie"
+        length="70"
+    />
+    <property
+        name="nomofficiel"
+		type="java.lang.String"
+        column="nomofficiel"
+        length="70"
+    />
+    <property
+        name="codenuts"
+		type="java.lang.String"
+        column="codenuts"
+        length="4"
+    />
+    <property
+        name="obsolete"
+		type="boolean"
+        column="obsolete"
+        length="1"
+    />
+    <property
+        name="inseeactuel"
+		type="java.lang.String"
+        column="inseeactuel"
+        length="3"
+    />
+<!--
+    <property
+        name="wkbGeometry"
+	    type="org.hibernatespatial.GeometryUserType"
+        column="wkb_geometry"
+		>
+	   <meta attribute="postgis-type">Geometry</meta>
+	   <meta attribute="postgis-srid">0</meta>
+    </property>
+-->
+
+<!--      Associations -->
+
+<!--          bi-directional many-to-one association to Zeat -->
+        <many-to-one
+            name="zeat"
+            class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VZeat"
+            not-null="true"
+            fetch="select"
+        >
+            <column name="zeat_insee" />
+        </many-to-one>
+<!--          bi-directional many-to-one association to Pay -->
+        <many-to-one
+            name="pays"
+            class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VPays"
+            not-null="true"
+            fetch="select"
+        >
+            <column name="parent_insee" />
+        </many-to-one>
+<!--          bi-directional one-to-many association to Departement -->
+        <bag
+            name="departements"
+            lazy="true"
+            inverse="true"
+            cascade="save-update"
+            batch-size="60"
+        >
+            <key>
+                <column name="parent_insee" />
+            </key>
+            <one-to-many
+                class="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDepartement"
+            />
+        </bag>
+
+    </class>
+</hibernate-mapping>

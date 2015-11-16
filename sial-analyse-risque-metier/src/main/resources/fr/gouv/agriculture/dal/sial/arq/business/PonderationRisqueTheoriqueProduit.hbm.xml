@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table ponderation_risque_theorique_produit vers la classe fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheoriqueProduit.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheoriqueProduit" 
+    table="ponderation_risque_theorique_produit"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="prisqtheoProdId"
+        type="int"
+        column="prisqtheo_prod_id"
+    >
+        <generator class="sequence">
+        	<param name="sequence">ponderation_risque_theorique_produit_prisqtheo_prod_id_seq</param>
+        </generator>
+    </id>
+
+
+    <!-- Associations -->
+  
+    <!-- bi-directional many-to-one association to Produit -->
+    <many-to-one
+        name="produit"
+        class="fr.gouv.agriculture.dal.sial.arq.business.Produit"
+        not-null="true"
+        cascade="all"
+        fetch="select"
+    >
+        <column name="prod_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to PonderationRisqueTheorique -->
+    <many-to-one
+        name="ponderationRisqueTheorique"
+        class="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheorique"
+        not-null="true"
+        fetch="select"
+    >
+        <column name="prisqtheo_id" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

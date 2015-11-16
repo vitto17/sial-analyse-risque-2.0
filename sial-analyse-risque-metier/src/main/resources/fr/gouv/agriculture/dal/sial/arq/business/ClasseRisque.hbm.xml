@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping schema="analyse_risque">
+<!-- 
+    Created by the Middlegen Hibernate plugin.
+	Mapping de la table classe_risque vers la classe fr.gouv.agriculture.dal.sial.arq.business.ClasseRisque.
+	
+	Template Orion : $Id: middlegen_orion.vm 21259 2012-03-15 16:55:07Z mathias.villeger $.
+-->
+
+<class 
+    name="fr.gouv.agriculture.dal.sial.arq.business.ClasseRisque" 
+    table="classe_risque"
+    batch-size="60"
+   	lazy="false"
+	dynamic-update="true"
+	optimistic-lock="all"
+>
+	<meta attribute="extends" inherit="false">fr.gouv.agriculture.orion.business.BaseEntity</meta>
+
+	    <meta attribute="implement-equals" inherit="false">true</meta>
+
+
+    <meta attribute="gen-identifier">
+        </meta>
+
+
+    <id
+        name="classeId"
+        type="int"
+        column="classe_id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="classeRfa"
+		type="java.lang.String"
+        column="classe_rfa"
+        not-null="true"
+        length="20"
+    />
+    <property
+        name="dtRfa"
+		type="java.lang.String"
+        column="dt_rfa"
+        not-null="true"
+        length="20"
+    />
+    <property
+        name="campRfa"
+		type="java.lang.String"
+        column="camp_rfa"
+        not-null="true"
+        length="20"
+    />
+    <property
+        name="classeLb"
+		type="java.lang.String"
+        column="classe_lb"
+        length="255"
+    />
+    <property
+        name="classeValeurNb"
+		type="long"
+        column="classe_valeur_nb"
+        not-null="true"
+        length="19"
+    />
+    <property
+        name="classeMinNb2"
+		type="java.math.BigDecimal"
+        column="classe_min_nb2"
+        not-null="true"
+        length="131089"
+    />
+    <property
+        name="classeMaxNb2"
+		type="java.math.BigDecimal"
+        column="classe_max_nb2"
+        length="131089"
+    />
+
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+**********************************************************************
+Héritage
+**********************************************************************
+Ici on récupère du paramétrage standard (dit "pom de base" du MAP),
+allégeant le paramétrage nécessaire au niveau de chaque projet.
+    -->
+    <parent>
+        <groupId>fr.gouv.agriculture.dal.sial.analyse-risque</groupId>
+        <artifactId>sial-analyse-risque</artifactId>
+        <version>2.0-m1-SNAPSHOT</version>
+    </parent>
+    <!--
+**********************************************************************
+Identification du projet.
+**********************************************************************
+    -->
+    <artifactId>sial-analyse-risque-metier</artifactId>
+    <packaging>jar</packaging>
+    <name>sial-analyse-risque-metier</name>
+    <description>Module contenant les classes Business et Dao pour les structures et ressources</description>
+
+    <!--
+    **********************************************************************
+    Propriétés.
+    **********************************************************************
+    Un façon de factoriser du paramétrage, ou de le rendre plus lisible.
+    C'est notamment ici que l'on peut ajouter project.build.sourceEncoding
+    pour changer l'encoding du code source.
+    -->
+    <properties>
+        <!-- AspectJ -->
+        <aspectj-maven-plugin.version>1.3</aspectj-maven-plugin.version>
+        <project.build.jdk>1.6</project.build.jdk>
+        <aspectj.version>1.6.12</aspectj.version>
+        <aspectj.build.jdk>1.6</aspectj.build.jdk>
+    </properties>
+
+    <url>
+        https://reports.forge.agriculture/${departement}/${si}/${project.artifactId}/${url-path}/
+    </url>
+
+    <!--
+**********************************************************************
+Section Dépendances.
+**********************************************************************
+Liste des artifacts (jars, zips, wars, ejbs, rars, etc.) dont ce
+projet a besoin pour être compilé, testé ou/et exécuté.
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>fr.gouv.agriculture.orion</groupId>
+            <artifactId>orion-web-api</artifactId>
+            <version>${orion.version}</version>
+            <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>fr.gouv.agriculture.o2</groupId>
+            <artifactId>o2-kernel-test-support</artifactId>
+            <version>1.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.gouv.agriculture.orion</groupId>
+            <artifactId>orion-web-impl</artifactId>
+            <version>${orion.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>fr.gouv.agriculture.orion</groupId>
+            <artifactId>orion-persistence-api</artifactId>
+            <version>${orion.version}</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.gouv.agriculture.dal.sial.structures-ressources</groupId>
+            <artifactId>sial-structures-ressources-metier-shared</artifactId>
+            <version>${sial-structures-ressources.version}</version>
+            <type>jar</type>
+        </dependency>
+
+
+        <!-- utilisation des composants metiers -->
+        <dependency>
+            <groupId>fr.gouv.agriculture.dal.sial.analyse-risque</groupId>
+            <artifactId>sial-analyse-risque-metier-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.gouv.agriculture.o2</groupId>
+            <artifactId>o2-junit-support</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.unitils</groupId>
+            <artifactId>unitils-easymock</artifactId>
+            <version>${unitils.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+    <!--
+**********************************************************************
+Section "build".
+**********************************************************************
+Regroupe tout le paramétrage des plugins relatifs au build du projet.
+C'est ici que l'on active des plugins specifiques, et que l'on
+configure les plugins activés automatiquements (comme compiler,
+install, war, etc.).
+    -->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <siteDirectory>${project.basedir}/src/site</siteDirectory>
+                    <locales>fr</locales>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <classpathDependencyExcludes>
+                        <classpathDependencyExcludes>javax:javaee-web-api</classpathDependencyExcludes>
+                    </classpathDependencyExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+            <!--    Un tissage AspectJ est nécessaire pour appliquer transactions,
+                droits et autres éléments du framework. Le JDK utilisé pour
+                compiler et l'encoding des sources est donné par le pom de base.
+                -->
+
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>${aspectj-maven-plugin.version}</version>
+                <configuration>
+                    <complianceLevel>${aspectj.build.jdk}</complianceLevel>
+                    <source>${aspectj.build.jdk}</source>
+                    <target>${aspectj.build.jdk}</target>
+                    <aspectLibraries>
+                        <!-- Support de @Inject -->
+
+                        <aspectLibrary>
+                            <groupId>fr.gouv.agriculture.o2</groupId>
+                            <artifactId>o2-kernel-spring</artifactId>
+                        </aspectLibrary>
+                        <aspectLibrary>
+                            <groupId>fr.gouv.agriculture.o2</groupId>
+                            <artifactId>o2-transaction-impl</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjrt</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--
+**********************************************************************
+Section Téléchargement
+**********************************************************************
+Où maven doit-il récupérer les dépendances (voir section dépendance)
+et plugins (voir sections build et reporting) nécessaires au build du
+projet ?
+    -->
+    <repositories>
+        <repository>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <id>Map</id>
+            <url>https://repos.forge.agriculture/repository/Map</url>
+        </repository>
+
+        <repository>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <id>Project</id>
+            <url>https://repos.forge.agriculture/repository/Project</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+            <id>Map</id>
+            <name>Open source Repository</name>
+            <url>https://repos.forge.agriculture/repository/Map</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>Work</id>
+            <name>Maven Snapshot Repository</name>
+            <url>dav:https://repos.forge.agriculture/repository/sial-analyse-risque-work</url>
+            <layout>default</layout>
+        </snapshotRepository>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>Work</id>
+            <name>Maven Internal Repository</name>
+            <url>dav:https://repos.forge.agriculture/repository/sial-analyse-risque-work</url>
+            <layout>default</layout>
+        </repository>
+        <site>
+            <id>reports.forge.agriculture</id>
+            <url>dav:https://${reports.service.server}/${departement}/${si}/${project.artifactId}/${url-path}/</url>
+        </site>
+    </distributionManagement>
+
+</project>
