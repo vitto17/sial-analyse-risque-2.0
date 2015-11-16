@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:o="http://orion.agriculture-gouv.fr/standard" >
+
+    <ui:param name="pageLabel" value="Accueil"/>
+    <ui:define name="title">
+        #{Messages['accueil.page.title']}
+    </ui:define>
+
+    <ui:define name="content">
+        <o:grid>
+            <o:row>
+				<o:col12>
+					<ui:include src="/portail/message.xhtml">
+						<ui:param name="messRfa" value="MESS_InfoAnalyseRisque" />
+					</ui:include>
+				</o:col12>
+			</o:row>
+            <o:row>
+				<o:col12>
+					<ui:include src="/portail/message.xhtml">
+						<ui:param name="messRfa" value="MESS_AccueilAnalyseRisque" />
+					</ui:include>
+				</o:col12>
+			</o:row>
+        </o:grid>
+    </ui:define>   
+    <ui:define name="javascript">
+       
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd ">
+
+    <!-- Dans ce fichier, faire l'include de tous les kernel de ce composant et
+    de ceux des jar dépendants -->
+
+    <!--include des dépendances composants -->
+    <include resource="/kernel-nomenclatures-metier-share-config.xml" />
+    <include resource="/kernel-nomenclatures-ihm-config.xml" />
+    <include resource="/kernel-structures-ressources-metier-shared-config.xml" />
+    <!-- pas d'utilisation de dao - service d'usagers -->
+    <!--<include resource="/kernel-usagers-metier-shared-config.xml" />-->
+
+	<!-- Chargement des services Habilitations -->
+    <include resource="/kernel-habilitations-metier-shared-service-config.xml" />
+
+    <!--include des dépendances internes -->
+    <include resource="/kernel-analyse-risque-metier-config.xml" />
+    <include resource="/kernel-analyse-risque-metier-shared-config.xml" />
+    
+    
+
+    <!--include des kernel sial-analyse-risque-webapp -->
+    <include resource="/kernel-analyse-risque-dao-config.xml" />
+    <include resource="/kernel-analyse-risque-controller-config.xml" />
+    <include resource="/kernel-analyse-risque-action-config.xml" />
+    <include resource="/kernel-analyse-risque-policy-config.xml" />
+    
+    <!--include des kernel sial-portail-ihm-shared -->
+    <include resource="/kernel-portail-ihm-config.xml" />
+    <include resource="/kernel-portail-metier-shared-config.xml" />
+    
+    <!-- Include kernel-config pour la géographie -->
+    <include resource="/fr/gouv/agriculture/orion/geo/kernel/kernel-geo-config.xml" />
+
+</p:kernel-config>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+    <h:head>   
+        <title><h:outputText value="#{Messages['view.faces.standard.common.error.title.text']}" /></title>
+        <link type="text/#{themeService.stylesheetType}" rel="stylesheet" 
+              href="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/#{themeService.stylesheetType}/bootstrap.#{themeService.stylesheetType}.xhtml?ln=#{themeService.name}"/>
+        <link type="text/#{themeService.stylesheetType}" rel="stylesheet" 
+              href="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/#{themeService.stylesheetType}/responsive.#{themeService.stylesheetType}.xhtml?ln=#{themeService.name}"/>
+
+        <link type="text/#{themeService.stylesheetType}" rel="stylesheet" 
+              href="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/#{themeService.stylesheetType}/orion-header.#{themeService.stylesheetExt}.xhtml?ln=#{themeService.name}" />  
+
+        <STYLE type="text/css">
+            .hide{
+                display: none;
+            }
+            .show{
+                display: block;
+            }
+            .margin{
+                margin-bottom: 1em;
+                margin-top: 1em;
+            }
+        </STYLE>
+    </h:head>
+
+    <h:body style="padding-top: 140px;">         
+        <h:form id="mainform">
+            <div class="navbar navbar-fixed-top o-header-fixed" role="fixed-header">
+                <div class="o-header">
+                    <!-- En-t&ecirc;te de l'application incluant les liens AEL-Raccourcis, le logo, le nom et l'image de l'application.
+                    C'est cette partie de l'application qui se plie. -->
+                    <header id="orion-default-header" role="banner">
+                        <div class="container-fluid o-header-picture">
+                            <div class="row-fluid">
+                                <div class="o-transparent o-div-inline">
+                                    <div class="o-header-fold o-div-inline" role="marianne">
+                                        <a id="marianne-link" 
+                                           class="o-header-marianne" 
+                                           href="http://agriculture.gouv.fr/"
+                                           title="#{Messages['view.faces.standard.header.public']}" >
+                                            <img src="#{facesContext.externalContext.requestContextPath}/img/marianne.png" 
+                                                 alt="#{Messages['view.faces.standard.header.marianne']}"/>
+                                        </a>
+                                    </div>
+                                    <div class="o-header-unfold o-div-inline" role="header-minimal">
+                                        <div class="o-header-title">
+                                            <h1>
+                                                <a href="#{facesContext.externalContext.requestContextPath}/index.xhtml" title="#{Messages['view.faces.standard.header.home']}">#{Messages['view.faces.standard.header.home-title']}</a>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div> <!-- o-transparent --> 
+                            </div> <!-- row-fluid -->
+                        </div> <!-- container-fluid -->
+                    </header>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <article>
+
+                    <h1> <h:outputText value="#{Messages['view.faces.standard.common.error.msg.txt']}" /></h1>
+                    <pre>
+                          <h:outputText escape="false" value="#{session.getAttribute('ERROR')}" />
+                    </pre>
+
+                    <h:button title="#{Messages['view.faces.standard.common.error.trace.button.title']}" onclick='toggleTrace("stacktrace");
+                            return false;' value="#{Messages['view.faces.standard.common.error.trace.button.label']}" class="margin" />
+
+                    <div id="stacktrace" class="hide">
+                        <pre>
+                            <ui:repeat value="#{session.getAttribute('ERROR')}" var="error" >
+                                 <h:outputText escape="false" value="#error" /> <br/>
+                            </ui:repeat>
+                            <ui:repeat value="#{session.getAttribute('STACKTRACE')}" var="trace" >
+                                 <h:outputText escape="false" value="#trace" /> <br/>
+                            </ui:repeat>
+                        </pre>
+                    </div>
+                </article>   
+            </div>
+            <div class="o-footer">
+                <footer>
+                </footer>
+            </div>
+        </h:form>
+        <script type="text/javascript">
+                        function toggleTrace(idToToggle) {
+                            var stackTrace = document.getElementById(idToToggle);
+
+                            if (stackTrace.className === "show") {
+                                stackTrace.className = "hide";
+                            } else {
+                                stackTrace.className = "show";
+                            }
+                        }
+        </script>
+    </h:body>
+
+</html>

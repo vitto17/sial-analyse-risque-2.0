@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel" value="#{Messages['list.calculEtResultats.title']}"/>
+
+    <ui:define name="content">        
+
+        <o:list  controllerRef="calculEtResultatsLC"
+                 id="calculEtResultatsLCId">
+
+            <o:order name="campagne.campRfa" caseSensitive="true" />
+            <o:order name="domaineTechnique.dtComplete" caseSensitive="true" />
+            <o:order name="classeRisque.classeRfa" caseSensitive="true" />
+
+            <ui:insert name="criteria">
+                <oq:queryForm controllerRef="calculEtResultatsQFC" var="query">
+
+                    <o:box id="calculEtResultatsQueryBoxId">
+                        <o:boxHeader>
+                            <h2>#{Messages['list.calculEtResultats.recherche.title']}</h2>
+                        </o:boxHeader>
+                        <o:boxBody>
+                            <o:vcontrols>
+                                <o:row>
+                                    <o:col6>
+                                        <o:control>
+                                            <oq:expression target="campagne">
+
+                                                <o:requiredLabel>#{Messages['CalculEtResultats.campagne.shortLabel']}:</o:requiredLabel>
+                                                <o:comboBox id="calculEtResultatsCampagne"
+                                                            value="#{query.campagne}"
+                                                            displayLabelProperty="campRfa"
+                                                            controllerRef="campagneSansFiltreCBC"
+                                                            contextSensitive="false"
+                                                            required="true"
+                                                            nullable="true"
+                                                            cacheable="true"
+                                                            title="#{Messages['CalculEtResultats.campagne.shortLabel']}"
+                                                            size="3"
+                                                            showBy="1"
+                                                            defaultValue="#{campagneSansFiltreCBC.defaultValue}">
+
+                                                    <o:order name="campRfa" ascending="false" />
+                                                </o:comboBox>
+                                            </oq:expression>
+                                        </o:control>
+                                    </o:col6>
+                                </o:row>
+                                <o:row>
+                                    <o:col6>
+                                        <o:control>
+                                            <oq:expression target="domaineTechnique">
+
+                                                <o:requiredLabel>#{Messages['CalculEtResultats.domaineTechnique.shortLabel']}:</o:requiredLabel>
+                                                <o:comboBox id="calculEtResultatsDomaineTechnique"
+                                                            value="#{query.domaineTechnique}"
+                                                            controllerRef="domaineTechniqueCBC"
+                                                            contextSensitive="false"
+                                                            required="true"
+                                                            nullable="true"
+                                                            cacheable="true"
+                                                            title="#{Messages['CalculEtResultats.domaineTechnique.shortLabel']}"
+                                                            size="6"
+                                                            showBy="1"
+                                                            defaultValue="#{domaineTechniqueCBC.defaultValue}">
+
+                                                    <o:order name="dtRfa" ascending="true" />
+                                                </o:comboBox>
+                                            </oq:expression>
+                                        </o:control>
+                                    </o:col6>
+                                </o:row>
+
+                            </o:vcontrols>
+                            <o:control>
+                                <o:buttonSet>
+                                    <oq:executeQueryButton />
+                                    <oq:resetQueryButton tooltip="#{Messages['list.calculEtResultats.boutonReinitialiser.info']}"/>
+                                </o:buttonSet>
+                            </o:control>
+                        </o:boxBody>
+                    </o:box>
+                </oq:queryForm>
+            </ui:insert>
+
+            <o:box id="calculEtResultatsListBoxId">
+                <o:boxHeader>
+                    <h2>#{Messages['list.calculEtResultats.liste.title']}</h2>
+                </o:boxHeader>
+                <o:boxBody>
+                    <o:table id="calculEtResultatsListTableId" title="#{Messages['list.calculEtResultats.liste.title']}">
+                        <o:thead>
+                            <o:tr data="true">
+                                <!-- Campagne -->
+                                <o:th id="calculEtResultats_campRfa" sortable="false">
+                                    #{Messages['CalculEtResultats.campagne.shortLabel']}   
+                                </o:th>
+                                <!-- Domaine technique -->
+                                <o:th id="calculEtResultats_dtRfa" sortable="false">
+                                    #{Messages['CalculEtResultats.domaineTechnique.shortLabel']}   
+                                </o:th>
+                                <!-- Classe de risque  -->
+                                <o:th id="calculEtResultats_classeDeRisque" sortable="false">
+                                    #{Messages['CalculEtResultats.classeDeRisque.shortLabel']}   
+                                </o:th>
+                                <!-- Nbr. Unités d'activité  -->
+                                <o:th id="calculEtResultats_nbrUA" sortable="false">
+                                    #{Messages['CalculEtResultats.nbrUA.shortLabel']}   
+                                </o:th>
+                                <!-- Actions  -->
+                                <o:th id="calculEtResultats_actionsList" sortable="false">
+                                </o:th>
+                            </o:tr>
+                        </o:thead>
+                        <o:tbody>
+                            <o:repeat var="calculEtResultats">
+                                <o:fragment>
+                                    <o:tr rendered="#{(!calculEtResultatsLC.listModel.isEmpty()) and calculEtResultatsLC.formuleRisqueExistForCurrentSearch }">
+                                        <!-- Campagne -->
+                                        <o:td headers="calculEtResultats_campRfa">
+                                            #{calculEtResultats.campRfa}
+                                        </o:td>
+                                        <!-- Domaine technique -->
+                                        <o:td headers="calculEtResultats_dtRfa">
+                                            #{calculEtResultats.dtToString}
+                                        </o:td>
+                                        <!-- classe de risque -->
+                                        <o:td headers="calculEtResultats_classeDeRisque">
+                                            #{calculEtResultats.classeRfa}
+                                        </o:td>
+                                        <!-- Nbr. Unités d'activité  -->
+                                        <o:td headers="calculEtResultats_nbrUA">
+                                            #{calculEtResultats.nbrUa}
+                                        </o:td>
+                                        <!-- Actions -->
+                                        <o:td headers="calculEtResultats_actionsList">
+
+                                        </o:td>
+                                    </o:tr>
+                                </o:fragment>
+                            </o:repeat>
+                            <o:tr rendered="#{(calculEtResultatsLC.listModel.isEmpty() and calculEtResultatsLC.resultExistNotInUserStructure) and (calculEtResultatsLC.formuleRisqueExistForCurrentSearch ) }">
+                                <o:td headers="calculEtResultats_campRfa">
+                                    #{calculEtResultatsQFC.formModel.object.campagne.campRfa}
+                                </o:td>
+                                <!-- Domaine technique -->
+                                <o:td headers="calculEtResultats_dtRfa">
+                                    (#{calculEtResultatsQFC.formModel.object.domaineTechnique.dtRfa}) #{calculEtResultatsQFC.formModel.object.domaineTechnique.dtLb}
+                                </o:td>
+                            </o:tr>
+                        </o:tbody>
+                    </o:table>
+
+                </o:boxBody>
+            </o:box>
+            <o:buttonSet>
+                <o:button actionRef="calculerActionRef"
+                          id="calculerActionButton" icon="icon-plus-sign"
+                          label="#{Messages['list.calculEtResultats.boutonCalculer.lb']}"
+                          tooltip="#{Messages['list.calculEtResultats.boutonCalculer.lb']}"
+                          rendered="#{calculResultatViewPolicy.afficherCalculer}"/>
+
+                <!--Export de la liste-->
+                <o:reportButton 
+                    actionRef="exportNotesRisquesActionRef"
+                    reportId="exportNotesRisquesCsv" />                        
+            </o:buttonSet>
+
+        </o:list>
+    </ui:define>
+
+</ui:composition>

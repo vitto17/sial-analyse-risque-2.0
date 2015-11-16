@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel" value="#{Messages['form.formuleRisque.title']}" />
+
+    <ui:define name="content">
+        <o:box>             
+            <o:boxHeader>
+                <h3>#{Messages['form.formuleRisque.title']}</h3>
+            </o:boxHeader>
+            <o:boxBody>
+                <o:form id="formuleRisqueFormId" 
+                        controllerRef="formuleRisqueFC" 
+                        var="formuleRisque">
+
+
+                    <o:grid>
+
+                        <!-- Generalites  -->
+                        <o:row>
+                            <o:fieldset id="formuleRisque_generalites">
+                                <o:legend>
+                                    #{Messages['form.formuleRisque.part.generalites.title']}
+                                </o:legend>
+                                <o:row>
+                                    <o:col6>
+                                        <o:control>
+                                            #{Messages['FormuleRisque.campagne.campRfa.shortLabel']}:
+                                            <o:outputText id="formuleRisqueCampagne"
+                                                          size="12"
+                                                          value="#{formuleRisque.campagne.campRfa}"/>
+                                        </o:control>
+                                    </o:col6>
+                                    <o:col6/>
+                                </o:row>
+
+                                <o:row>
+                                    <o:col6>
+                                        <o:control>
+                                            #{Messages['FormuleRisque.domaineTechnique.dtRfa.shortLabel']}:
+                                            <o:outputText id="formuleRisqueDomaineTechnique"
+                                                          size="12"
+                                                          value="#{formuleRisque.domaineTechnique}"/>
+                                        </o:control>
+                                    </o:col6>
+                                    <o:col6/>
+                                </o:row>
+
+                            </o:fieldset>
+                        </o:row>
+
+                        <!-- Criteres de risque  -->
+                        <o:row>
+                            <o:fieldset id="formuleRisque_criteres">
+                                <o:legend>
+                                    #{Messages['form.formuleRisque.part.criteres.title']}
+                                </o:legend>
+
+                                <o:row>
+                                    <o:col1/>
+                                    <o:col11>
+                                        <o:hcontrols>
+                                            <o:outputText id="formuleRisqueRisqueTheoriqueLbId" value="#{Messages['form.formuleRisque.part.criteres.risque.theo.shortLabel']}:" size="4"/>
+                                            <o:checkbox id="formuleRisqueRisqueTheoriqueCheckBoxId" title="" value="#{formuleRisque.fromCritRisquetheoriqueOn}" disabled="true"/>
+                                        </o:hcontrols>                                                                    
+                                    </o:col11>
+                                </o:row>
+
+                                <o:row>
+                                    <o:col1/>
+                                    <o:col11>
+                                        <o:hcontrols>
+                                            <o:outputText id="formuleRisqueZoneGeographiqueLbId" value="#{Messages['form.formuleRisque.part.criteres.zone.geo.shortLabel']}:" size="4"/>
+                                            <o:checkbox id="formuleRisqueZoneGeographiqueCheckBoxId" title="" value="#{formuleRisque.fromCritZoneOn}" disabled="true"/>
+                                        </o:hcontrols>                                                                    
+                                    </o:col11>
+                                </o:row>
+
+                                <o:row>
+                                    <o:col1/>
+                                    <o:col11>
+                                        <o:hcontrols>
+                                            <o:outputText id="formuleRisqueVolumeLbId" value="#{Messages['form.formuleRisque.part.criteres.volume.shortLabel']}:" size="4"/>
+                                            <o:checkbox id="formuleRisqueVolumeCheckBoxId" title="" value="#{formuleRisque.fromCritVolumeOn}" disabled="true"/>
+                                        </o:hcontrols>                                                                    
+                                    </o:col11>
+                                </o:row>
+
+                                <o:row>
+                                    <o:col1/>
+                                    <o:col11>
+                                        <o:hcontrols>
+                                            <o:outputText id="formuleRisqueDiffusionLbId" value="#{Messages['form.formuleRisque.part.criteres.diffusion.shortLabel']}:" size="4"/>
+                                            <o:checkbox id="formuleRisqueDiffusionCheckBoxId" title="" value="#{formuleRisque.fromCritDiffusionOn}" disabled="true"/>
+                                        </o:hcontrols>                                                                    
+                                    </o:col11>
+                                </o:row>
+
+                                <o:row>
+                                    <o:col1/>
+                                    <o:col11>
+                                        <o:hcontrols>
+                                            <o:outputText id="formuleRisqueDestinationLbId" value="#{Messages['form.formuleRisque.part.criteres.destination.shortLabel']}:" size="4"/>
+                                            <o:checkbox id="formuleRisqueDestinationLCheckBoxId" title="" value="#{formuleRisque.fromCritDestinationOn}" disabled="true"/>
+                                        </o:hcontrols>                                                                    
+                                    </o:col11>
+                                </o:row>
+
+                                <o:row>
+                                    <o:col1/>
+                                    <o:col11>
+                                        <o:hcontrols>
+                                            <o:outputText id="formuleRisqueNoteInspLbId" value="#{Messages['form.formuleRisque.part.criteres.note.insp.shortLabel']}:" size="4"/>
+                                            <o:checkbox id="formuleRisqueNoteInspCheckBoxId" title="" value="#{formuleRisque.fromCritNoteInspectionOn}" disabled="true"/>
+                                        </o:hcontrols>                                                                    
+                                    </o:col11>
+                                </o:row>
+
+                            </o:fieldset>
+                        </o:row>
+
+                        <!-- Suivi de modification  -->
+                        <o:row>
+                            <o:vcontrols>
+                                <o:fieldset id="formuleRisque_suivi">
+
+                                    <o:legend>
+                                        #{Messages['form.formuleRisque.part.suivi.title']}
+                                    </o:legend>
+
+                                    <o:col6>
+                                        <o:control>
+                                            <o:label>#{Messages['FormuleRisque.fromAuteurCreationLb.shortLabel']}:</o:label>
+                                            <o:outputText id="formuleRisqueFormattedCreation"
+                                                          value="#{formuleRisque.formattedCreation}" size="12" />
+                                        </o:control>
+                                    </o:col6>
+                                    <o:col6>
+                                        <o:label>#{Messages['FormuleRisque.formAuteurModifLb.shortLabel']}:</o:label>
+                                        <o:outputText id="formuleRisqueFormattedModification"
+                                                      value="#{formuleRisque.formattedModification}" size="12" />
+                                    </o:col6>
+
+                                </o:fieldset>
+                            </o:vcontrols>
+                        </o:row>
+
+                    </o:grid>
+
+                    <!-- Action  -->
+                    <o:buttonSet>
+                        <o:backButton />
+
+                    </o:buttonSet>
+                </o:form>
+            </o:boxBody>
+        </o:box>
+    </ui:define>
+</ui:composition>
+

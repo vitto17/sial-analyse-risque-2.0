@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:o="http://orion.agriculture-gouv.fr/standard" >
+
+    <ui:param name="pageLabel" value="#{Messages['view.faces.standard.authorization.changeRole.pageLabel']}"/>
+
+    <ui:define name="title">
+        <h:outputText value="#{Messages['view.faces.standard.authorization.changeRole.title']}" />
+    </ui:define>
+
+    <ui:define name="content">
+        <o:box folded="false" id="changeRoleBox">
+            <!-- Header de la box -->
+            <o:boxHeader>
+                <h2><h:outputText value="#{Messages['view.faces.standard.authorization.changeRole.boxHeader']}" /></h2>
+            </o:boxHeader>
+
+            <!-- body de la box -->
+            <o:boxBody>
+                <o:form id="changeRole-form" var="currentCredentials" controllerRef="changeRoleFCRef" exitWithoutSave="true" >
+                    <o:hcontrols styleClass="o-center">
+                        <o:control>
+                            <o:label>#{Messages['view.faces.standard.authorization.changeRole.comboBox.label']}</o:label>
+                            <o:comboBox id="currentRole" 
+                                        title="#{Messages['view.faces.standard.authorization.changeRole.comboBox.title']}" 
+                                        controllerRef="applicationRolesListCtrlRef"
+                                        contextSensitive="false"
+                                        value="#{currentCredentials.currentRole}"
+                                        nullable="false"/>
+                        </o:control>
+                        <br/>
+                        <br/>
+                        <o:buttonSet >
+                            <o:button actionRef="changeRoleActionRef" id="changeRoleAction" label="#{Messages['view.faces.standard.authorization.changeRole.action']}" styleClass="o-margin"/>
+                            <o:button actionRef="setDefaultRoleActionRef" id="setDefaultRoleAction" label="#{Messages['view.faces.standard.authorization.setDefaultRole.action']}" styleClass="o-margin"/>
+                        </o:buttonSet>  
+                    </o:hcontrols>
+                </o:form>
+            </o:boxBody>
+
+            <!-- Texte Alternatif de la box -->
+            <o:boxAlt/> 
+        </o:box>
+    </ui:define>
+</ui:composition>

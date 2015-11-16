@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:o="http://orion.agriculture-gouv.fr/standard"
+      xmlns:co="http://orion.agriculture-gouv.fr/core" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      lang="#{bcp47Lang}"
+      xml:lang="#{bcp47Lang}">
+
+    <h:head>   
+        <title>
+            <ui:insert name="title">
+                ${pageLabel} 
+            </ui:insert>
+        </title>
+        <link rel="shortcut icon" type="image/png" href="#{faviconViewPolicy.url}" />
+        <link type="text/#{themeService.stylesheetType}" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/#{themeService.stylesheetType}/bootstrap.#{themeService.stylesheetExt}.xhtml?ln=#{themeService.name}"/>
+        <link type="text/#{themeService.stylesheetType}" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/#{themeService.stylesheetType}/responsive.#{themeService.stylesheetExt}.xhtml?ln=#{themeService.name}"/>
+
+        <co:outputStyleSheets/>
+
+        <ui:insert name="css" />  
+        <h:outputStylesheet library="css" name="arqCommon.css" />
+        <h:outputStylesheet library="sial-analyse-risque-theme/css" name="sial-analyse-risque-theme.css" />
+    </h:head>
+    <h:body>
+        <ui:param name="defaultEncType" value="application/x-www-form-urlencoded"/>        
+        <h:form id="mainform" enctype="#{empty pageEncType ? defaultEncType : pageEncType}" >    
+            <o:page label="#{pageLabel}" shortLabel="#{pageLabel}">
+                <ui:insert name="page-header">
+                    <ui:decorate template="/template/header.template.xhtml">                    
+                        <ui:define name="application-title">
+                            #{Messages['accueil.application.title']}
+                        </ui:define>
+                        <ui:define name="horizontal-menu">    
+                            <ui:include src="main-menu.xhtml"/>
+                        </ui:define>
+                     </ui:decorate>   
+                </ui:insert>                
+                <div class="container-fluid">
+                    <ui:insert name="content">
+                        <div>
+                            Contenu
+                        </div>                               
+                    </ui:insert>        
+                </div>
+                <ui:decorate template="/template/footer.template.xhtml">
+                </ui:decorate>
+            </o:page>
+            <o:rememberScroll/>
+            <o:pageLoader/>
+            <o:scriptManager/>
+        </h:form>
+        <h:outputScript library="js" name="jquery-1.8.3.min.js"/>
+
+        <ui:insert name="javascript" />
+    </h:body>
+</html>

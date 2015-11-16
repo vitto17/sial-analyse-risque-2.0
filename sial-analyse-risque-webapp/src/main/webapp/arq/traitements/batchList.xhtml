@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+    
+    <ui:param name="pageLabel"
+              value="#{Messages['mainmenu.menu.traitements.txt']}" />
+    
+    <ui:define name="content">        
+        
+        <o:list  controllerRef="traitementsEnCoursLC"
+                 id="traitementsEnCoursLCId">
+            <o:order name="traitementsEnCours.batchId" caseSensitive="true" />
+            
+            <o:box id="traitementsEnCoursListBoxId">
+                <o:boxHeader>
+                    <h2>#{Messages['traitementsEnCours.liste.title']}</h2>
+                </o:boxHeader>
+                <o:boxBody rendered="#{!traitementsEnCoursLC.isEmpty}">
+                    <o:table id="traitementsEnCoursListTableId" title="#{Messages['traitementsEnCours.liste.title']}">
+                        <o:thead>
+                            <o:tr data="true">
+                                <!-- Identifiant traitement -->
+                                <o:th id="traitementsEnCours_batchId" sortable="false">
+                                    #{Messages['traitementsEnCours.batchId.shortLabel']}   
+                                </o:th>
+                                <!-- Campagne -->
+                                <o:th id="traitementsEnCours_campRfa" sortable="false">
+                                    #{Messages['traitementsEnCours.campRfa.shortLabel']}   
+                                </o:th>
+                                <!-- Domaine technique  -->
+                                <o:th id="traitementsEnCours_dtComplete" sortable="false">
+                                    #{Messages['traitementsEnCours.dtComplete.shortLabel']}   
+                                </o:th>
+                                <!-- Nbr. Unités d'activité -->
+                                <o:th id="traitementsEnCours_batchNbrUaTotalNb" sortable="false">
+                                    #{Messages['traitementsEnCours.batchNbrUaTotalNb.shortLabel']}   
+                                </o:th>
+                                <!-- Nbr. Unités d'activité tratitées -->
+                                <o:th id="traitementsEnCours_batchNbrUaTraiteNb" sortable="false">
+                                    #{Messages['traitementsEnCours.batchNbrUaTraiteNb.shortLabel']}   
+                                </o:th>
+                                <!-- Heure début traitement -->
+                                <o:th id="traitementsEnCours_batchDebutTs" sortable="false">
+                                    #{Messages['traitementsEnCours.batchDebutTs.shortLabel']}   
+                                </o:th>
+                                <!-- Statut -->
+                                <o:th id="traitementsEnCours_statutLb" sortable="false">
+                                    #{Messages['traitementsEnCours.statutLb.shortLabel']}   
+                                </o:th>
+                            </o:tr>
+                        </o:thead>
+                        <o:tbody>
+                            <o:repeat var="traitementsEnCours">
+                                <o:fragment>
+                                    <o:tr>
+                                        <!-- Identifiant traitement -->
+                                        <o:td headers="traitementsEnCours_batchId">
+                                            #{traitementsEnCours.batchId}
+                                        </o:td>
+                                        <!-- Campagne -->
+                                        <o:td headers="traitementsEnCours_campRfa">
+                                            #{traitementsEnCours.campRfa}
+                                        </o:td>
+                                        <!-- Domaine technique  -->
+                                        <o:td headers="traitementsEnCours_dtComplete">
+                                            #{traitementsEnCours.domaineTechnique}
+                                        </o:td>
+                                        <!-- Nbr. Unités d'activité -->
+                                        <o:td headers="traitementsEnCours_batchNbrUaTotalNb">
+                                            #{traitementsEnCours.batchNbrUaTotalNb}
+                                        </o:td>
+                                        <!-- Nbr. Unités d'activité tratitées -->
+                                        <o:td headers="traitementsEnCours_batchNbrUaTraiteNb">
+                                            #{traitementsEnCours.batchNbrUaTraiteNb}
+                                        </o:td>
+                                        <!-- Heure début traitement -->
+                                        <o:td headers="traitementsEnCours_batchDebutTs">
+                                            #{traitementsEnCours.batchDebutTsStr}
+                                        </o:td>
+                                        <!-- Statut -->
+                                        <o:td headers="traitementsEnCours_statutLb">
+                                            #{traitementsEnCours.statut.statutLb}   
+                                        </o:td>
+                                    </o:tr>
+                                </o:fragment>
+                            </o:repeat>
+                        </o:tbody>
+                    </o:table>
+                </o:boxBody>
+                
+                <o:boxBody rendered="#{traitementsEnCoursLC.isEmpty}">
+                    <h:outputText value="#{Messages['list.batch.box.liste.vide.content']}" />
+                </o:boxBody>
+            </o:box>
+            <o:buttonSet>
+                <o:button actionRef="traitementsEnCoursRafraichirAction"
+                          id="creationGroupeGrille" icon="icon-refresh"
+                          label="#{Messages['traitementsEnCours.boutonRafraichir.lb']}"
+                          tooltip="#{Messages['traitementsEnCours.boutonRafraichir.lb']}"/>
+                
+            </o:buttonSet>
+            
+        </o:list>
+    </ui:define>
+</ui:composition>

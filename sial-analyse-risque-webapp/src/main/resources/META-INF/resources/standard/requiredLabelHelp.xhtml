@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:o="http://orion.agriculture-gouv.fr/standard"
+
+      >
+
+    <!-- INTERFACE -->
+    <cc:interface shortDescription="Ce composant rajouter un help a droite du libellé du requiredLabel">
+        <cc:attribute name="controllerRef"  shortDescription="Référence du Controller Orion déclaré dans un fichier kernel-config.xml de configuration des beans de l'application. le nom du bean doit être le nom du controller et doit donc ne pas comporter de caractère '.' (qui a une signification particulière en JSF)." />
+        <cc:attribute name="containerRef"  shortDescription="Référence du Controller parent." />
+        <cc:attribute name="controllerListenerRef"  shortDescription=" Associer un listener déclaré dans le kernel. Il doit implémenter ControllerListener." />
+        <cc:attribute name="for" shortDescription="A quel champs s'applique le label. L'attribut for est calculé automatiquement. Dans le cas ou le calcul n'est pas correct, renseignez le avec le clientId du champ auquel fait référence ce label. Consultez le manuel pour plus d'explications relatives à la consturction du clientId." />        
+        <cc:attribute name="title" shortDescription="Valeur du title (HTML 5) de la propriété" />                
+        <cc:attribute name="styleClass"  shortDescription="Nom des classes CSS séparées par des espaces appliquées sur le tag HTML dans l'attribut class (valeur par défaut controls control-label)" />                
+        <cc:attribute name="groupIds"  shortDescription="Permet d'enregistrer le composants dans une liste de groupes. Cette liste est utilisée notamment par le composant AJAX d'ORION, afin de faire des rafraichissement groupé de composants." />                
+        <cc:attribute name="symbol" default="icon-star icon-small" shortDescription="Le symbole utilisé pour indiqué que l'aspect est obligatoire, la valeur de cet attribut doit être une classe CSS d'une web-font Font-Awesome"/>
+        <cc:attribute name="titleHelp" shortDescription="Valeur du title du composant help" />  
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <o:label 
+                id="#{cc.attrs.id}"
+                 controllerRef="#{cc.attrs.controllerRef}" 
+                 containerRef="#{cc.attrs.containerRef}"
+                 controllerListenerRef="#{cc.attrs.controllerListenerRef}"
+                 for="#{cc.attrs.for}"
+                 title="#{cc.attrs.title}"
+                 groupIds="#{cc.attrs.groupIds}"
+                 styleClass="labelHelp"><cc:insertChildren/> (<o:icon styleClass="#{cc.attrs.symbol}"/>) <cc:insertChildren/> <o:help title="#{cc.attrs.titleHelp}" />
+        </o:label>
+    </cc:implementation>
+</html>

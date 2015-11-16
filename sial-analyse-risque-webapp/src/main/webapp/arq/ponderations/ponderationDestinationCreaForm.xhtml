@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/ponderation.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel" value="#{Messages['form.ponderation.destination.title']}" />
+    <ui:param name="formControllerRef" value="ponderationDestinationFC" />
+    <ui:param name="formattedCreation" value="#{ponderationDestinationFC.formModel.object.ponderationDestinationFormattedCreation}" />
+    <ui:param name="formattedModification" value="#{ponderationDestinationFC.formModel.object.ponderationDestinationFormattedModification}" />
+    <ui:param name="saveButtonVisible" value="true" />
+    <ui:param name="reportActionRef" value="exportPonderationDestinationActionRef" />
+    <ui:param name="reportMetadataId" value="exportPonderationDestination" />
+    
+    <ui:define name="ponderation">
+
+        <o:slaveList id="ponderationDestinationSLCId" controllerRef="ponderationDestinationSLC">
+            <o:table id="ponderationDestinationListTableId" title="">
+
+                <o:thead>
+                    <o:tr data="true">
+                        <o:th id="selectorPonderation" >
+                            <o:selectionControl/>
+                        </o:th>
+                        <o:th id="ponderationDestination_typeActivite" sortable="false">
+                            <o:requiredLabelHelp titleHelp="#{Messages['ponderation.typeActivite.infobulle']}">
+                                    #{Messages['PonderationDestination.taRfa.taLb.shortLabel']}
+                            </o:requiredLabelHelp>
+                        </o:th>
+                        <o:th id="action_typeActivite" />
+                            
+                        <o:th id="ponderationDestination_destination" sortable="false">
+                            <o:requiredLabelHelp titleHelp="#{Messages['ponderation.destination.infobulle']}">
+                                #{Messages['PonderationDestination.destRfa.destLb.shortLabel']}
+                            </o:requiredLabelHelp>
+                        </o:th>
+                        
+                        <o:th id="ponderationDestination_poids" sortable="false">
+                            <o:requiredLabel>#{Messages['PonderationDestination.pdestPoidsNb2.shortLabel']}</o:requiredLabel>
+                        </o:th>
+                        <o:th id="action_new" />
+
+                    </o:tr>
+                </o:thead>
+
+                <o:tbody>
+                    <o:repeat var="ponderation">
+                        <o:fragment>
+                            <o:tr data="true">
+                                <!-- Selector -->
+                                <o:td headers="selectorPonderation">
+                                    <o:selector/>
+                                </o:td>
+                                <!-- Type Activite -->
+                                <o:td headers="ponderationDestination_typeActivite" >
+                                            <o:outputText id="ponderationDestination_typeActiviteAssign"
+                                                          value="#{ponderation.taRfa}"
+                                                          rendered="false" />
+                                            #{ponderation.taRfa.taLb}
+                                </o:td>
+                                <!-- Action Affecter Type Activite -->
+                                <o:td headers="action_typeActivite" >
+                                            <o:showPopUpButton id="actionModifPonderationDestination_typeActivite" for="ponderationDestination_typeActiviteAssign"
+                                                               url="/nomenclatures/typeactivite/guide/guideVTypeActivite.xhtml"
+                                                               actionRef="destinationTypeActiviteMonoShowPopUpAction"
+                                                               popUpTitle="#{Messages['guide.typeActivite.label']}"
+                                                               tooltip="#{Messages['guide.typeActivite.label']}"
+                                                               label="#{Messages['common.action.affect.lb']}"
+                                                               width="1080" height="824" />
+                                </o:td>
+                                <!-- Destination -->
+                                <o:td headers="ponderationDestination_destination" >
+                                    <o:comboBox id="ponderationDestination_destinationCB"
+                                                value="#{ponderation.destRfa}"
+                                                displayLabelProperty="destLb"
+                                                controllerRef="destinationCBC"
+                                                title="" size="12"
+                                                disabled="#{ponderation.taRfa == null}"
+                                                cacheable="true"/>
+                                </o:td>
+                                
+                                <!-- Modification de la Destination -->
+
+                                <!-- Poids -->
+                                <o:td headers="ponderationDestination_poids">
+                                    <o:inputText id="ponderationDestinationPoids"
+                                                 title="#{Messages['ponderation.rule.poids.err']}"
+                                                 value="#{ponderation.pdestPoidsNb2}"
+                                                 pattern="[0-9]{0,2}(\.\d{1})?"
+                                                 size="4">
+                                    </o:inputText>
+
+                                </o:td>
+                                <!-- Duplication -->
+                                <o:td headers="action_new">
+                                    <div style="float:right;">
+                                        <o:button actionRef="ponderationDestinationDuplicateAction"
+                                              label="#{Messages['common.action.duplicate.lb']}"/>
+                                    </div>
+                                </o:td>
+                            </o:tr>
+                        </o:fragment>
+                    </o:repeat>
+                </o:tbody>
+            </o:table>
+            <o:buttonSet>
+                <o:newLineButton label="#{Messages['common.action.add.lb']}"/>
+                <o:deleteButton />
+            </o:buttonSet>
+        </o:slaveList>
+
+    </ui:define>
+</ui:composition>

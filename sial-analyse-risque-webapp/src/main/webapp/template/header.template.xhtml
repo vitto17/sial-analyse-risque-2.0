@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oc="http://java.sun.com/jsf/composite/common">
+
+    <ui:insert name="header-js">
+        <h:outputScript library="js" name="orion-header.#{themeService.scriptExt}" target="body"/>
+    </ui:insert>
+
+    <ui:insert name="header-css">
+        <h:outputStylesheet 
+            id="header-sheet"
+            library="#{themeService.name}" 
+            name="#{themeService.stylesheetType}/orion-header.#{themeService.stylesheetExt}" />
+        
+        <!-- Feuille de styles pour l'application -->
+		<link rel="stylesheet" type="text/css" 
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/sial-analyse-risque-theme.css" />
+        
+        
+    </ui:insert>
+
+    <div class="navbar navbar-fixed-top o-header-fixed" role="fixed-header">
+        <div class="o-header">
+            <!-- En-t&ecirc;te de l'application incluant les liens AEL-Raccourcis, le logo, le nom et l'image de l'application.
+            C'est cette partie de l'application qui se plie. -->
+            <header id="orion-default-header" role="banner">
+                <div class="container-fluid o-header-picture">
+                    <div class="row-fluid">
+                        <div class="o-transparent o-div-inline">
+                            <!-- Dans l'en-t&ecirc;te, ce sont les &eacute;l&eacute;ments qui disparaissent lorsque l'en-t&ecirc;te est repli&eacute;.
+                            - La Marianne (taille standardis&eacute;e, d&eacute;finit par la circulaire du 1er ministre) qui &quot;cache&quot; un lien HTML (pas de contour ni mise en forme particuli&egrave;re)
+                            -->
+                            <ui:include src="/template/common/header/marianne.template.xhtml"/>
+                            <!-- Dans l'en-t&ecirc;te, ce sont les &eacute;l&eacute;ments qui ne disparaissent pas lors que l'en-t&ecirc;te est repli&eacute;.
+                            De gauche &agrave; droite : 
+                            - Le nom de l'application
+                            - Nom de l'utilisateur et son r&ocirc;le,
+                            - AEL,
+                            - D&eacute;connection
+                            - Image de l'application en fond... -->
+                            <div class="o-header-unfold o-div-inline" role="header-minimal">
+                                <div class="o-header-title">
+                                    <h1>
+                                        <o:clickable id="title-link" 
+                                                     styleClass="o-header-marianne" 
+                                                     actionRef="fr.gouv.agriculture.orion.action.navigation.GoBackHomeAction"                                                      
+                                                     tooltip="#{Messages['view.faces.standard.header.home']}"
+                                                     skipValidation="true">
+                                            <ui:insert name="application-title">
+                                                Mon Application
+                                            </ui:insert>
+                                        </o:clickable>
+                                    </h1>
+                                </div>
+                                <div class="pull-right navbar-text">
+                                    <ui:insert name="header-control-buttons">
+                                        <div  class="pull-left">
+                                        	<div class="pull-right o-user-role">
+                                            	<ui:insert name="header-infos">
+                                               		<o:text title="#{Messages['view.faces.standard.header.infos-title.user']}: #{headerInfosViewPolicy.username} - #{Messages['view.faces.standard.header.infos-title.role']} : #{headerInfosViewPolicy.rolename}"
+                                                       value="#{headerInfosViewPolicy.username}: #{headerInfosViewPolicy.rolename}"/>
+                                            	</ui:insert>
+                                        	</div>
+                                        	<div role="marianne">	
+                                        		<!-- Le logo RESYTAL -->
+												<ui:include src="/template/common/header/logo.resytal.xhtml"/>
+											</div>
+                                        </div>
+                                        <div class="navbar-text btn-group pull-left o-header-buttons">
+                                            <ui:insert name="header-add-on-buttons"></ui:insert>
+                                            <o:button id="role" 
+                                                      icon="icon-user"
+                                                      tooltip="#{Messages['view.faces.standard.header.role-title']}"
+                                                      actionRef="fr.gouv.agriculture.orion.security.authorization.GoChangeRoleAction"
+                                                      skipValidation="true">
+                                                <span class="o-invisible">#{Messages['view.faces.standard.header.role-title']}</span>
+                                            </o:button>
+                                            <button class="btn"
+                                                    onclick="window.open('https://alim.agriculture.gouv.fr/sial-portail/application/PAPPLI_AnalyseRisque/link.rest'); return false;">
+                                                        <i class="icon-question-sign" /> <span class="o-invisible">#{Messages['view.faces.standard.header.help-title']}</span>
+                                            </button>
+                                            <oc:notif-btn id="notificationsToggle"/>                                            
+                                            <o:button id="disconnect" 
+                                                      icon="icon-off"
+                                                      tooltip="#{Messages['view.faces.standard.header.disconnect']}"
+                                                      actionRef="fr.gouv.agriculture.orion.action.security.authentication.LogoutAction" 
+                                                      label=""
+                                                      skipValidation="true">
+                                                <span class="o-invisible">#{Messages['view.faces.standard.header.disconnect']}</span>
+                                            </o:button>
+                                        </div>
+                                    </ui:insert>
+                                    <div class="pull-right" role="header-fold-unfold">
+                                        <div class="o-header-fold-icon" role="header-fold-icon">
+                                            <a title="#{Messages['view.faces.standard.header.fold-header']}">
+                                                <i class="icon-chevron-up">
+                                                    <span class="o-invisible">#{Messages['view.faces.standard.header.fold-header']}</span>
+                                                </i>
+                                            </a>
+                                        </div>
+                                        <div class="o-header-unfold-icon" role="header-unfold-icon">
+                                            <a title="#{Messages['view.faces.standard.header.unfold-header']}">
+                                                <i class="icon-chevron-down">
+                                                    <span class="o-invisible">#{Messages['view.faces.standard.header.unfold-header']}</span>
+                                                </i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- o-transparent --> 
+                    </div> <!-- row-fluid -->
+                </div> <!-- container-fluid -->
+            </header>
+
+            <!-- Section de navigation au sein de l'application.
+            Cette section est toujours affich&eacute;e.
+            C'est elle qui contient les principaux liens de navigations dans l'appli : 
+            - les modules principaux affich&eacute;s dans le menu horizontal,
+            - le fil d'Arianne. -->
+            <nav role="navigation">       
+                <!-- Le menu horizontal, qui contient les principaux modules de l'application.
+                Les actions sur ce menu d&eacute;clenchent la mise &agrave; jour de la section &quot;body&quot;, qui englobe :
+                - le menu vertical, &agrave; gauche,
+                - le contenu, &agrave; droite. -->                
+                <ui:include src="/template/common/header/horizontal-menu.template.xhtml"/>
+
+                <!-- Le fil d'Arianne, qui commence toujours par &quot;Accueil&quot;. -->
+                <ui:include src="/template/common/header/breadcrumb.template.xhtml"/>
+            </nav>
+        </div>
+        <ui:insert name="notifications">            
+            <ui:include src="/common/notifications.xhtml" id="notifications"/>
+        </ui:insert>
+        <ui:insert name="messages">
+            <o:messages id="messages"/> 
+        </ui:insert>        
+    </div>
+</ui:composition>

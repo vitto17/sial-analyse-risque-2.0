@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel" value="#{Messages['form.ponderation.risque.theo2.title']}" />
+    <ui:param name="formControllerRef" value="ponderationRisqueTheorique2FC" />
+    
+    <ui:define name="content">
+        <o:box>             
+            <o:boxHeader>
+                <h3>${pageLabel}</h3>
+            </o:boxHeader>
+            <o:boxBody>
+                <o:form id="formuleRisqueFormId" 
+                        controllerRef="#{formControllerRef}" 
+                        var="ponderation">
+
+
+                    <o:grid>
+
+                        <!-- Generalites  -->
+                        <o:row>
+                            <o:fieldset id="ponderation_generalites">
+                                <o:legend>
+                                    #{Messages['form.ponderation.part.generalites.title']}
+                                </o:legend>
+                                <o:hcontrols>
+                                    <o:col6>
+
+                                        <o:label>#{Messages['FormuleRisque.campagne.campRfa.shortLabel']}: </o:label>
+                                        <o:outputText id="ponderationCampagne"
+                                                      value="#{ponderation.formuleRisque.campagne.campRfa}" 
+                                                      title="#{Messages['FormuleRisque.campagne.campRfa.shortLabel']}" size="8"/>
+
+                                    </o:col6>
+                                    <o:col6>
+
+                                        <o:label>#{Messages['FormuleRisque.domaineTechnique.dtRfa.shortLabel']}: </o:label>
+                                        <o:outputText id="ponderationDomaineTech"
+                                                      value="#{ponderation.formuleRisque.domaineTechnique}" 
+                                                      title="#{Messages['FormuleRisque.domaineTechnique.dtRfa.shortLabel']}" size="8"/>
+
+                                    </o:col6>
+                                </o:hcontrols>
+                            </o:fieldset>
+                        </o:row>
+
+                        <!-- Type d'activités -->
+                        <o:row>
+                            <o:fieldset id="ponderation_typeActivite">
+                                <o:legend>
+                                    <o:requiredLabel>#{Messages['PonderationRisqueTheorique.part.typeActivite.title']}
+                                    </o:requiredLabel>
+                                </o:legend>
+                                <o:row>
+                                    <o:col6>
+                                        <o:vcontrols>
+                                            
+                                            <o:outputText id="ponderationTypeActiviteAssign"
+                                                          value="#{ponderation.typeActivite}" 
+                                                          rendered="false"/>
+                                            #{ponderation.typeActivite.taLb}
+                                            <o:showPopUpButton id="actionModifPonderationRisqueTheorique_typeActivite" for="ponderationTypeActiviteAssign"
+                                                               url="/nomenclatures/typeactivite/guide/guideVTypeActivite.xhtml"
+                                                               actionRef="risqueTheoriqueTypeActiviteMonoShowPopUpAction"
+                                                               popUpTitle="#{Messages['guide.typeActivite.label']}"
+                                                               tooltip="#{Messages['guide.typeActivite.label']}"
+                                                               label="#{Messages['common.action.affect.lb']}"
+                                                               disabled="#{!ponderationRisqueTheorique2FC.typeActiviteSaisissable}"
+                                                               width="1080" height="824" />
+                                        </o:vcontrols>
+                                    </o:col6>
+                                    
+                                    </o:row>
+
+
+                            </o:fieldset>
+                        </o:row>
+
+                        <!-- Approbation  -->
+                        <o:row>
+                            <o:fieldset id="ponderation_approbation">
+                                <o:legend>
+                                    #{Messages['PonderationRisqueTheorique.part.approbation.title']}
+                                    <o:help id="approbationFieldsetHelp" title="#{Messages['ponderation.approbation.infobulle']}" styleClass="legendHelp"/>
+                                </o:legend>
+
+
+                                <o:slaveList id="ponderationRisqueTheoriqueApprobationsSLCId" controllerRef="ponderationRisqueTheoriqueApprobationsSLC">
+                                    <o:table id="ponderationRisqueTheoriqueApprobationsListTableId" title="">
+
+                                        <o:thead>
+                                            <o:tr data="true">
+
+                                                <o:th id="ponderationRisqueTheoriqueApprobations_code" sortable="false">
+                                                    #{Messages['PonderationRisqueTheorique.slavelist.code.shortLabel']}
+                                                </o:th>
+
+                                                <o:th id="ponderationRisqueTheoriqueApprobations_libelle" sortable="false">
+                                                    #{Messages['PonderationRisqueTheorique.slavelist.libelle.shortLabel']}
+                                                </o:th>
+
+                                                <o:th id="ponderationRisqueTheoriqueApprobations_action" />
+
+                                            </o:tr>
+                                        </o:thead>
+
+                                        <o:tbody>
+                                            <o:repeat var="ponderationApprobation">
+                                                <o:fragment>
+                                                    <o:tr data="true">
+                                                        <!-- Code -->
+                                                        <o:td headers="ponderationRisqueTheoriqueApprobations_code" >
+                                                            #{ponderationApprobation.approbation.rapprRfa}
+                                                        </o:td>
+
+                                                        <!-- Libellé -->
+                                                        <o:td headers="ponderationRisqueTheoriqueApprobations_libelle" >
+                                                            #{ponderationApprobation.approbation.rapprLb}
+                                                        </o:td>
+
+                                                        <!-- Action -->
+                                                        <o:td headers="ponderationRisqueTheoriqueApprobations_action">
+                                                            <div style="float:right;">
+                                                                <o:deleteLineButton/>
+                                                            </div>
+                                                        </o:td>
+
+                                                    </o:tr>
+                                                </o:fragment>
+                                            </o:repeat>
+                                        </o:tbody>
+                                    </o:table>
+                                    <!--<o:newLineButton />-->  
+                                </o:slaveList>
+                                <o:showPopUpButton id="actionNewApprobation"
+                                                   url="/nomenclatures/refApprobation/guide/guideVRefApprobation.xhtml"
+                                                   width="950" height="750"
+                                                   actionRef="approbationMultiShowPopUpAction"
+                                                   popUpTitle="#{Messages['guide.approbation.label']}"
+                                                   tooltip="#{Messages['guide.approbation.label']}"
+                                                   label="#{Messages['guide.approbation.title']}"
+                                                   disabled="#{ponderation.typeActivite == null}"
+                                                   for="ponderationRisqueTheoriqueApprobationsSLCId" />
+
+                            </o:fieldset>
+                        </o:row>
+
+                        <!-- Procédé -->
+                        <o:row>
+                            <o:fieldset id="ponderation_procede">
+                                <o:legend>
+                                    #{Messages['PonderationRisqueTheorique.part.procede.title']}
+                                    <o:help id="procedeFieldsetHelp" title="#{Messages['ponderation.procede.infobulle']}" styleClass="legendHelp"/>
+                                </o:legend>
+
+                                <o:slaveList id="ponderationRisqueTheoriqueProcedesSLCId" controllerRef="ponderationRisqueTheoriqueProcedesSLC">
+                                    <o:table id="ponderationRisqueTheoriqueProcedesListTableId" title="">
+
+                                        <o:thead>
+                                            <o:tr data="true">
+
+                                                <o:th id="ponderationRisqueTheoriqueProcedes_code" sortable="false">
+                                                    #{Messages['PonderationRisqueTheorique.slavelist.code.shortLabel']}
+                                                </o:th>
+
+                                                <o:th id="ponderationRisqueTheoriqueProcedes_libelle" sortable="false">
+                                                    #{Messages['PonderationRisqueTheorique.slavelist.libelle.shortLabel']}
+                                                </o:th>
+
+                                                <o:th id="ponderationRisqueTheoriqueProcedes_action" />
+
+                                            </o:tr>
+                                        </o:thead>
+
+                                        <o:tbody>
+                                            <o:repeat var="ponderationProcede">
+                                                <o:fragment>
+                                                    <o:tr data="true">
+                                                        <!-- Code -->
+                                                        <o:td headers="ponderationRisqueTheoriqueProcedes_code" >
+                                                            #{ponderationProcede.procede.procRfa}
+                                                        </o:td>
+
+                                                        <!-- Libellé -->
+                                                        <o:td headers="ponderationRisqueTheoriqueProcedes_libelle" >
+                                                            #{ponderationProcede.procede.procLb}
+                                                        </o:td>
+
+                                                        <!-- Action -->
+                                                        <o:td headers="ponderationRisqueTheoriqueProcedes_action">
+                                                            <div style="float:right;">
+                                                                <o:deleteLineButton/>
+                                                            </div>
+                                                        </o:td>
+
+                                                    </o:tr>
+                                                </o:fragment>
+                                            </o:repeat>
+                                        </o:tbody>
+                                    </o:table>
+                                    <!--<o:newLineButton />-->
+                                </o:slaveList>
+                                <o:showPopUpButton id="actionNewProcede"
+                                                   url="/nomenclatures/procede/guide/guideVProcede.xhtml"
+                                                   width="950" height="750"
+                                                   actionRef="procedeMultiShowPopUpAction"
+                                                   popUpTitle="#{Messages['guide.procede.label']}"
+                                                   tooltip="#{Messages['guide.procede.label']}"
+                                                   label="#{Messages['guide.procede.title']}"
+                                                   disabled="#{ponderation.typeActivite == null}"
+                                                   for="ponderationRisqueTheoriqueProcedesSLCId" />  
+
+                            </o:fieldset>
+                        </o:row>
+
+                        <!-- Produit  -->
+                        <o:row>
+                            <o:fieldset id="ponderation_produit">
+                                <o:legend>
+                                    #{Messages['PonderationRisqueTheorique.part.produit.title']} 
+                                    <o:help id="produitFieldsetHelp" title="#{Messages['ponderation.produit.infobulle']}" styleClass="legendHelp"/>
+                                </o:legend>
+
+                                <o:slaveList id="ponderationRisqueTheoriqueProduitsSLCId" controllerRef="ponderationRisqueTheoriqueProduitsSLC" >
+                                    <o:table id="ponderationRisqueTheoriqueProduitsListTableId" title="">
+
+                                        <o:thead>
+                                            <o:tr data="true">
+
+                                                <o:th id="ponderationRisqueTheoriqueProduits_code" sortable="false">
+                                                    #{Messages['PonderationRisqueTheorique.slavelist.code.shortLabel']}
+                                                </o:th>
+
+                                                <o:th id="ponderationRisqueTheoriqueProduits_libelle" sortable="false">
+                                                    #{Messages['PonderationRisqueTheorique.slavelist.libelle.shortLabel']}
+                                                </o:th>
+
+                                                <o:th id="ponderationRisqueTheoriqueProduits_action" />
+
+                                            </o:tr>
+                                        </o:thead>
+
+                                        <o:tbody>
+                                            <o:repeat var="ponderationProduit">
+                                                <o:fragment>
+                                                    <o:tr data="true">
+                                                        <!-- Code -->
+                                                        <o:td headers="ponderationRisqueTheoriqueProduits_code" >
+                                                            <o:outputText id="ponderationRisqueTheoriqueProduitsDenreRfaTxt"
+                                                                          size="12"
+                                                                          value="#{ponderationProduit.produit.denre.denRfa}"
+                                                                          rendered="#{ponderationRisqueTheorique2FC.produitDenre}"/>
+
+                                                            <o:outputText id="ponderationRisqueTheoriqueProduitsVegetRfaTxt"
+                                                                          size="12"
+                                                                          value="#{ponderationProduit.produit.veget.filvegRfa}"
+                                                                          rendered="#{ponderationRisqueTheorique2FC.produitVeget}"/>
+
+                                                            <o:outputText id="ponderationRisqueTheoriqueProduitsAlaniRfaTxt"
+                                                                          size="12"
+                                                                          value="#{ponderationProduit.produit.alani.aaRfa}"
+                                                                          rendered="#{ponderationRisqueTheorique2FC.produitAlani}"/>
+
+                                                            <o:outputText id="ponderationRisqueTheoriqueProduitsIntraRfaTxt"
+                                                                          size="12"
+                                                                          value="#{ponderationProduit.produit.intra.tintRfa}"
+                                                                          rendered="#{ponderationRisqueTheorique2FC.produitIntra}"/>
+
+                                                            <o:outputText id="ponderationRisqueTheoriqueProduitsAnimaRfaTxt"
+                                                                          size="12"
+                                                                          value="#{ponderationProduit.produit.anima.espdRfa}"
+                                                                          rendered="#{ponderationRisqueTheorique2FC.produitAnima}"/>
+
+                                                        </o:td>
+
+                                                        <!-- Libellé -->
+                                                        <o:td headers="ponderationRisqueTheoriqueProduits_libelle" >
+                                                            <o:outputText id="ponderationRisqueTheoriqueProduitsDenreTxt"
+                                                                          size="12"
+                                                                          value="#{ponderationProduit.produit.denre.denLb}"
+                                                                          rendered="#{ponderationRisqueTheorique2FC.produitDenre}"/>
+
+                                                            <o:outputText id="ponderationRisqueTheoriqueProduitsVegetTxt"
+                                                                          size="12"
+                                                                          value="#{ponderationProduit.produit.veget.filvegLb}"
+                                                                          rendered="#{ponderationRisqueTheorique2FC.produitVeget}"/>
+
+                                                            <o:comboBox id="ponderationRisqueTheoriqueProduitsAlaniCombo"
+                                                                        title="#{Messages['PonderationRisqueTheorique.slavelist.libelle.shortLabel']}"
+                                                                        value="#{ponderationProduit.produit.alani}"
+                                                                        displayLabelProperty="aaLb"
+                                                                        size="6"
+                                                                        submittedOnChange="true"
+                                                                        controllerRef="produitAlaniCBC"
+                                                                        cacheable="true" 
+                                                                        rendered="#{ponderationRisqueTheorique2FC.produitAlani}">
+                                                            </o:comboBox>
+
+                                                            <o:comboBox id="ponderationRisqueTheoriqueProduitsIntraCombo"
+                                                                        title="#{Messages['PonderationRisqueTheorique.slavelist.libelle.shortLabel']}"
+                                                                        value="#{ponderationProduit.produit.intra}"
+                                                                        displayLabelProperty="tintLb"
+                                                                        size="6"
+                                                                        submittedOnChange="true"
+                                                                        controllerRef="produitIntraCBC"
+                                                                        cacheable="true"
+                                                                        rendered="#{ponderationRisqueTheorique2FC.produitIntra}">
+                                                            </o:comboBox>
+
+                                                            <o:comboBox id="ponderationRisqueTheoriqueProduitsAnimaCombo"
+                                                                        title="#{Messages['PonderationRisqueTheorique.slavelist.libelle.shortLabel']}"
+                                                                        value="#{ponderationProduit.produit.anima}"
+                                                                        displayLabelProperty="espdLb"
+                                                                        size="6"
+                                                                        submittedOnChange="true"
+                                                                        controllerRef="produitAnimaCBC"
+                                                                        cacheable="true" 
+                                                                        rendered="#{ponderationRisqueTheorique2FC.produitAnima}">
+                                                            </o:comboBox>
+
+                                                        </o:td>
+
+                                                        <!-- Action -->
+                                                        <o:td headers="ponderationRisqueTheoriqueProduits_action">
+                                                            <div style="float:right;">
+                                                                <o:deleteLineButton/>
+                                                            </div>
+                                                        </o:td>
+
+                                                    </o:tr>
+                                                </o:fragment>
+                                            </o:repeat>
+                                        </o:tbody>
+                                    </o:table>
+                                    <o:newLineButton label="#{Messages['guide.produit.title']}"
+                                                     icon="icon-plus-sign"
+                                                     disabled="#{ponderation.typeActivite == null}"
+                                                     rendered="#{ponderationRisqueTheorique2FC.produitAlani or ponderationRisqueTheorique2FC.produitIntra or ponderationRisqueTheorique2FC.produitAnima}"/>
+
+                                </o:slaveList>
+                                <o:showPopUpButton id="actionNewDenree"
+                                                   url="/nomenclatures/denree/guide/guideVDenree.xhtml"
+                                                   width="950" height="750"
+                                                   actionRef="denreeMultiShowPopUpAction"
+                                                   popUpTitle="#{Messages['guide.produit.label']}"
+                                                   tooltip="#{Messages['guide.produit.label']}"
+                                                   label="#{Messages['guide.produit.title']}"
+                                                   rendered="#{ponderationRisqueTheorique2FC.produitDenre}"
+                                                   disabled="#{ponderation.typeActivite == null}"
+                                                   for="ponderationRisqueTheoriqueProduitsDenreRfaTxt" />  
+
+                                <o:showPopUpButton id="actionNewFiliereVegetal"
+                                                   url="/nomenclatures/filiereVegetal/guide/guideVFiliereVegetal.xhtml"
+                                                   width="950" height="750"
+                                                   actionRef="filiereVegetalMultiShowPopUpAction"
+                                                   popUpTitle="#{Messages['guide.produit.label']}"
+                                                   tooltip="#{Messages['guide.produit.label']}"
+                                                   label="#{Messages['guide.produit.title']}"
+                                                   rendered="#{ponderationRisqueTheorique2FC.produitVeget}"
+                                                   disabled="#{ponderation.typeActivite == null}"
+                                                   for="ponderationRisqueTheoriqueProduitsVegetRfaTxt" />  
+                                
+                                <o:newLineButton  label="#{Messages['guide.produit.title']}"
+                                                  icon="icon-plus-sign"
+                                                  rendered="#{ponderation.typeActivite == null}"
+                                                  disabled="true"/>
+                            </o:fieldset>
+                        </o:row>
+                        
+                        <!-- Poids Ri -->
+                        <o:row>
+                            <o:fieldset id="ponderation_poidsRi">
+                            	<o:legend>
+                                    <o:requiredLabel>#{Messages['PonderationRisqueTheorique.part.poidsRi.title']}
+                                    </o:requiredLabel>
+                                </o:legend>
+                                
+                                <o:col6>
+                                        <o:inputText id="ponderationPoids"
+                                                     value="#{ponderation.prisqtheoPoidsNb2}" 
+                                                     title="#{Messages['ponderation.rule.poids.err']}"
+                                                     size="4"
+                                                     pattern="[0-9]{0,2}(\.\d{1})?"/>
+                                </o:col6>
+                                
+                            </o:fieldset>
+                        </o:row>
+
+
+                    </o:grid>
+
+                    <!-- Action  -->
+                    <o:buttonSet>
+                        <o:backButton />
+                        <o:saveButton id="saveButtonPonderation" />
+                        <o:saveAndCloseButton id="saveAndCloseButtonPonderation"/>
+                        <o:button actionRef="ponderationRisqueTheoriqueSaveAndNewAction" label="#{Messages['common.action.saveAndNew.lb']}"
+                                  outcome="ponderationRisqueTheorique_modif_form"/>
+                    </o:buttonSet>
+                </o:form>
+            </o:boxBody>
+        </o:box>
+    </ui:define>
+</ui:composition>

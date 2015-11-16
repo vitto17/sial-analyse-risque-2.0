@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd "
+>
+
+</p:kernel-config>

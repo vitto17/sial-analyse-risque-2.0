@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+              version="2.1">            
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+    
+        <navigation-case>
+			<from-outcome>accueil_page</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+        <navigation-case>
+			<from-outcome>Help</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+        
+		<!-- Formules de risque -->
+		<navigation-case>
+			<from-outcome>formuleRisque_list</from-outcome>
+			<to-view-id>/arq/formules/formuleRisqueList.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>formuleRisque_crea_form</from-outcome>
+			<to-view-id>/arq/formules/formuleRisqueCreaForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>formuleRisque_detail_form</from-outcome>
+			<to-view-id>/arq/formules/formuleRisqueDetailForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>formuleRisque_dupliquer_crea_form</from-outcome>
+			<to-view-id>/arq/formules/formuleRisqueDupliquerForm.xhtml</to-view-id>
+		</navigation-case>
+		
+		<!-- Pondérations -->
+		<navigation-case>
+			<from-outcome>ponderationRisqueTheorique_crea_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationRisqueTheoriqueCreaForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ponderationZone_crea_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationZoneCreaForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ponderationVolume_crea_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationVolumeCreaForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ponderationDiffusion_crea_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationDiffusionCreaForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ponderationDestination_crea_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationDestinationCreaForm.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>ponderationRisqueTheorique_detail_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationRisqueTheoriqueDetailForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ponderationZone_detail_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationZoneDetailForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ponderationVolume_detail_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationVolumeDetailForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ponderationDiffusion_detail_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationDiffusionDetailForm.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ponderationDestination_detail_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationDestinationDetailForm.xhtml</to-view-id>
+		</navigation-case>
+    
+    		<navigation-case>
+			<from-outcome>ponderationRisqueTheorique_modif_form</from-outcome>
+			<to-view-id>/arq/ponderations/ponderationRisqueTheoriqueModifForm.xhtml</to-view-id>
+		</navigation-case>
+                
+        <!-- Resultats -->
+        <navigation-case>
+			<from-outcome>nbrUa_list</from-outcome>
+			<to-view-id>/arq/resultats/nbrUaList.xhtml</to-view-id>
+		</navigation-case>
+        
+        <!-- Traitements -->
+        <navigation-case>
+			<from-outcome>batch_list</from-outcome>
+			<to-view-id>/arq/traitements/batchList.xhtml</to-view-id>
+		</navigation-case> 
+    
+    
+    </navigation-rule>
+</faces-config>

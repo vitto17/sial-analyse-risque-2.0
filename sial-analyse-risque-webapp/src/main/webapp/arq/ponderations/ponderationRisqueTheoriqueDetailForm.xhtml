@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/ponderation.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel" value="#{Messages['form.ponderation.risque.theo.title']}" />
+    <ui:param name="formControllerRef" value="ponderationRisqueTheoriqueFC" />
+    <ui:param name="formattedCreation" value="#{ponderationRisqueTheoriqueFC.formModel.object.ponderationRisqueTheoriqueFormattedCreation}" />
+    <ui:param name="formattedModification" value="#{ponderationRisqueTheoriqueFC.formModel.object.ponderationRisqueTheoriqueFormattedModification}" />
+    <ui:param name="saveButtonVisible" value="false" />
+    <ui:param name="reportActionRef" value="exportPonderationRisqueTheoriqueActionRef" />
+    <ui:param name="reportMetadataId" value="exportPonderationRisqueTheorique" />
+
+    <ui:define name="ponderation">
+
+        <o:slaveList id="ponderationRisqueTheoriqueSLCId" controllerRef="ponderationRisqueTheoriqueSLC">
+            <o:table id="ponderationRisqueTheoriqueListTableId" title="">
+
+                <o:thead>
+                    <o:tr data="true">
+                        <o:th id="ponderationRisqueTheorique_typeActivite" sortable="false">
+                            <o:requiredLabelHelp titleHelp="#{Messages['ponderation.typeActivite.infobulle']}">
+                                #{Messages['PonderationRisqueTheorique.typeActivite.taLb.shortLabel']}
+                            </o:requiredLabelHelp>
+                        </o:th>
+
+                        <o:th id="ponderationRisqueTheorique_approbation" sortable="false">
+                            <o:labelHelp titleHelp="#{Messages['ponderation.approbation.infobulle']}">
+                                #{Messages['PonderationRisqueTheorique.approbation.rapprRfa.rapprLb.shortLabel']}
+                            </o:labelHelp>
+                        </o:th>
+
+                        <o:th id="ponderationRisqueTheorique_procede" sortable="false">
+                            <o:labelHelp titleHelp="#{Messages['ponderation.procede.infobulle']}">
+                                #{Messages['PonderationRisqueTheorique.procede.procRfa.procLb.shortLabel']}
+                            </o:labelHelp>
+                        </o:th>
+
+                        <o:th id="ponderationRisqueTheorique_produit" sortable="false">
+                            <o:labelHelp titleHelp="#{Messages['ponderation.produit.infobulle']}">
+                                #{Messages['PonderationRisqueTheorique.produit.produit.prodLb.shortLabel']}
+                            </o:labelHelp>
+                        </o:th>
+
+                        <o:th id="ponderationRisqueTheorique_poids" sortable="false">
+                            #{Messages['PonderationRisqueTheorique.prisqtheoPoidsNb2.shortLabel']}
+                        </o:th>
+
+                    </o:tr>
+                </o:thead>
+
+                <o:tbody>
+                    <o:repeat var="ponderation">
+                        <o:fragment>
+                            <o:tr data="true">
+                                <!-- Type Activite -->
+                                <o:td headers="ponderationRisqueTheorique_typeActivite" >
+                                    #{ponderation.typeActivite.taLb}
+                                </o:td>
+
+                                <!-- Approbation -->
+                                <o:td headers="ponderationRisqueTheorique_approbation" >
+                                    #{ponderation.ponderationRisqueTheoriqueApprobationsStr}
+                                </o:td>
+
+                                <!-- Procede -->
+                                <o:td headers="ponderationRisqueTheorique_procede" >
+                                    #{ponderation.ponderationRisqueTheoriqueProcedesStr}
+                                </o:td>
+
+                                <!-- Produit -->
+                                <o:td headers="ponderationRisqueTheorique_produit" >
+                                    #{ponderation.ponderationRisqueTheoriqueProduitsStr}
+                                </o:td>
+
+                                <!-- Poids -->
+                                <o:td headers="ponderationRisqueTheorique_poids">
+                                    #{ponderation.prisqtheoPoidsNb2}
+                                </o:td>
+
+                            </o:tr>
+                        </o:fragment>
+                    </o:repeat>
+                </o:tbody>
+            </o:table>
+        </o:slaveList>
+
+    </ui:define>
+</ui:composition>

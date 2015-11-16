@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.bytecode.use_reflection_optimizer">true</property>
+
+        <!-- Test de la connection tout les xxx : corrige les problèmes lors de l'arrêt du DataServer -->
+        <property name="hibernate.c3p0.idle_test_period">600</property>
+        <!-- Temps pendant lequel une connexion peut être utilisée avant d'être libérée. -->
+        <property name="hibernate.c3p0.timeout">1800</property>
+
+        <property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+
+        <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        <!-- Mantis-0000691 : Montée de version Hibernate 3.6.7 -->
+        <!--        <property name="dialect">org.hibernate.dialect.SybaseASE15Dialect</property>-->
+        <property name="dialect">fr.gouv.agriculture.orion.persistence.hibernate.dialect.EnhancedPostgreSQLDialect</property>
+        <!-- Fin Mantis-0000691 -->
+        <property name="use_outer_join">true</property>
+
+        <property name="hibernate.connection.IS_CLOSED_TEST">select 1</property>
+        <property name="hibernate.connection.autocommit">true</property>
+        <property name="hibernate.connection.isolation">2</property>
+
+        <property name="hibernate.default_schema">habilitations</property>
+
+        <!-- Mapping réservé à la gestion des descripteurs de fichiers  -->
+        <mapping resource="fr/gouv/agriculture/orion/file/FileDescriptor.hbm.xml" />
+
+        <!--Mapping webmin -->
+        <mapping resource="fr/gouv/agriculture/orion/security/authorization/Application.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authorization/Group.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authorization/Role.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authorization/GuardedResource.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authorization/Permission.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authorization/GroupCategory.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authorization/GuardedResourceCategory.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authorization/RoleCategory.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authentication/spi/OrionCredentials.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authentication/spi/AgricollCredentials.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authentication/spi/BDNUCredentials.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authentication/spi/CerbereCredentials.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authentication/spi/Civility.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/security/authentication/spi/RoleForPrincipal.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/preference/Preference.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/preference/QueryPreference.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/preference/Owner.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/orion/preference/Attributeinfos.hbm.xml"/>
+        
+        <!-- Mapping sial-structures-ressources-shared -->
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/AffectationOperationnelle.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/EtatRessource.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/Fonction.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/NormeCofrac.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/Ressource.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/RessourceRecherche.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/RsrAdresse.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/SourceRessource.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/SourceStructure.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/Structure.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/StructureRecherche.hbm.xml" />
+        <mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/StructureHisto.hbm.xml" />
+		<mapping resource="fr/gouv/agriculture/dal/sial/rsr/businessshared/TypeIdentifiantRessource.hbm.xml" />
+      
+
+        <!-- Mapping habilitations-metier-shared -->
+        <mapping resource="fr/gouv/agriculture/habilitations/securityshared/authorization/RoleSial.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/securityshared/authentication/spi/RfpListeStructures.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/securityshared/authentication/AgricollCredentialsStructure.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/securityshared/authentication/BdnuCredentialsStructure.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/businessshared/RfpListeStructuresStruct.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/businessshared/AttributComplementaire.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/businessshared/VStructureEtendu.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/businessshared/VDomaineTechniqueEtendu.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/securityshared/authentication/spi/RfpListeDomainesTechniques.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/securityshared/authentication/spi/RfpListeStructuresDomainesTechniques.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/businessshared/RfpListeDomainesTechniquesDomTech.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/businessshared/RfpListeSDTStructDomTech.hbm.xml" /> 
+        <mapping resource="fr/gouv/agriculture/habilitations/businessshared/VStructureDomaineTechnique.hbm.xml" />
+              
+        <!-- Mapping sial-nomenclatures-metier-shared -->
+		<mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/AlimentationAnimale.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/AmpliTravail.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Arrondissement.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Binaire.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Campagne.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CatAnimal.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CatDenree.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CatJurid.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Civilite.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Commune.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Conformite.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/ContexteInsp.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Continent.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxDtNatInf.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxDtTa.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxRfuRfu.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaAa.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaDen.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaDest.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaEspd.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaFilveg.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaNafd.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaniCatani.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaProc.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaRfu.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaSpa.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaTim.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaTlieu.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxTaUprod.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Denree.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Departement.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Destination.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Diffusion.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/DomaineTechnique.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/EspeceDgal.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Etat.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/EtatInsp.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/EtatStructure.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/FiliereVegetal.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/FoncRessource.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Hexaposte.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/MaitriseRisque.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/ModeSelection.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/ModeProduction.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/MotifNonReal.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NafDgal.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NafInsee.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NatInf.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NatureMission.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NatureTexte.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NiveauApplication.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NivGeoStructure.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NivUsager.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Nomenclature.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Notation.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/NotationPv.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/OrigineCommande.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Pays.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/ProprieteInsp.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Procede.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Pseudocanton.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/RefApprobation.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Region.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/RfUsager.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/RoleInspection.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/RoleInterlocuteur.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/RythmeTravail.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/SecteurActivite.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/SousvalProprieteInsp.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/StatutActivite.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/SysUniteMesure.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TexteReference.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeActivite.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeAnimal.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeApprobation.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeEquipement.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeEtablissement.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeEvaluation.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeIdentMetier.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeIntrant.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeLieu.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypePc.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeProcede.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeProduit.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeRessource.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeStructure.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/TypeZone.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/UeSpanAct.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/UeSpanProduit.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/UniteMesure.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/UniteProduction.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Zeat.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/Zone.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/nomenclatures/businessshared/CtxDtSa.hbm.xml"/>
+        
+        <!-- Mapping sial-usagers-metier-shared -->
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Abattoir.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Adresse.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoEntrepriseInterlocuteur.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoEntrepriseInterlocuteurSimple.hbm.xml"/>    
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoEntrepriseRib.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoEtablisInterloc.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoEtablisInterlocSimple.hbm.xml"/>           
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoEtablissementIdMetier.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoEtablissementRib.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaActiviteSpan.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaDenree.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaDestination.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaEquipement.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaIdentifiant.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaInterlocuteur.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaInterlocuteurSimple.hbm.xml"/>          
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaProcede.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaProduitAa1.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaProduitSpan.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaProduitsAnimaux.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaTypeIntrant.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/AssoUaZoneGeo.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/DelegStructureTa.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Entreprise.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/EntrepriseBdnu.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Equipement.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Etablissement.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/EtablissementBdnu.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Exploitation.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Geolocalisation.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Historique.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/IdentifiantMetier.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Interlocuteur.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/InterlocuteurSimple.hbm.xml"/> 
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/NiveauUsager.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/Production.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/RelationFonctionnelle.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/RelationHistorique.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/RibBdnu.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/TypeAdresse.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/usagers/businessshared/UniteActivite.hbm.xml"/>
+        
+        
+        <!-- Mapping Operations consolidees -->
+        <mapping resource="fr/gouv/agriculture/dal/sial/opconsolidees/businessshared/VAssoUaProduitsVegetaux.hbm.xml"/>            
+        
+        <!-- Mapping sial-arq-metier -->
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/Batch.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/ClasseRisque.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/FormuleRisque.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/MappingGuide.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/ModificationPonderation.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/NoteRisque.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationDestination.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationDiffusion.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationNoteInpection.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationRisqueTheorique.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationRisqueTheoriqueApprobation.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationRisqueTheoriqueProcede.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationRisqueTheoriqueProduit.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationVolume.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/PonderationZone.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/Produit.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/Statut.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/VNbrua.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/VPerimetreUa.hbm.xml"/>
+        <mapping resource="fr/gouv/agriculture/dal/sial/arq/business/VExportNoteRisque.hbm.xml"/>
+        
+		<!-- Mapping portail-metier-shared -->
+        <mapping resource="fr/gouv/agriculture/dal/sial/portail/businessshared/VMessage.hbm.xml" />
+        <mapping resource="fr/gouv/agriculture/dal/sial/portail/businessshared/VPageAppli.hbm.xml" />
+
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:define name="content">
+        <o:box>             
+            <o:boxHeader>
+                <h3>${pageLabel}</h3>
+            </o:boxHeader>
+            <o:boxBody>
+                <o:form id="formuleRisqueFormId" 
+                        controllerRef="#{formControllerRef}" 
+                        var="formuleRisque">
+
+
+					<o:grid>
+
+						<!-- Generalites  -->
+						<o:row>
+							<o:fieldset id="ponderation_generalites">
+								<o:legend>
+									#{Messages['form.ponderation.part.generalites.title']}
+							    </o:legend>
+							    <o:hcontrols>
+								<o:col6>
+									<o:control>
+										<o:label>#{Messages['FormuleRisque.campagne.campRfa.shortLabel']}: </o:label>
+										<o:outputText id="ponderationCampagne"
+										              value="#{formuleRisque.campagne.campRfa}" 
+										              title="#{Messages['FormuleRisque.campagne.campRfa.shortLabel']}" size="8"/>
+									</o:control>
+								</o:col6>
+								<o:col6>
+									<o:control>
+										<o:label>#{Messages['FormuleRisque.domaineTechnique.dtRfa.shortLabel']}: </o:label>
+										<o:outputText id="ponderationDomaineTech"
+										              value="#{formuleRisque.domaineTechnique}" 
+										              title="#{Messages['FormuleRisque.domaineTechnique.dtRfa.shortLabel']}" size="8"/>
+									</o:control>
+								</o:col6>
+							</o:hcontrols>
+							</o:fieldset>
+						</o:row>
+						
+						<!-- Criteres de risque  -->
+						<o:row>
+							<o:fieldset id="ponderation_criteres">
+								<o:legend>
+									#{Messages['form.ponderation.part.criteres.title']}
+							    </o:legend>
+								<ui:insert name="ponderation">
+									
+								</ui:insert>
+							</o:fieldset>
+						</o:row>
+
+						<!-- Suivi de modification  -->
+						<o:row>
+							<o:vcontrols>
+								<o:fieldset id="ponderation_suivi">
+
+									<o:legend>
+										#{Messages['form.ponderation.part.suivi.title']}
+									</o:legend>
+
+									<o:col6>
+										<o:control>
+											<o:label>#{Messages['FormuleRisque.fromAuteurCreationLb.shortLabel']}:</o:label>
+											<o:outputText id="formuleRisqueFormattedCreation"
+												value="${formattedCreation}" size="12" />
+										</o:control>
+									</o:col6>
+									<o:col6>
+										<o:label>#{Messages['FormuleRisque.formAuteurModifLb.shortLabel']}:</o:label>
+										<o:outputText id="formuleRisqueFormattedModification"
+											value="${formattedModification}" size="12" />
+									</o:col6>
+
+								</o:fieldset>
+							</o:vcontrols>
+						</o:row>
+
+					</o:grid>
+
+					<!-- Action  -->
+                    <o:buttonSet>
+                        <o:backButton/>
+						<!--Export de la liste-->
+						<o:reportButton actionRef="#{reportActionRef}"
+							reportId="#{reportMetadataId}" 
+							 skipValidation="true"/>
+					</o:buttonSet>
+                </o:form>
+            </o:boxBody>
+        </o:box>
+    </ui:define>
+</ui:composition>

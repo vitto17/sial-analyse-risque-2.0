@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/ponderationConsult.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+    
+    <ui:param name="pageLabel" value="#{Messages['form.ponderation.zone.title']}" />
+    <ui:param name="formControllerRef" value="ponderationZoneFC" />
+    <ui:param name="formattedCreation" value="#{ponderationZoneFC.formModel.object.ponderationZoneFormattedCreation}" />
+    <ui:param name="formattedModification" value="#{ponderationZoneFC.formModel.object.ponderationZoneFormattedModification}" />
+    <ui:param name="reportActionRef" value="exportPonderationZoneActionRef" />
+    <ui:param name="reportMetadataId" value="exportPonderationZone" />
+    
+    <ui:define name="ponderation">
+
+		<o:slaveList id="ponderationZoneSLCId" controllerRef="ponderationZoneSLC">
+			<o:table id="ponderationZoneListTableId" title="">
+
+				<o:thead>
+					<o:tr data="true">
+						<o:th id="ponderationZone_typeZone" sortable="false">
+                        	#{Messages['PonderationZone.zone.typeZone.tzLb.shortLabel']}
+    					</o:th>
+    					<o:th id="ponderationZone_zone" sortable="false">
+                        	#{Messages['PonderationZone.zone.zlb.shortLabel']}
+    					</o:th>
+    					<o:th id="ponderationZone_poids" sortable="false">
+                        	#{Messages['PonderationZone.pzonePoidsNb2.shortLabel']}
+    					</o:th>
+
+					</o:tr>
+				</o:thead>
+
+				<o:tbody>
+					<o:repeat var="ponderation">
+						<o:fragment>
+							<o:tr data="true">
+								<!-- Type de zone -->
+								<o:td headers="ponderationZone_typeZone" >
+       								#{ponderation.zone.typeZone.tzLb}
+    							</o:td>
+    							<!-- Zone -->
+								<o:td headers="ponderationZone_zone" id="toto">
+       								<o:outputText id="ponderationZone_zoneAssign" value="#{ponderation.zone.zlb}" rendered="false"/>
+       								#{ponderation.zone.zlb}
+    							</o:td>
+    							<!-- Poids -->
+								<o:td headers="ponderationZone_poids">
+       								<o:outputText id="ponderationZonePoids"
+       								             title="#{Messages['PonderationZone.pzonePoidsNb2.shortLabel']}"
+       								             value="#{ponderation.pzonePoidsNb2}"
+       								             size="4"/>
+    							</o:td>
+    						</o:tr>
+						</o:fragment>
+					</o:repeat>
+				</o:tbody>
+			</o:table>
+		</o:slaveList>
+		
+	</ui:define>
+</ui:composition>

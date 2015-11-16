@@ -1,0 +1,16 @@
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+              version="2.1">      
+    
+    <application>        
+        <locale-config>
+            <default-locale>fr_FR</default-locale>
+            <supported-locale>fr_FR</supported-locale>
+            <supported-locale>en-US</supported-locale>
+        </locale-config>
+    </application>
+    
+    <!-- Les navigation-rules sont d�clar�es s�par�ment dans le fichier /src/main/resources/META-INF/faces-config.xml -->
+    <!-- NE PAS LES D�CLARER ICI, AFIN DE LES S�PARER DE LA CONFIGURATION TECHNIQUE. -->
+</faces-config>

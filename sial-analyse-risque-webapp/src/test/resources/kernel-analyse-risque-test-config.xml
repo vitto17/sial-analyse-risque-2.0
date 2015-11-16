@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd">
+
+    <bean
+        name="fr.gouv.agriculture.orion.i18n.AutoDiscoveryMessageBundleLibrary"
+        classname="fr.gouv.agriculture.orion.i18n.AutoDiscoveryMessageBundleLibrary"
+        scope="application">
+    </bean>
+
+    <bean name="fr.gouv.agriculture.orion.i18n.I18nService"
+        classname="fr.gouv.agriculture.orion.i18n.DefaultI18nService"
+        scope="application">
+
+        <property name="locale" value="fr" />
+        <property name="usePreferredLanguages" value="true" />
+        <property name="messageBundleLibrairies">
+            <list-entry
+                value-ref="fr.gouv.agriculture.orion.i18n.AutoDiscoveryMessageBundleLibrary" />
+        </property>
+    </bean>
+</p:kernel-config>

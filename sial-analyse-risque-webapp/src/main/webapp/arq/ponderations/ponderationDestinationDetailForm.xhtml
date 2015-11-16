@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/ponderationConsult.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel" value="#{Messages['form.ponderation.destination.title']}" />
+    <ui:param name="formControllerRef" value="ponderationDestinationFC" />
+    <ui:param name="formattedCreation" value="#{ponderationDestinationFC.formModel.object.ponderationDestinationFormattedCreation}" />
+    <ui:param name="formattedModification" value="#{ponderationDestinationFC.formModel.object.ponderationDestinationFormattedModification}" />
+    <ui:param name="reportActionRef" value="exportPonderationDestinationActionRef" />
+    <ui:param name="reportMetadataId" value="exportPonderationDestination" />
+
+    <ui:define name="ponderation">
+
+        <o:slaveList id="ponderationDestinationSLCId" controllerRef="ponderationDestinationSLC">
+            <o:table id="ponderationDestinationListTableId" title="">
+
+                <o:thead>
+                    <o:tr data="true">
+                        <o:th id="ponderationDestination_typeActivite" sortable="false">
+                            <o:requiredLabelHelp titleHelp="#{Messages['ponderation.typeActivite.infobulle']}">
+                                    #{Messages['PonderationDestination.taRfa.taLb.shortLabel']}
+                            </o:requiredLabelHelp>
+                        </o:th>
+
+                        <o:th id="ponderationDestination_destination" sortable="false">
+                            <o:requiredLabelHelp titleHelp="#{Messages['ponderation.destination.infobulle']}">
+                                #{Messages['PonderationDestination.destRfa.destLb.shortLabel']}
+                            </o:requiredLabelHelp>
+                        </o:th>
+
+                        <o:th id="ponderationDestination_poids" sortable="false">
+                            #{Messages['PonderationDestination.pdestPoidsNb2.shortLabel']}
+                        </o:th>
+
+                    </o:tr>
+                </o:thead>
+
+                <o:tbody>
+                    <o:repeat var="ponderation">
+                        <o:fragment>
+                            <o:tr data="true">
+                                <!-- Type Activite -->
+                                <o:td headers="ponderationDestination_typeActivite" >
+                                    #{ponderation.taRfa.taLb}
+                                </o:td>
+
+                                <!-- Destination -->
+                                <o:td headers="ponderationDestination_destination" >
+                                    #{ponderation.destRfa.destLb}
+                                </o:td>
+
+                                <!-- Modification de la Destination -->
+
+                                <!-- Poids -->
+                                <o:td headers="ponderationDestination_poids">
+                                    <o:outputText id="ponderationDestinationPoids"
+                                                  title="#{Messages['ponderationDestination.pdestPoidsNb2.shortLabel']}"
+                                                  value="#{ponderation.pdestPoidsNb2}"
+                                                  size="4"/>
+
+                                </o:td>
+
+                            </o:tr>
+                        </o:fragment>
+                    </o:repeat>
+                </o:tbody>
+            </o:table>
+        </o:slaveList>
+
+    </ui:define>
+</ui:composition>

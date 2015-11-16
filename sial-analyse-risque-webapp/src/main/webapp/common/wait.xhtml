@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      lang="#bcp47Lang" 
+      >
+    <head>
+        <title>Veuillez patienter...</title>        
+        <meta http-equiv="Cache-control" content="no-cache"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        <script language="javascript">
+                window.focus();
+                window.setTimeout('reportTimeoutReminder()', 5*1000);
+	
+                function reportTimeoutReminder(){
+                    document.forms[0].submit();
+                }	
+        </script>
+    </head>
+    <body>
+        <form action="#{request.contextPath}/servlet/ReportServlet" method="post">
+            <button id="reload" style="display:none;">Recharger</button>
+        </form>
+        <p>
+            Veuillez patienter ...
+        </p>
+    </body>
+</html>

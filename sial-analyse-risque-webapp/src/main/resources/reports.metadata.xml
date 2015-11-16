@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+ 
+<orion:reports
+    xmlns:orion="http://agriculture.gouv.fr/orion/report/metadatas"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <theme label="monThemeId">
+
+        <report id="exportFormulesRisque">
+            <attribute name="label" value="Exporter"/>
+            <attribute name="dataSourceProvider"  value="fr.gouv.agriculture.dal.sial.arq.dao.impl.FormuleRisqueDAOImpl"/>
+            <attribute name="comment" value="Export Formule de Risque Csv"/>
+            <attribute name="compressed" value="false"/>
+            <attribute name="outputFilename" value="Liste_Formules_de_risque"/>
+            
+            <engine type="fr.gouv.agriculture.orion.report.engine.RawDataEngine"> 
+                <format type="fr.gouv.agriculture.o2.io.format.OOCalcCsvFormat" />
+            </engine>
+             
+            <target default="true" type="fr.gouv.agriculture.orion.report.target.ViewTarget"/>
+        </report>
+        
+        <report id="exportPonderationRisqueTheorique">
+            <attribute name="label" value="Exporter"/>
+            <attribute name="dataSourceProvider"  value="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationRisqueTheoriqueDAOImpl"/>
+            <attribute name="comment" value="Export Ponderation Risque Théorique (Ri) Csv"/>
+            <attribute name="compressed" value="false"/>
+            <attribute name="outputFilename" value="Liste_Ponderations_Risque_Theorique"/>
+            
+            <engine type="fr.gouv.agriculture.orion.report.engine.RawDataEngine"> 
+                <format type="fr.gouv.agriculture.o2.io.format.OOCalcCsvFormat" />
+            </engine>
+             
+            <target default="true" type="fr.gouv.agriculture.orion.report.target.ViewTarget"/>
+        </report>
+        
+        <report id="exportPonderationZone">
+            <attribute name="label" value="Exporter"/>
+            <attribute name="dataSourceProvider"  value="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationZoneDAOImpl"/>
+            <attribute name="comment" value="Export Ponderation Zone (Z) Csv"/>
+            <attribute name="compressed" value="false"/>
+            <attribute name="outputFilename" value="Liste_Ponderations_Zone"/>
+            
+            <engine type="fr.gouv.agriculture.orion.report.engine.RawDataEngine"> 
+                <format type="fr.gouv.agriculture.o2.io.format.OOCalcCsvFormat" />
+            </engine>
+             
+            <target default="true" type="fr.gouv.agriculture.orion.report.target.ViewTarget"/>
+        </report>
+        
+        <report id="exportPonderationVolume">
+            <attribute name="label" value="Exporter"/>
+            <attribute name="dataSourceProvider"  value="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationVolumeDAOImpl"/>
+            <attribute name="comment" value="Export Ponderation Volume (V) Csv"/>
+            <attribute name="compressed" value="false"/>
+            <attribute name="outputFilename" value="Liste_Ponderations_Volume"/>
+            
+            <engine type="fr.gouv.agriculture.orion.report.engine.RawDataEngine"> 
+                <format type="fr.gouv.agriculture.o2.io.format.OOCalcCsvFormat" />
+            </engine>
+             
+            <target default="true" type="fr.gouv.agriculture.orion.report.target.ViewTarget"/>
+        </report>
+        
+        <report id="exportPonderationDiffusion">
+            <attribute name="label" value="Exporter"/>
+            <attribute name="dataSourceProvider"  value="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationDiffusionDAOImpl"/>
+            <attribute name="comment" value="Export Ponderation Diffusion (D) Csv"/>
+            <attribute name="compressed" value="false"/>
+            <attribute name="outputFilename" value="Liste_Ponderations_Diffusion"/>
+            
+            <engine type="fr.gouv.agriculture.orion.report.engine.RawDataEngine"> 
+                <format type="fr.gouv.agriculture.o2.io.format.OOCalcCsvFormat" />
+            </engine>
+             
+            <target default="true" type="fr.gouv.agriculture.orion.report.target.ViewTarget"/>
+        </report>
+        
+        <report id="exportPonderationDestination">
+            <attribute name="label" value="Exporter"/>
+            <attribute name="dataSourceProvider"  value="fr.gouv.agriculture.dal.sial.arq.dao.impl.PonderationDestinationDAOImpl"/>
+            <attribute name="comment" value="Export Ponderation Destination (S) Csv"/>
+            <attribute name="compressed" value="false"/>
+            <attribute name="outputFilename" value="Liste_Ponderations_Destination"/>
+            
+            <engine type="fr.gouv.agriculture.orion.report.engine.RawDataEngine"> 
+                <format type="fr.gouv.agriculture.o2.io.format.OOCalcCsvFormat" />
+            </engine>
+             
+            <target default="true" type="fr.gouv.agriculture.orion.report.target.ViewTarget"/>
+        </report>
+        
+        <report id="exportNotesRisquesCsv">
+            <attribute name="label" value="Exporter"/>
+            <attribute name="dataSourceProvider"  value="fr.gouv.agriculture.dal.sial.arq.dao.impl.CalculEtResultatsDAOImpl"/>
+            <attribute name="comment" value="Export Calcul et résultats Csv"/>
+            <attribute name="compressed" value="false"/>
+            <attribute name="outputFilename" value="Liste_des_notes_de_risques"/>
+            
+            <engine type="fr.gouv.agriculture.orion.report.engine.RawDataEngine"> 
+                <format type="fr.gouv.agriculture.o2.io.format.OOCalcCsvFormat" />
+            </engine>
+             
+            <target default="true" type="fr.gouv.agriculture.orion.report.target.ViewTarget"/>
+        </report>
+    </theme>
+                                
+</orion:reports>

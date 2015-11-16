@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd">
+
+    <include resource="/kernel-security-config.xml" />
+    <!-- include des particularités du projet -->
+    <include resource="/kernel-analyse-risque-config.xml" />
+
+    <bean name="themeService" classname="fr.gouv.agriculture.orion.less.web.ThemeService" scope="application">
+        <property name="name" value="sial-analyse-risque-theme"/>
+        <property name="useLess" value="false"/>
+        <property name="useMinify" value="false"/>
+    </bean>
+
+     <bean
+        name="fr.gouv.agriculture.orion.factory.CastorXMLPersistenceServiceFactory"
+        classname="fr.gouv.agriculture.orion.factory.defaults.CastorXMLPersistenceServiceFactory">
+
+        <property name="configurationFile"
+                  value="fr/gouv/agriculture/orion/metadata/report/metadata.mapping.xml" />
+        <property name="metadatasFile" value="reports.metadata.xml" />
+        <property name="rootClassname"
+                  value="fr.gouv.agriculture.orion.metadata.report.ReportsMetadata" />
+    </bean>
+
+    <bean name="fr.gouv.agriculture.orion.metadata.MetadatasManager"
+          classname="fr.gouv.agriculture.orion.metadata.DefaultMetadatasManager">
+
+        <property name="persistenceServiceFactory"
+                  value-ref="fr.gouv.agriculture.orion.factory.CastorXMLPersistenceServiceFactory" />
+    </bean>
+
+<!--     <bean name="fr.gouv.agriculture.orion.factory.PersistenceServiceFactory" -->
+<!--           classname="fr.gouv.agriculture.orion.factory.defaults.HibernatePersistenceServiceFactory"> -->
+<!--         <property name="configurationFile" value="hibernate.cfg.xml" /> -->
+<!--         <property name="maxResults" value="100" /> -->
+<!--         <property name="persistenceListenersMap"> -->
+<!--             <map-entry key="fr.gouv.agriculture.orion.file.FileDescriptor" value="fr.gouv.agriculture.orion.file.FileDescriptorPersistenceListener" /> -->
+<!--         </property> -->
+<!--     </bean> -->
+    
+    <!-- SpatialPersistenceServiceFactory pour que la géo fonctionne -->
+	<bean name="fr.gouv.agriculture.orion.factory.PersistenceServiceFactory"
+		classname="fr.gouv.agriculture.orion.geo.persistence.hibernate.SpatialPersistenceServiceFactory">
+		<property name="configurationFile" value="hibernate.cfg.xml" />
+		<property name="maxResults" value="100" />
+		<property name="persistenceListenersMap">
+			<map-entry key="fr.gouv.agriculture.orion.file.FileDescriptor"
+				value="fr.gouv.agriculture.orion.file.FileDescriptorPersistenceListener" />
+			<map-entry key="fr.gouv.agriculture.orion.business.BaseEntity"
+				value="fr.gouv.agriculture.orion.persistence.event.DefaultPersistenceListener" />
+		</property>
+	</bean>
+    
+
+   <!-- Définition d'une factory pour construire une service de persistance
+    connecté à un annuaire LDAP -->
+    <bean name="fr.gouv.agriculture.orion.factory.LdapPersistenceServiceFactory"
+          classname="fr.gouv.agriculture.orion.factory.ldap.LdapPersistenceServiceFactory">
+        <property name="maxResults" value="100" />
+    </bean>
+
+   <!-- Déclaration du bean unique d'information de configuration -->
+    <bean name="fr.gouv.agriculture.orion.manager.RuntimeConfigurationInfos"
+          classname="fr.gouv.agriculture.orion.manager.RuntimeConfigurationInfos">
+        <property name="applicationVersion" value="0.1" />
+    </bean>
+
+    <bean name="fr.gouv.agriculture.orion.http.RequestHandler"
+          classname="fr.gouv.agriculture.orion.http.RequestHandler"
+          scope="session">
+        <property name="backPolicy"
+                  value-ref="fr.gouv.agriculture.orion.http.policy.AllBackPolicy" />
+    </bean>
+
+    <!-- Beans projet -->
+    <bean name="versionAndEnvViewPolicy" classname="fr.gouv.agriculture.orion.view.faces.standard.policy.VersionAndEnvViewPolicy">
+        <property name="version" value="${project.version}"/>
+        <property name="env" value="${env}"/>
+    </bean>
+
+    <bean  name="mainMenuCtrlRef"
+           classname="fr.gouv.agriculture.orion.controller.menu.MenuController"
+           parent="fr.gouv.agriculture.orion.controller.menu.MenuController"
+           scope="session"/>
+
+</p:kernel-config>

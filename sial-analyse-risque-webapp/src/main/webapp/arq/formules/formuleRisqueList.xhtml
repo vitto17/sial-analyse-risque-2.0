@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:o="http://orion.agriculture-gouv.fr/standard"
+    xmlns:oq="http://orion.agriculture-gouv.fr/query"
+    xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel"
+        value="#{Messages['list.formuleRisque.title']}" />
+    <ui:param name="listMaxObjects" value="100" />
+    <ui:param name="listMaxIt" value="20" />
+    <ui:param name="recherchePrefixe" value="formuleRisqueRecherche" />
+
+    <ui:define name="content">
+
+        <o:list id="formuleRisqueLCId" controllerRef="formuleRisqueLC"
+            maxObjects="100">
+
+            <o:order name="campagne.campRfa" caseSensitive="true"
+                ascending="false" />
+            <o:order name="domaineTechnique.dtRfa" caseSensitive="true" />
+            <o:order name="domaineTechnique.dtLb" caseSensitive="true" />
+
+            <o:box id="formuleRisqueQueryBoxId">
+                <o:boxHeader>
+                    <h2>#{Messages['list.formuleRisque.recherche.title']}</h2>
+                </o:boxHeader>
+                <o:boxBody>
+                    <oq:queryForm controllerRef="formuleRisqueQFC"
+                        var="query">
+
+                        <o:vcontrols>
+                            <o:row>
+                                <o:col2>
+                                    <!-- Critère Campagne -->
+                                    <o:control
+                                        id="#{recherchePrefixe}CritereCampagneCtrl">
+                                        <oq:expression
+                                            id="#{recherchePrefixe}CritereCampagneExpr"
+                                            target="campagne">
+                                            <o:label
+                                                for="#{recherchePrefixe}CritereCampagneCbBox">
+                                            #{Messages['FormuleRisque.campagne.campRfa.shortLabel']} :
+                                        </o:label>
+                                            <o:comboBox
+                                                id="#{recherchePrefixe}CritereCampagneCbBox"
+                                                value="#{query['campagne']}"
+                                                displayLabelProperty="campRfa"
+                                                nullable="true"
+                                                labelForNull="#{Messages['common.combobox.defaut.lb']}"
+                                                defaultValue="#{campagneSansFiltreCBC.defaultValue}"
+                                                controllerRef="campagneSansFiltreCBC"
+                                                size="12" title=""
+                                                cacheable="true">
+                                                <o:order name="campRfa"
+                                                    caseSensitive="true"
+                                                    ascending="false" />
+                                            </o:comboBox>
+                                        </oq:expression>
+                                    </o:control>
+                                </o:col2>
+                            </o:row>
+
+                            <o:row>
+                                <o:col4>
+                                    <!-- Critère Domaine technique -->
+                                    <o:control
+                                        id="#{recherchePrefixe}CritereDomaineTechniqueCtrl">
+                                        <oq:expression
+                                            id="#{recherchePrefixe}CritereDomaineTechniqueExpr"
+                                            target="domaineTechnique">
+                                            <o:label
+                                                for="#{recherchePrefixe}CritereDomaineTechniqueCbBox">
+                                            #{Messages['FormuleRisque.domaineTechnique.dtRfa.shortLabel']} :
+                                        </o:label>
+                                            <o:comboBox
+                                                id="#{recherchePrefixe}CritereDomaineTechniqueCbBox"
+                                                value="#{query['domaineTechnique']}"
+                                                nullable="true"
+                                                labelForNull="#{Messages['common.combobox.defaut.lb']}"
+                                                controllerRef="domaineTechniqueCBC"
+                                                cacheable="true"
+                                                size="12" title="">
+                                            </o:comboBox>
+                                        </oq:expression>
+                                    </o:control>
+                                </o:col4>
+                            </o:row>
+                        </o:vcontrols>
+
+                        <o:fieldset
+                            id="#{recherchePrefixe}CriteresSuppFieldset"
+                            folded="true">
+                            <o:legend>#{Messages['list.formuleRisque.recherche.criteres.complementaires.title']} :</o:legend>
+                            <o:vcontrols>
+                                <!-- Critères Risque théorique de l'activité, Zone géographique, Volume -->
+                                <o:row>
+                                    <o:col4>
+                                        <!-- Critère Risque théorique de l'activité -->
+                                        <o:control
+                                            id="#{recherchePrefixe}CritereRisquetheoriqueCtrl">
+                                            <oq:expression
+                                                id="#{recherchePrefixe}CritereRisquetheoriqueExpr"
+                                                target="fromCritRisquetheoriqueOn"
+                                                alias="risquetheorique">
+                                                <o:label
+                                                    for="#{recherchePrefixe}CritereRisquetheoriqueRadio">
+                                                        #{Messages['FormuleRisque.fromCritRisquetheoriqueOn.shortLabel']} :
+                                                    </o:label>
+                                                <o:radio
+                                                    id="#{recherchePrefixe}CritereRisquetheoriqueRadio"
+                                                    value="#{query['risquetheorique']}"
+                                                    nullable="true"
+                                                    labelForNull="#{Messages['common.radio.defaut.lb']}"
+                                                    controllerRef="risquetheoriquePonderationBooleanRC"
+                                                    cacheable="true"
+                                                    size="12" title="" />
+                                            </oq:expression>
+                                        </o:control>
+                                    </o:col4>
+
+                                    <o:col4>
+                                        <!-- Critère Zone géographique -->
+                                        <o:control
+                                            id="#{recherchePrefixe}CritereZoneCtrl">
+                                            <oq:expression
+                                                id="#{recherchePrefixe}CritereZoneExpr"
+                                                target="fromCritZoneOn"
+                                                alias="zone">
+                                                <o:label
+                                                    for="#{recherchePrefixe}CritereZoneRadio">
+                                                        #{Messages['FormuleRisque.fromCritZoneOn.shortLabel']} :
+                                                    </o:label>
+                                                <o:radio
+                                                    id="#{recherchePrefixe}CritereZoneRadio"
+                                                    value="#{query['zone']}"
+                                                    nullable="true"
+                                                    labelForNull="#{Messages['common.radio.defaut.lb']}"
+                                                    controllerRef="zonePonderationBooleanRC"
+                                                    size="12" title="" />
+                                            </oq:expression>
+                                        </o:control>
+                                    </o:col4>
+
+                                    <o:col4>
+                                        <!-- Critère Volume -->
+                                        <o:control
+                                            id="#{recherchePrefixe}CritereVolumeCtrl">
+                                            <oq:expression
+                                                id="#{recherchePrefixe}CritereVolumeExpr"
+                                                target="fromCritVolumeOn"
+                                                alias="volume">
+                                                <o:label
+                                                    for="#{recherchePrefixe}CritereVolumeRadio">
+                                                #{Messages['FormuleRisque.fromCritVolumeOn.shortLabel']} :
+                                            </o:label>
+                                                <o:radio
+                                                    id="#{recherchePrefixe}CritereVolumeRadio"
+                                                    value="#{query['volume']}"
+                                                    nullable="true"
+                                                    labelForNull="#{Messages['common.radio.defaut.lb']}"
+                                                    controllerRef="volumePonderationBooleanRC"
+                                                    size="12" title="" />
+                                            </oq:expression>
+                                        </o:control>
+                                    </o:col4>
+                                </o:row>
+                                <!-- Critères Diffusion, Destination, Note de dernière inspection -->
+                                <o:row>
+                                    <o:col4>
+                                        <!-- Critère Diffusion -->
+                                        <o:control
+                                            id="#{recherchePrefixe}CritereDiffusionCtrl">
+                                            <oq:expression
+                                                id="#{recherchePrefixe}CritereDiffusionExpr"
+                                                target="fromCritDiffusionOn"
+                                                alias="diffusion">
+                                                <o:label
+                                                    for="#{recherchePrefixe}CritereDiffusionRadio">
+                                                #{Messages['FormuleRisque.fromCritDiffusionOn.shortLabel']} :
+                                            </o:label>
+                                                <o:radio
+                                                    id="#{recherchePrefixe}CritereDiffusionRadio"
+                                                    value="#{query['diffusion']}"
+                                                    nullable="true"
+                                                    labelForNull="#{Messages['common.radio.defaut.lb']}"
+                                                    controllerRef="diffusionPonderationBooleanRC"
+                                                    size="12" title="" />
+                                            </oq:expression>
+                                        </o:control>
+                                    </o:col4>
+
+                                    <o:col4>
+                                        <!-- Critère Destination -->
+                                        <o:control
+                                            id="#{recherchePrefixe}CritereDestinationCtrl">
+                                            <oq:expression
+                                                id="#{recherchePrefixe}CritereDestinationExpr"
+                                                target="fromCritDestinationOn"
+                                                alias="destination">
+                                                <o:label
+                                                    for="#{recherchePrefixe}CritereDestinationRadio">
+                                                #{Messages['FormuleRisque.fromCritDestinationOn.shortLabel']} :
+                                            </o:label>
+                                                <o:radio
+                                                    id="#{recherchePrefixe}CritereDestinationRadio"
+                                                    value="#{query['destination']}"
+                                                    nullable="true"
+                                                    labelForNull="#{Messages['common.radio.defaut.lb']}"
+                                                    controllerRef="destinationPonderationBooleanRC"
+                                                    size="12" title="" />
+                                            </oq:expression>
+                                        </o:control>
+                                    </o:col4>
+
+                                    <o:col4>
+                                        <!-- Critère Note de dernière inspection -->
+                                        <o:control
+                                            id="#{recherchePrefixe}CritereNoteInspectionCtrl">
+                                            <oq:expression
+                                                id="#{recherchePrefixe}CritereNoteInspectionExpr"
+                                                target="fromCritNoteInspectionOn"
+                                                alias="noteInspection">
+                                                <o:label
+                                                    for="#{recherchePrefixe}CritereNoteInspectionRadio">
+                                                #{Messages['FormuleRisque.fromCritNoteInspectionOn.shortLabel']} :
+                                            </o:label>
+                                                <o:radio
+                                                    id="#{recherchePrefixe}CritereNoteInspectionRadio"
+                                                    value="#{query['noteInspection']}"
+                                                    nullable="true"
+                                                    labelForNull="#{Messages['common.radio.defaut.lb']}"
+                                                    controllerRef="noteInspectionPonderationBooleanRC"
+                                                    size="12" title="" />
+                                            </oq:expression>
+                                        </o:control>
+                                    </o:col4>
+
+                                </o:row>
+                            </o:vcontrols>
+                        </o:fieldset>
+                        <o:control>
+                            <o:buttonSet>
+                                <oq:executeQueryButton />
+                                <oq:resetQueryButton
+                                    tooltip="#{Messages['list.formuleRisque.resetquery.tooltip']}" />
+                            </o:buttonSet>
+                        </o:control>
+                    </oq:queryForm>
+                </o:boxBody>
+            </o:box>
+
+            <o:box id="formuleRisqueListBoxId">
+                <o:boxHeader>
+                    <h2>#{Messages['list.formuleRisque.title']}</h2>
+                </o:boxHeader>
+                <o:boxBody>
+                    <o:table id="formuleRisqueListTableId"
+                        title="#{Messages['list.formuleRisque.title']}">
+                        <o:thead>
+                            <o:tr data="true">
+                                <o:th id="selector">
+                                    <o:selectionControl />
+                                </o:th>
+                                <!-- Campagne -->
+                                <o:th id="FormuleRisque_campRfa"
+                                    sortable="false">
+                                    #{Messages['FormuleRisque.campagne.campRfa.shortLabel']}
+                                </o:th>
+                                <!-- Domaine technique -->
+                                <o:th id="FormuleRisque_dtRfa"
+                                    sortable="false">
+                                    #{Messages['FormuleRisque.domaineTechnique.dtRfa.shortLabel']}
+                                </o:th>
+                                <!-- Risque théorique de l'activité (Ri)  -->
+                                <o:th
+                                    id="FormuleRisque_fromCritRisquetheoriqueOn"
+                                    sortable="false">
+                                    #{Messages['FormuleRisque.fromCritRisquetheoriqueOn.shortLabel']}
+                                </o:th>
+                                <!-- Zone Géographique (Z)  -->
+                                <o:th id="FormuleRisque_fromCritZoneOn"
+                                    sortable="false">
+                                    #{Messages['FormuleRisque.fromCritZoneOn.shortLabel']}
+                                </o:th>
+                                <!-- Volume (V)  -->
+                                <o:th
+                                    id="FormuleRisque_fromCritVolumeOn"
+                                    sortable="false">
+                                    #{Messages['FormuleRisque.fromCritVolumeOn.shortLabel']}
+                                </o:th>
+                                <!-- Diffusion (D)  -->
+                                <o:th
+                                    id="FormuleRisque_fromCritDiffusionOn"
+                                    sortable="false">
+                                    #{Messages['FormuleRisque.fromCritDiffusionOn.shortLabel']}
+                                </o:th>
+                                <!-- Destination (S)  -->
+                                <o:th
+                                    id="FormuleRisque_fromCritDestinationOn"
+                                    sortable="false">
+                                    #{Messages['FormuleRisque.fromCritDestinationOn.shortLabel']}
+                                </o:th>
+                                <!-- Note de dernière inspection (M)  -->
+                                <o:th
+                                    id="FormuleRisque_fromCritNoteInspectionOn"
+                                    sortable="false">
+                                    #{Messages['FormuleRisque.fromCritNoteInspectionOn.shortLabel']}
+                                </o:th>
+                                <!-- Actions  -->
+                                <o:th id="FormuleRisque_actionsList"
+                                    sortable="false">
+                                </o:th>
+                            </o:tr>
+                        </o:thead>
+                        <o:tbody>
+                            <o:repeat rows="${listMaxIt}" var="formuleRisque">
+                                <o:fragment>
+                                    <o:tr data="true">
+                                        <o:td headers="selector">
+                                            <o:selector />
+                                        </o:td>
+                                        <!-- Campagne -->
+                                        <o:td
+                                            headers="FormuleRisque_campRfa">
+                                            #{formuleRisque.campagne.campRfa}
+                                        </o:td>
+                                        <!-- Domaine technique -->
+                                        <o:td
+                                            headers="FormuleRisque_dtRfa">
+                                            #{formuleRisque.domaineTechnique}
+                                        </o:td>
+                                        <!-- Risque théorique de l'activité (Ri)  -->
+                                        <o:td
+                                            headers="FormuleRisque_fromCritRisquetheoriqueOn">
+                                            <h:outputText
+                                                rendered="#{formuleRisque.fromCritRisquetheoriqueOn}"
+                                                value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                        </o:td>
+                                        <!-- Zone Géographique (Z)  -->
+                                        <o:td
+                                            headers="FormuleRisque_fromCritZoneOn">
+                                            <h:outputText
+                                                rendered="#{formuleRisque.fromCritZoneOn}"
+                                                value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                        </o:td>
+                                        <!-- Volume (V)  -->
+                                        <o:td
+                                            headers="FormuleRisque_fromCritVolumeOn">
+                                            <h:outputText
+                                                rendered="#{formuleRisque.fromCritVolumeOn}"
+                                                value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                        </o:td>
+                                        <!-- Diffusion (D)  -->
+                                        <o:td
+                                            headers="FormuleRisque_fromCritDiffusionOn">
+                                            <h:outputText
+                                                rendered="#{formuleRisque.fromCritDiffusionOn}"
+                                                value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                        </o:td>
+                                        <!-- Destination (S)  -->
+                                        <o:td
+                                            headers="FormuleRisque_fromCritDestinationOn">
+                                            <h:outputText
+                                                rendered="#{formuleRisque.fromCritDestinationOn}"
+                                                value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                        </o:td>
+                                        <!-- Note de dernière inspection (M)  -->
+                                        <o:td
+                                            headers="FormuleRisque_fromCritNoteInspectionOn">
+                                            <h:outputText
+                                                rendered="#{formuleRisque.fromCritNoteInspectionOn}"
+                                                value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                        </o:td>
+                                        <!-- Actions -->
+                                        <o:td
+                                            headers="FormuleRisque_actionsList">
+                                            <o:dropdownButton
+                                                id="dropdownButtonFormuleRisqueModif"
+                                                label="#{Messages['common.dropdown.actions']}"
+                                                rendered="#{formuleRisqueListViewPolicy.afficherListeActions}">
+                                                
+                                                <o:modifyAction
+                                                    id="formuleRisqueActionModifier"
+                                                    label="#{Messages['list.formuleRisque.action.modifier.label']}"
+                                                    outcome="formuleRisque_crea_form"
+                                                    rendered="#{formuleRisqueListViewPolicy.afficherActionModifier
+                                                                and not formuleRisqueListViewPolicy.campagneEchue}" />
+                                                <o:modifyAction
+                                                    id="formuleRisqueActionConsulter"
+                                                    label="#{Messages['list.formuleRisque.action.modifier.label']}"
+                                                    outcome="formuleRisque_detail_form"
+                                                    rendered="#{formuleRisqueListViewPolicy.afficherActionModifier
+                                                                and formuleRisqueListViewPolicy.campagneEchue}" />
+
+                                                <o:separator />
+
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationRisqueTheoriqueModif"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.ri.label']}"
+                                                    outcome="ponderationRisqueTheorique_crea_form"
+                                                    rendered="#{formuleRisque.fromCritRisquetheoriqueOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationCrea}" />
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationRisqueTheoriqueDetail"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.ri.label']}"
+                                                    outcome="ponderationRisqueTheorique_detail_form"
+                                                    rendered="#{formuleRisque.fromCritRisquetheoriqueOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationDetail}" />
+                                                    
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationZoneModif"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.zone.label']}"
+                                                    outcome="ponderationZone_crea_form"
+                                                    rendered="#{formuleRisque.fromCritZoneOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationCrea}" />
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationZoneDetail"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.zone.label']}"
+                                                    outcome="ponderationZone_detail_form"
+                                                    rendered="#{formuleRisque.fromCritZoneOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationDetail}" />
+                                                    
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationVolumeModif"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.vol.label']}"
+                                                    outcome="ponderationVolume_crea_form"
+                                                    rendered="#{formuleRisque.fromCritVolumeOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationCrea}" />
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationVolumeDetail"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.vol.label']}"
+                                                    outcome="ponderationVolume_detail_form"
+                                                    rendered="#{formuleRisque.fromCritVolumeOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationDetail}" />
+                                                    
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationDiffusionModif"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.dif.label']}"
+                                                    outcome="ponderationDiffusion_crea_form"
+                                                    rendered="#{formuleRisque.fromCritDiffusionOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationCrea}" />
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationDiffusionDetail"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.dif.label']}"
+                                                    outcome="ponderationDiffusion_detail_form"
+                                                    rendered="#{formuleRisque.fromCritDiffusionOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationDetail}" />
+                                                    
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationDestinationModif"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.dest.label']}"
+                                                    outcome="ponderationDestination_crea_form"
+                                                    rendered="#{formuleRisque.fromCritDestinationOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationCrea}" />
+                                                <o:dropdownAction
+                                                    id="formuleRisqueActionPonderationDestinationDetail"
+                                                    icon="icon-list-alt"
+                                                    label="#{Messages['list.formuleRisque.action.pond.dest.label']}"
+                                                    outcome="ponderationDestination_detail_form"
+                                                    rendered="#{formuleRisque.fromCritDestinationOn
+                                                                and formuleRisqueListViewPolicy.afficherLienPonderationDetail}" />
+                                            </o:dropdownButton>
+                                        </o:td>
+                                    </o:tr>
+                                </o:fragment>
+                            </o:repeat>
+                        </o:tbody>
+                    </o:table>
+                    <ui:include src="/common/list-pagination.xhtml" />
+
+                    <o:buttonSet id="formuleRisqueListButtonSet">
+                        <o:newButton id="formuleRisqueListNewButton"
+                            outcome="formuleRisque_crea_form"
+                            label="#{Messages['list.formuleRisque.button.creer.label']}"
+                            tooltip="#{Messages['list.formuleRisque.button.creer.tooltip']}" />
+                            
+                        <o:button id="formuleRisqueListDuplicationAction"
+                            actionRef="dupliquerFormuleRisqueAction"
+                            outcome="formuleRisque_dupliquer_crea_form"
+                            label="#{Messages['list.formuleRisque.button.dupliquer.label']}"
+                            tooltip="#{Messages['list.formuleRisque.button.dupliquer.tooltip']}"
+                            icon="#{Messages['action.business.CopyAction.icon']}" />
+                            
+                        <!--Export de la liste-->
+                        <o:reportButton 
+                            actionRef="exportFormulesRisqueActionRef"
+                            reportId="exportFormulesRisque"
+                            tooltip="#{Messages['list.formuleRisque.button.exporter.tooltip']}" />
+                                
+                        <o:deleteButton
+                            id="formuleRisqueListDeleteButton"
+                            actionRef="formuleRisqueListDeleteAction"
+                            label="#{Messages['list.formuleRisque.button.suppr.label']}"
+                            tooltip="#{Messages['list.formuleRisque.button.suppr.tooltip']}" />
+                    </o:buttonSet>                  
+                </o:boxBody>
+            </o:box>
+
+        </o:list>
+    </ui:define>
+</ui:composition>

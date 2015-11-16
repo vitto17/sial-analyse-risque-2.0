@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:o="http://orion.agriculture-gouv.fr/standard"
+    xmlns:oq="http://orion.agriculture-gouv.fr/query"
+    xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel"
+        value="#{Messages['form.formuleRisque.duplication.title']}" />
+    <ui:param name="pageId" value="formuleRisqueDuplicationForm" />
+
+    <ui:define name="content">
+        <o:box>
+            <o:boxHeader>
+                <h3>#{Messages['form.formuleRisque.duplication.title']}</h3>
+            </o:boxHeader>
+            <o:boxBody>
+                <o:form id="#{pageId}Id"
+                    exitWithoutSave="true"
+                    controllerRef="formuleRisqueDuplicationFC"
+                    var="beanDuplication">
+
+                    <o:grid>
+                        <!-- Bloc Campagne -->
+                        <o:row>
+                            <o:col6>
+                                <o:control id="#{pageId}CampagneCtrl">
+                                    <o:requiredLabel
+                                        for="#{pageId}CampagneCbBox">
+                                        #{Messages['form.formuleRisque.duplication.champ.campagneCicle.shortLabel']} :
+                                    </o:requiredLabel>
+
+                                    <o:comboBox
+                                        id="#{pageId}CampagneCbBox"
+                                        value="#{beanDuplication.campagne}"
+                                        displayLabelProperty="campRfa"
+                                        nullable="false"
+                                        labelForNull="#{Messages['common.combobox.defaut.lb']}"
+                                        defaultValue="#{campagneCBC.defaultValue}"
+                                        controllerRef="campagneCBC"
+                                        disabled="false"
+                                        cacheable="true"
+                                        size="12" title="">
+                                        <o:order name="campRfa"
+                                            caseSensitive="true"
+                                            ascending="false" />
+                                    </o:comboBox>
+                                </o:control>
+                            </o:col6>
+                        </o:row>
+                    </o:grid>
+                    <br />
+                    <o:fieldset id="#{pageId}FormuleListFieldset">
+
+                        <o:legend>
+                            #{Messages['form.formuleRisque.duplication.fieldset.listeFormule.shortLabel']}
+                        </o:legend>
+
+                        <o:slaveList
+                            id="#{pageId}FormuleRisqueSlaveListId"
+                            controllerRef="formuleRisqueDuplicationSLC"
+                            parentProperty="formuleRisqueList">
+
+                            <o:table
+                                id="#{pageId}FormuleRisqueSlaveListTableId">
+                                <o:thead>
+                                    <o:tr data="true">
+                                        <!-- Campagne -->
+                                        <o:th id="FormuleRisque_campRfa"
+                                            sortable="false">
+                                            #{Messages['FormuleRisque.campagne.campRfa.shortLabel']}
+                                        </o:th>
+                                        <!-- Domaine technique -->
+                                        <o:th id="FormuleRisque_dtRfa"
+                                            sortable="false">
+                                            #{Messages['FormuleRisque.domaineTechnique.dtRfa.shortLabel']}
+                                        </o:th>
+                                        <!-- Risque théorique de l'activité (Ri)  -->
+                                        <o:th
+                                            id="FormuleRisque_fromCritRisquetheoriqueOn"
+                                            sortable="false">
+                                            #{Messages['FormuleRisque.fromCritRisquetheoriqueOn.shortLabel']}
+                                        </o:th>
+                                        <!-- Zone Géographique (Z)  -->
+                                        <o:th
+                                            id="FormuleRisque_fromCritZoneOn"
+                                            sortable="false">
+                                            #{Messages['FormuleRisque.fromCritZoneOn.shortLabel']}
+                                        </o:th>
+                                        <!-- Volume (V)  -->
+                                        <o:th
+                                            id="FormuleRisque_fromCritVolumeOn"
+                                            sortable="false">
+                                            #{Messages['FormuleRisque.fromCritVolumeOn.shortLabel']}
+                                        </o:th>
+                                        <!-- Diffusion (D)  -->
+                                        <o:th
+                                            id="FormuleRisque_fromCritDiffusionOn"
+                                            sortable="false">
+                                            #{Messages['FormuleRisque.fromCritDiffusionOn.shortLabel']}
+                                        </o:th>
+                                        <!-- Destination (S)  -->
+                                        <o:th
+                                            id="FormuleRisque_fromCritDestinationOn"
+                                            sortable="false">
+                                            #{Messages['FormuleRisque.fromCritDestinationOn.shortLabel']}
+                                        </o:th>
+                                        <!-- Note de dernière inspection (M)  -->
+                                        <o:th
+                                            id="FormuleRisque_fromCritNoteInspectionOn"
+                                            sortable="false">
+                                            #{Messages['FormuleRisque.fromCritNoteInspectionOn.shortLabel']}
+                                        </o:th>
+                                    </o:tr>
+                                </o:thead>
+                                <o:tbody>
+                                    <o:repeat var="formuleRisque">
+                                        <o:fragment>
+                                            <o:tr data="true">
+                                                <!-- Campagne -->
+                                                <o:td
+                                                    headers="FormuleRisque_campRfa">
+                                                    #{formuleRisque.campagne.campRfa}
+                                                </o:td>
+                                                <!-- Domaine technique -->
+                                                <o:td
+                                                    headers="FormuleRisque_dtRfa">
+                                                    #{formuleRisque.domaineTechnique}
+                                                </o:td>
+                                                <!-- Risque théorique de l'activité (Ri)  -->
+                                                <o:td
+                                                    headers="FormuleRisque_fromCritRisquetheoriqueOn">
+                                                    <h:outputText
+                                                        rendered="#{formuleRisque.fromCritRisquetheoriqueOn}"
+                                                        value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                                </o:td>
+                                                <!-- Zone Géographique (Z)  -->
+                                                <o:td
+                                                    headers="FormuleRisque_fromCritZoneOn">
+                                                    <h:outputText
+                                                        rendered="#{formuleRisque.fromCritZoneOn}"
+                                                        value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                                </o:td>
+                                                <!-- Volume (V)  -->
+                                                <o:td
+                                                    headers="FormuleRisque_fromCritVolumeOn">
+                                                    <h:outputText
+                                                        rendered="#{formuleRisque.fromCritVolumeOn}"
+                                                        value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                                </o:td>
+                                                <!-- Diffusion (D)  -->
+                                                <o:td
+                                                    headers="FormuleRisque_fromCritDiffusionOn">
+                                                    <h:outputText
+                                                        rendered="#{formuleRisque.fromCritDiffusionOn}"
+                                                        value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                                </o:td>
+                                                <!-- Destination (S)  -->
+                                                <o:td
+                                                    headers="FormuleRisque_fromCritDestinationOn">
+                                                    <h:outputText
+                                                        rendered="#{formuleRisque.fromCritDestinationOn}"
+                                                        value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                                </o:td>
+                                                <!-- Note de dernière inspection (M)  -->
+                                                <o:td
+                                                    headers="FormuleRisque_fromCritNoteInspectionOn">
+                                                    <h:outputText
+                                                        rendered="#{formuleRisque.fromCritNoteInspectionOn}"
+                                                        value="#{Messages['common.boolean.true.downcase.lb']}" />
+                                                </o:td>
+                                            </o:tr>
+                                        </o:fragment>
+                                    </o:repeat>
+                                </o:tbody>
+                            </o:table>
+                        </o:slaveList>
+                    </o:fieldset>
+
+                    <!-- Action  -->
+                    <o:buttonSet>
+                        <o:backButton label="#{Messages['common.action.retour.lb']}"/>
+                        <o:saveAndCloseButton label="#{Messages['form.formuleRisque.duplication.button.valider.label']}"
+                            icon="icon-chevron-right" />
+                    </o:buttonSet>
+                </o:form>
+            </o:boxBody>
+        </o:box>
+    </ui:define>
+</ui:composition>

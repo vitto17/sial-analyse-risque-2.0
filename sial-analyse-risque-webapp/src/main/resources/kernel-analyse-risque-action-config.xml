@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd ">
+
+    <!-- Actions Guide nomenclatures -->
+
+    <bean name="zoneMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesZoneNewShowPopUpAction"
+        scope="request">
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="zoneMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesZoneModShowPopUpAction"
+        scope="request">
+    </bean>
+
+    <bean name="destinationTypeActiviteMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesDestinationTypeActiviteShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vTypeActiviteLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="destinationTypeActiviteMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesDestinationTypeActiviteShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vTypeActiviteLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+    
+    <bean name="volumeTypeActiviteMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesDestinationTypeActiviteShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vTypeActiviteLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="volumeTypeActiviteMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesVolumeTypeActiviteShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vTypeActiviteLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+    
+    <bean name="risqueTheoriqueTypeActiviteMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesRisqueTheoriqueTypeActiviteShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vTypeActiviteLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="risqueTheoriqueTypeActiviteMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesRisqueTheoriqueTypeActiviteShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vTypeActiviteLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+    
+    <bean name="ponderationRisqueTheoriqueNewAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.PonderationRisqueTheoriqueNewAction"
+          scope="request">
+    </bean>
+    
+    <bean name="ponderationRisqueTheoriqueSaveAndNewAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.PonderationRisqueTheoriqueSaveAndNewAction"
+          scope="request">
+    </bean>
+    
+    <bean name="destinationMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesDestinationShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vDestinationLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="destinationMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesDestinationShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vDestinationLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+
+    <bean name="uniteProductionMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vUniteProductionLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="uniteProductionMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vUniteProductionLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+
+    <bean name="approbationMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesRisqueTheoriqueApprobationShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vRefApprobationLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="approbationMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesRisqueTheoriqueApprobationShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vRefApprobationLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+    
+    <bean name="procedeMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesProcedeShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vProcedeLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="procedeMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesProcedeShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vProcedeLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+    
+    <bean name="denreeMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesRisqueTheoriqueDenreeShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vDenreeLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="denreeMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vDenreeLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+    
+    <bean name="filiereVegetalMultiShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesRisqueTheoriqueFiliereVegetaleShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MULTI_SELECTION" />
+        <property name="listController" value-ref="vFiliereVegetalLC" />
+        <property name="icon" value="icon-plus-sign" />
+    </bean>
+    <bean name="filiereVegetalMonoShowPopUpAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.NomenclaturesShowPopUpAction"
+        scope="request">
+        <property name="typeSelection" value="MONO_SELECTION" />
+        <property name="listController" value-ref="vFiliereVegetalLC" />
+        <property name="lienFige" value="true" />
+    </bean>
+    
+    
+    <!-- Actions Analyse de risque -->
+
+    <!-- Action de suppression d'une formule de risque -->
+    <bean name="formuleRisqueListDeleteAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.FormuleRisqueListDeleteAction"
+        scope="request" />
+
+    <!-- Actions de duplication -->
+    <bean name="ponderationDestinationDuplicateAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.PonderationDestinationDuplicateAction"
+        scope="request">
+        <property name="icon" value="icon-copy" />
+    </bean>
+    <bean name="ponderationDiffusionDuplicateAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.PonderationDiffusionDuplicateAction"
+        scope="request">
+        <property name="icon" value="icon-copy" />
+    </bean>
+    <bean name="ponderationVolumeDuplicateAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.PonderationVolumeDuplicateAction"
+        scope="request">
+        <property name="icon" value="icon-copy" />
+    </bean>
+    <bean name="ponderationZoneDuplicateAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.PonderationZoneDuplicateAction"
+        scope="request">
+        <property name="icon" value="icon-copy" />
+    </bean>
+    <bean name="ponderationRisqueTheoriqueDuplicateAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.PonderationRisqueTheoriqueDuplicateAction"
+        scope="request">
+        <property name="icon" value="icon-copy" />
+    </bean>
+    
+    <!-- Action supression de ponderation risque théorique -->
+    <bean name="ponderationRisqueTheoriqueDeleteAction"
+          classname="fr.gouv.agriculture.dal.sial.arq.action.PonderationRisqueTheoriqueDeleteAction"
+          scope="request">
+    </bean>
+    
+    <!-- Fin Actions de duplication -->
+
+    <!-- Actions de calcul et résultats -->
+    <bean name="calculerActionRef"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.CalculerNotesRisquesAction"
+        scope="request">
+    </bean>
+    
+    <bean name="exportFormulesRisqueActionRef"
+		classname="fr.gouv.agriculture.dal.sial.arq.action.ExportFormulesRisqueAction"
+		scope="request">
+	</bean>
+    
+    <bean name="exportNotesRisquesActionRef"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.ExportNotesRisquesAction"
+        scope="request">
+    </bean>
+
+	<bean name="exportPonderationRisqueTheoriqueActionRef"
+		classname="fr.gouv.agriculture.dal.sial.arq.action.ExportPonderationRisqueTheoriqueAction"
+		scope="request">
+	</bean>
+
+	<bean name="exportPonderationDiffusionActionRef"
+		classname="fr.gouv.agriculture.dal.sial.arq.action.ExportPonderationDiffusionAction"
+		scope="request">
+	</bean>
+
+	<bean name="exportPonderationDestinationActionRef"
+		classname="fr.gouv.agriculture.dal.sial.arq.action.ExportPonderationDestinationAction"
+		scope="request">
+	</bean>
+
+	<bean name="exportPonderationVolumeActionRef"
+		classname="fr.gouv.agriculture.dal.sial.arq.action.ExportPonderationVolumeAction"
+		scope="request">
+	</bean>
+
+	<bean name="exportPonderationZoneActionRef"
+		classname="fr.gouv.agriculture.dal.sial.arq.action.ExportPonderationZoneAction"
+		scope="request">
+	</bean>
+        
+    <!-- Actions de traitements en cours -->
+    <bean name="traitementsEnCoursRafraichirAction"
+        classname="fr.gouv.agriculture.dal.sial.arq.action.TraitementsEnCoursRafraichirAction"
+        scope="request">
+    </bean>
+    
+    <!-- Action d'ouverture de l'écran de duplication de formules de risque -->
+    <bean name="dupliquerFormuleRisqueAction"
+          classname="fr.gouv.agriculture.dal.sial.arq.action.DupliquerFormuleRisqueAction"
+          scope="request">
+    </bean>
+</p:kernel-config>

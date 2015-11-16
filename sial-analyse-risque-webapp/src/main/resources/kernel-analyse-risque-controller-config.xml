@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd ">
+
+    <!-- injection des beans controller -->
+    
+    <!-- Formule de risque -->
+    <bean name="formuleRisqueLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.list.FormuleRisqueListController"
+              parent="fr.gouv.agriculture.orion.controller.list.ListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque" />
+        <property name="businessDao"
+                  value-ref="fr.gouv.agriculture.dal.sial.arq.dao.FormuleRisqueDAO" />
+    </bean>
+    <bean name="formuleRisqueQFC"
+          classname="fr.gouv.agriculture.orion.controller.form.QueryFormController"
+          parent="fr.gouv.agriculture.orion.controller.form.QueryFormController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.orion.query.CriteriaMap" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.FormuleRisqueDAO" />
+    </bean>
+    <bean name="formuleRisqueFC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.form.FormuleRisqueFC"
+          parent="fr.gouv.agriculture.orion.controller.form.FormController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque" />
+    </bean>
+    <bean name="formuleRisqueDuplicationFC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.form.FormuleRisqueDuplicationFC"
+          parent="fr.gouv.agriculture.orion.controller.form.FormController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.bean.DuplicationFormuleRisqueBean" />
+        <property name="businessDao"
+                  value-ref="fr.gouv.agriculture.dal.sial.arq.dao.FormuleRisqueDuplicationDAO" />
+    </bean>
+    <bean name="formuleRisqueDuplicationSLC"
+          classname="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+          parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque" />
+    </bean>
+
+    <!-- Ponderations -->
+        
+    <!-- Ponderation Zone -->
+    <bean name="ponderationZoneSLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.slavelist.PonderationZoneSlaveListController"
+              parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationZone" />
+    </bean>
+    <bean name="ponderationZoneFC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.form.PonderationFormController"
+              parent="fr.gouv.agriculture.orion.controller.form.FormController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque" />
+        <property name="getterName" value="ponderationZones" />
+        <property name="ruleName" value="fr.gouv.agriculture.dal.sial.arq.business.rule.PonderationZoneRule" />
+        <property name="typePonderation" value="pzone" />
+    </bean>
+    
+    <!-- Ponderation Diffusion -->
+    <bean name="ponderationDiffusionSLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.slavelist.PonderationDiffusionSlaveListController"
+              parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationDiffusion" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.PonderationDiffusionDAO" />
+    </bean>
+    <bean name="ponderationDiffusionFC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.form.PonderationFormController"
+              parent="fr.gouv.agriculture.orion.controller.form.FormController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque" />
+        <property name="getterName" value="ponderationDiffusions" />
+        <property name="ruleName" value="fr.gouv.agriculture.dal.sial.arq.business.rule.PonderationDiffusionRule" />
+        <property name="typePonderation" value="pdiff" />
+    </bean>
+
+    <!-- Ponderation Destination -->
+    <bean name="ponderationDestinationSLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.slavelist.PonderationDestinationSlaveListController"
+              parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationDestination" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.PonderationDestinationDAO" />
+    </bean>
+    <bean name="ponderationDestinationFC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.form.PonderationFormController"
+              parent="fr.gouv.agriculture.orion.controller.form.FormController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque" />
+        <property name="getterName" value="ponderationDestinations" />
+        <property name="ruleName" value="fr.gouv.agriculture.dal.sial.arq.business.rule.PonderationDestinationRule" />
+        <property name="typePonderation" value="pdest" />
+    </bean>
+    
+    <!-- Ponderation Volume -->
+    <bean name="ponderationVolumeSLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.slavelist.PonderationVolumeSlaveListController"
+              parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationVolume" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.PonderationVolumeDAO" />
+    </bean>
+    <bean name="ponderationVolumeFC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.form.PonderationFormController"
+              parent="fr.gouv.agriculture.orion.controller.form.FormController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque" />
+        <property name="getterName" value="ponderationVolumes" />
+        <property name="ruleName" value="fr.gouv.agriculture.dal.sial.arq.business.rule.PonderationVolumeRule" />
+        <property name="typePonderation" value="pvol" />
+    </bean>
+    
+    <!-- Ponderation Risque Theorique -->
+    <bean name="ponderationRisqueTheoriqueSLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.slavelist.PonderationRisqueTheoriqueSLC"
+              parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheorique" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.PonderationRisqueTheoriqueDAO" />
+    </bean>
+    <bean name="ponderationRisqueTheoriqueFC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.form.PonderationFormController"
+              parent="fr.gouv.agriculture.orion.controller.form.FormController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.FormuleRisque" />
+        <property name="getterName" value="ponderationRisqueTheoriques" />
+        <property name="ruleName" value="fr.gouv.agriculture.dal.sial.arq.business.rule.PonderationRisqueTheoriqueRule" />
+        <property name="typePonderation" value="prisqtheo" />
+    </bean>
+    
+    <bean name="ponderationRisqueTheorique2FC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.form.PonderationRisqueTheoriqueFormController"
+              parent="fr.gouv.agriculture.orion.controller.form.FormController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheorique" />
+    </bean>
+    
+    <bean name="ponderationRisqueTheoriqueApprobationsSLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.slavelist.PonderationRisqueTheoriqueApprobationsSLC"
+              parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheoriqueApprobation" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.PonderationRisqueTheoriqueApprobationDAO" />
+    </bean>
+    
+    <bean name="ponderationRisqueTheoriqueProcedesSLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.slavelist.PonderationRisqueTheoriqueProcedesSLC"
+              parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheoriqueProcede" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.PonderationRisqueTheoriqueProcedeDAO" />
+    </bean>
+    
+    <bean name="ponderationRisqueTheoriqueProduitsSLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.slavelist.PonderationRisqueTheoriqueProduitsSLC"
+              parent="fr.gouv.agriculture.orion.controller.list.SlaveListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.arq.business.PonderationRisqueTheoriqueProduit" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.PonderationRisqueTheoriqueProduitDAO" />
+    </bean>
+    
+    <!-- Diffusion -->
+    <bean name="diffusionCBC"
+              classname="fr.gouv.agriculture.orion.controller.list.ListController"
+              parent="fr.gouv.agriculture.orion.controller.list.ListController"
+              scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDiffusion" />
+    </bean>
+    
+    
+    <!-- ComboBox des Campagne -->
+    <bean name="campagneCBC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.combobox.CampagneComboBoxController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VCampagne" />
+    </bean>
+    <bean name="campagneSansFiltreCBC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.combobox.CampagneComboBoxController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VCampagne" />
+        <property name="isFiltreFinDtActive"
+                  value="false" />
+    </bean>
+    
+    <!-- ComboBox des domaines techniques -->
+    <bean name="domaineTechniqueCBC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.combobox.DomaineTechniqueComboBoxController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDomaineTechnique" />
+    </bean>
+    
+    <!-- ComboBox des destinations -->
+    <bean name="destinationCBC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.combobox.DestinationComboBoxController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VDestination" />
+    </bean>
+    
+    <!-- ComboBox des unite de production -->
+    <bean name="uniteProductionCBC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.combobox.UniteProductionComboBoxController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VUniteProduction" />
+    </bean>
+    
+    <!-- ComboBox des produits Alimentation animale -->
+    <bean name="produitAlaniCBC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.combobox.ProduitAlaniComboBoxController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VAlimentationAnimale" />
+    </bean>
+    
+    <!-- ComboBox des produits Anima (espece dgal) -->
+    <bean name="produitAnimaCBC"
+          classname="fr.gouv.agriculture.dal.sial.arq.controller.combobox.ProduitAnimaComboBoxController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VEspeceDgal" />
+    </bean>
+    
+    <!-- ComboBox des produits Type Intrant -->
+    <bean name="produitIntraCBC"
+          classname="fr.gouv.agriculture.orion.controller.list.ListController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass"
+                  value="fr.gouv.agriculture.dal.sial.nomenclatures.businessshared.VTypeIntrant" />
+    </bean>
+    
+    <!-- Calcul et Résultats -->
+    <bean name="calculEtResultatsLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.list.CalculEtResultatsListController"
+              parent="fr.gouv.agriculture.orion.controller.list.ListController"
+              scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.bean.VNbruaAgg" />
+    </bean>
+    <bean name="calculEtResultatsQFC"
+          classname="fr.gouv.agriculture.orion.controller.form.QueryFormController"
+          parent="fr.gouv.agriculture.orion.controller.form.QueryFormController"
+          scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.VNbrua" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.CalculEtResultatsDAO" />
+        <property name="rememberQuery" value="FALSE" />
+    </bean>
+
+
+
+    <!-- Traitements en cours -->
+    <bean name="traitementsEnCoursLC"
+              classname="fr.gouv.agriculture.dal.sial.arq.controller.list.TraitementsEnCoursListController"
+              parent="fr.gouv.agriculture.orion.controller.list.ListController"
+              scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.Batch" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.BatchDAO" />
+    </bean>
+
+    <!-- Liste de booléens (Oui / Non) pour les pondérations dans les formules de risque -->
+    <bean name="risquetheoriquePonderationBooleanRC"
+          classname="fr.gouv.agriculture.orion.controller.list.ListController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.BooleanPonderation" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.BooleanPonderationDAO" />
+    </bean>
+
+    <bean name="zonePonderationBooleanRC"
+          classname="fr.gouv.agriculture.orion.controller.list.ListController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.BooleanPonderation" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.BooleanPonderationDAO" />
+    </bean>
+
+    <bean name="volumePonderationBooleanRC"
+          classname="fr.gouv.agriculture.orion.controller.list.ListController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.BooleanPonderation" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.BooleanPonderationDAO" />
+    </bean>
+
+    <bean name="diffusionPonderationBooleanRC"
+          classname="fr.gouv.agriculture.orion.controller.list.ListController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.BooleanPonderation" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.BooleanPonderationDAO" />
+    </bean>
+
+    <bean name="destinationPonderationBooleanRC"
+          classname="fr.gouv.agriculture.orion.controller.list.ListController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.BooleanPonderation" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.BooleanPonderationDAO" />
+    </bean>
+
+    <bean name="noteInspectionPonderationBooleanRC"
+          classname="fr.gouv.agriculture.orion.controller.list.ListController"
+          parent="fr.gouv.agriculture.orion.controller.list.ListController"
+          scope="session">
+        <property name="businessClass" value="fr.gouv.agriculture.dal.sial.arq.business.BooleanPonderation" />
+        <property name="businessDao" value-ref="fr.gouv.agriculture.dal.sial.arq.dao.BooleanPonderationDAO" />
+    </bean>
+
+</p:kernel-config>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/core-page.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:o="http://orion.agriculture-gouv.fr/standard" >
+
+    <ui:param name="pageLabel" value="#{Messages['view.faces.standard.common.warnings.pageLabel']}"/>
+
+    <ui:define name="title">
+        <h:outputText value="#{Messages['view.faces.standard.common.warnings.title']}" />
+    </ui:define>
+
+
+    <ui:define name="content">
+        <o:box folded="false" id="warningBox">
+            <!-- Header de la box -->
+            <o:boxHeader>
+                <h2><h:outputText value="#{Messages['view.faces.standard.common.warnings.header']}" /></h2>
+            </o:boxHeader>
+
+            <!-- body de la box -->
+            <o:boxBody>
+                <!-- Contrôleur de page  hérité -->        
+                <o:hcontrols styleClass="o-center">            
+                    <p style="margin-top: 6em;margin-bottom: 3em;">
+                        Il existe une ou plusieurs alertes : consultez la zone de message sous le bandeau pour les découvrir.
+                    </p>
+                    <o:buttonSet >
+                        <o:button
+                            actionRef="fr.gouv.agriculture.orion.action.navigation.CancelConfirmationWithoutRefreshAction" />
+                        <o:button label="#{Messages['view.faces.standard.common.warnings.valid']}"
+                                  actionRef="fr.gouv.agriculture.orion.action.navigation.ConfirmAction" />
+                    </o:buttonSet>  
+                </o:hcontrols>
+            </o:boxBody>
+
+            <!-- Texte Alternatif de la box -->
+            <o:boxAlt> 
+                <h:outputText value="#{Messages['view.faces.standard.common.warnings.alt']}" />
+            </o:boxAlt>
+        </o:box>
+    </ui:define>  
+</ui:composition>

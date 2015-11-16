@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="/template/ponderation.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard"
+                xmlns:oq="http://orion.agriculture-gouv.fr/query"
+                xmlns:co="http://orion.agriculture-gouv.fr/core">
+
+    <ui:param name="pageLabel" value="#{Messages['form.ponderation.volume.title']}" />
+    <ui:param name="formControllerRef" value="ponderationVolumeFC" />
+    <ui:param name="formattedCreation" value="#{ponderationVolumeFC.formModel.object.ponderationVolumeFormattedCreation}" />
+    <ui:param name="formattedModification" value="#{ponderationVolumeFC.formModel.object.ponderationVolumeFormattedModification}" />
+    <ui:param name="saveButtonVisible" value="true" />
+    <ui:param name="reportActionRef" value="exportPonderationVolumeActionRef" />
+    <ui:param name="reportMetadataId" value="exportPonderationVolume" />
+    
+    <ui:define name="ponderation">
+
+        <o:slaveList id="ponderationVolumeSLCId" controllerRef="ponderationVolumeSLC">
+            <o:table id="ponderationVolumeListTableId" title="">
+
+                <o:thead>
+                    <o:tr data="true" >
+                        <o:th id="selectorPonderation" >
+                            <o:selectionControl/>
+                        </o:th>
+                        <o:th id="ponderationVolume_typeActivite" sortable="false">
+                                <o:requiredLabelHelp titleHelp="#{Messages['ponderation.typeActivite.infobulle']}">
+                                        #{Messages['PonderationVolume.taRfa.taLb.shortLabel']}
+                                </o:requiredLabelHelp>
+                        </o:th>
+                        <o:th id="action_typeActivite" />
+                            
+                        <o:th id="ponderationVolume_uniteProduction" sortable="false">                            
+                                <o:requiredLabelHelp titleHelp="#{Messages['ponderation.uniteProduction.infobulle']}">
+                                        #{Messages['PonderationVolume.uprodRfa.uprodLb.shortLabel']}
+                                </o:requiredLabelHelp>
+                        </o:th>
+                        
+                        <o:th id="ponderationVolume_poids1" sortable="false">
+                            <o:requiredLabelHelp titleHelp="#{Messages['ponderation.seul1.infobulle']}"/>
+                        </o:th>
+                        <o:th id="ponderationVolume_poids1_lb" sortable="false">
+                            #{Messages['PonderationVolume.pvolS1Nb2.shortLabel']}
+                        </o:th>
+                        
+                        
+                        <o:th id="ponderationVolume_poids2" sortable="false">
+                            <o:help title="#{Messages['ponderation.seul2.infobulle']}" />
+                        </o:th>
+                        <o:th id="ponderationVolume_poids2_lb" sortable="false">
+                            #{Messages['PonderationVolume.pvolS2Nb2.shortLabel']}
+                        </o:th>
+                        
+                        
+                        <o:th id="ponderationVolume_poids3" sortable="false">
+                            <o:help title="#{Messages['ponderation.seul3.infobulle']}" />
+                        </o:th>
+                        <o:th id="ponderationVolume_poids3_lb" sortable="false">
+                            #{Messages['PonderationVolume.pvolS3Nb2.shortLabel']}
+                        </o:th>
+                        
+                        
+                        <o:th id="ponderationVolume_poids4" sortable="false">
+                            <o:help title="#{Messages['ponderation.seul4.infobulle']}" />
+                        </o:th>
+                        <o:th id="ponderationVolume_poids4_lb" sortable="false">
+                            #{Messages['PonderationVolume.pvolS4Nb2.shortLabel']}
+                        </o:th>
+                        
+                        <o:th id="action_new" />
+
+                    </o:tr>
+                </o:thead>
+
+                <o:tbody>
+                    <o:repeat var="ponderation">
+                        <o:fragment>
+                            <o:tr data="true">
+                                <!-- Selector -->
+                                <o:td headers="selectorPonderation">
+                                    <o:selector/>
+                                </o:td>
+                                <!-- Type Activite -->
+                                <o:td headers="ponderationVolume_typeActivite" styleClass="colTypeAct">
+                                            <o:outputText id="ponderationVolume_typeActiviteAssign"
+                                                          value="#{ponderation.taRfa}"
+                                                          rendered="false" />
+                                            #{ponderation.taRfa.taLb}
+                                </o:td>
+                                <!-- Action Affecter Type Activite -->
+                                <o:td headers="action_typeActivite"  styleClass="colBtnAffacter">
+                                            <o:showPopUpButton id="actionModifPonderationVolume_typeActivite" for="ponderationVolume_typeActiviteAssign"
+                                                               url="/nomenclatures/typeactivite/guide/guideVTypeActivite.xhtml"
+                                                               actionRef="volumeTypeActiviteMonoShowPopUpAction"
+                                                               popUpTitle="#{Messages['guide.typeActivite.label']}"
+                                                               tooltip="#{Messages['guide.typeActivite.label']}"
+                                                               label="#{Messages['common.action.affect.lb']}"
+                                                               width="1080" height="824" />
+                                </o:td>
+                                <!-- Unite Production -->
+                                <o:td headers="ponderationVolume_uniteProduction" >
+                                    <o:comboBox id="ponderationVolume_uniteProductionCB"
+                                                value="#{ponderation.uprodRfa}"
+                                                displayLabelProperty="uprodLb"
+                                                controllerRef="uniteProductionCBC"
+                                                title="" size="12"
+                                                cacheable="true"
+                                                disabled="#{ponderation.taRfa == null}"/>
+                                </o:td>
+
+                                <!-- Modification de la Destination -->
+
+                                <!-- Poids 1 -->
+                                <o:td headers="ponderationVolume_poids1" styleClass="colSeuilPoids">
+                                    <o:inputText id="ponderationVolumePoids1"
+                                                 title="#{Messages['ponderation.rule.poids.positif.err']}"
+                                                 value="#{ponderation.pvolS1Nb2}"
+                                                 pattern="[0-9]{0,10}"
+                                                 maxlength="10"
+                                                 size="12"
+                                                 />
+                                </o:td>
+                                <o:td headers="ponderationVolume_poids1_lb" styleClass="colPoids" >
+                                    #{Messages['ponderationVolume.valeur1.label']}
+                                </o:td>
+
+                                <!-- Poids 2 -->
+                                <o:td headers="ponderationVolume_poids2" styleClass="colSeuilPoids">
+                                    <o:inputText id="ponderationVolumePoids2"
+                                                 title="#{Messages['ponderation.rule.poids.positif.err']}"
+                                                 value="#{ponderation.pvolS2Nb2}"
+                                                 pattern="[0-9]{0,10}"
+                                                 maxlength="10"
+                                                 size="12"/>
+                                </o:td>
+                                <o:td headers="ponderationVolume_poids2_lb" styleClass="colPoids">
+                                    #{Messages['ponderationVolume.valeur2.label']}
+                                </o:td>
+
+                                <!-- Poids 3 -->
+                                <o:td headers="ponderationVolume_poids3" styleClass="colSeuilPoids">
+                                    <o:inputText id="ponderationVolumePoids3"
+                                                 title="#{Messages['ponderation.rule.poids.positif.err']}"
+                                                 value="#{ponderation.pvolS3Nb2}"
+                                                 pattern="[0-9]{0,10}"
+                                                 maxlength="10"
+                                                 size="12"/>
+                                </o:td>
+                                <o:td headers="ponderationVolume_poids3_lb" styleClass="colPoids">
+                                    #{Messages['ponderationVolume.valeur3.label']}
+                                </o:td>
+
+                                <!-- Poids 4 -->
+                                <o:td headers="ponderationVolume_poids4" styleClass="colSeuilPoids">
+                                    <o:inputText id="ponderationVolumePoids4"
+                                                 title="#{Messages['ponderation.rule.poids.positif.err']}"
+                                                 value="#{ponderation.pvolS4Nb2}"
+                                                 pattern="[0-9]{0,10}"
+                                                 maxlength="10"
+                                                 size="12"/>
+                                </o:td>
+                                <o:td headers="ponderationVolume_poids4_lb" styleClass="colPoids">
+                                    #{Messages['ponderationVolume.valeur4.label']}
+                                </o:td>
+
+                                <!-- Duplication -->
+                                <o:td headers="action_new">
+                                    <div style="float:right;">
+                                        <o:button actionRef="ponderationVolumeDuplicateAction"/>
+                                    </div>
+                                </o:td>
+                            </o:tr>
+                        </o:fragment>
+                    </o:repeat>
+                </o:tbody>
+            </o:table>
+            <o:buttonSet>
+                <o:newLineButton label="#{Messages['common.action.add.lb']}"/>
+                <o:deleteButton />
+            </o:buttonSet>
+        </o:slaveList>
+
+    </ui:define>
+</ui:composition>

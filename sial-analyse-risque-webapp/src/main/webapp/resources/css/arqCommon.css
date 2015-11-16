@@ -1,0 +1,32 @@
+.horizontal-control{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width:auto;
+}
+
+.labelHelp {
+    float: left;
+    margin-right: 3px;
+}
+
+.legendHelp {
+    float: right !important; 	
+}
+
+.colTypeAct{
+	width:15em;
+}
+
+.colBtnAffacter{
+	width:5em;
+}
+
+.colSeuilPoids{
+	width:130px;
+}
+
+.colPoids{
+	width:54px;
+}

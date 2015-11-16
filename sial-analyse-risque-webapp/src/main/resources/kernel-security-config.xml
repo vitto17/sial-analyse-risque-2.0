@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:kernel-config xmlns:p="http://o2.agriculture.gouv.fr/kernel"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://o2.agriculture.gouv.fr/kernel http://service.agriculture.gouv.fr/o2/schemas/kernel-1.2.xsd">
+
+    <bean name="fr.gouv.agriculture.orion.security.authentication.eap.EAPTicketValidator"
+          classname="fr.gouv.agriculture.orion.security.authentication.spi.eap.DefaultEAPTicketValidator"/>
+
+    <bean name="fr.gouv.agriculture.orion.security.factory.LoginContextFactory"
+          classname="fr.gouv.agriculture.orion.security.factory.defaults.DefaultLoginContextFactory">
+        <property name="configurationName" value="EAP2"/>
+        <property name="EAPTicketValidator"
+                  value-ref="fr.gouv.agriculture.orion.security.authentication.eap.EAPTicketValidator"/>
+    </bean>
+
+    <bean  name="fr.gouv.agriculture.orion.security.http.HttpGuard"
+           classname="fr.gouv.agriculture.orion.security.http.guard.EAP2HttpGuard">
+        <property name="eapLogoutURL" value="logout" />
+        <property name="fake" value="false"/>
+        <property name="defaultOrigin" value="Agricoll" />
+<!--         <property name="defaultLogin" value="rt.dal" /> -->
+        <property name="defaultLogin" value="francois.rech-de-laval" />
+    </bean>
+
+    <bean name="fr.gouv.agriculture.orion.security.authorization.AuthorizationPolicy"
+           classname="fr.gouv.agriculture.orion.security.authorization.policy.HardAuthorizationPolicy" />
+
+    <bean name="fr.gouv.agriculture.orion.factory.SecurityPersistenceServiceFactory"
+          classname="fr.gouv.agriculture.orion.factory.defaults.HibernatePersistenceServiceFactory">
+        <property name="configurationFile" value="hibernate-administration.cfg.xml"/>
+    </bean>
+    
+    <bean
+        name="fr.gouv.agriculture.orion.security.authorization.AuthorizationManager"
+        classname="fr.gouv.agriculture.orion.security.authorization.DefaultAuthorizationManager">
+
+        <property name="expressionEvaluatorClassname" value="org.apache.commons.el.ExpressionEvaluatorImpl" />
+        <property name="authorizationPolicy" value-ref="fr.gouv.agriculture.orion.security.authorization.AuthorizationPolicy" />
+        <property name="mustAuthorizeRenderables" value="true" />
+    </bean>
+
+
+</p:kernel-config>

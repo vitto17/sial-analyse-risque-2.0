@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:o="http://orion.agriculture-gouv.fr/standard">
+
+    <o:menuBar id="main-menu" controllerRef="mainMenuCtrlRef">
+        <o:menuItem id="menuItemAccueil">
+            <o:menuItemClickable outcome="accueil_page"
+                                 id="menuItemClickableAccueil"
+                                 tooltip="#{Messages['mainmenu.menu.accueil.tooltip']}">
+                #{Messages['mainmenu.menu.accueil.txt']}
+            </o:menuItemClickable>
+        </o:menuItem>
+        <o:separator/>
+        <o:menuItem id="menuItemFormuleRisque">
+            <o:menuItemClickable outcome="formuleRisque_list"
+                                 id="menuItemClickableFormuleRisque"
+                                 tooltip="#{Messages['mainmenu.menu.formules.tooltip']}">
+                #{Messages['mainmenu.menu.formules.txt']}
+            </o:menuItemClickable>
+        </o:menuItem>
+        <o:separator />
+        <o:menuItem id="menuItemNbrUa">
+            <o:menuItemClickable outcome="nbrUa_list"
+                                 id="menuItemClickableNbrUa"
+                                 tooltip="#{Messages['mainmenu.menu.resultats.tooltip']}">
+                #{Messages['mainmenu.menu.resultats.txt']}
+            </o:menuItemClickable>
+        </o:menuItem>
+        <o:separator id="separatorMenuItemBatch" />
+        <o:menuItem id="menuItemBatch">
+            <o:menuItemClickable outcome="batch_list"
+                                 id="menuItemClickableBatch"
+                                 tooltip="#{Messages['mainmenu.menu.traitements.tooltip']}">
+                #{Messages['mainmenu.menu.traitements.txt']}
+            </o:menuItemClickable>
+        </o:menuItem>
+        <o:separator/>
+    </o:menuBar>
+</ui:composition>
