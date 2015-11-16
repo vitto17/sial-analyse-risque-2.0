@@ -1,0 +1,45 @@
+/* Bandeau */
+.o-header .o-header-picture {
+    background-color: #E9D1B9;
+    background-position: left top;
+}
+.navbar-text .o-header-fold-icon {
+    background-color: #F2E6D8;
+}
+.navbar-text .o-header-unfold-icon {
+    background-color: #F2E6D8;
+}
+.o-header-resytal-logo {
+    float: right;
+}
+
+/* Menu horizontal */
+.o-horizontal-menu {
+    background-color: #c19c75;
+}
+
+.navbar .divider-vertical {
+    border-left: 1px solid #F2E6D8;
+    border-right: 1px solid #AA7F55;
+}
+
+/* Menu vertical */
+.container-fluid .foldSplitPane {
+    background-color: #E9D1B9;
+}
+.container-fluid .foldSplitPane .icon-chevron-left {
+    color:#F2E6D8;
+}
+.container-fluid .foldSplitPane .icon-chevron-right {
+    color:#F2E6D8;
+}
+
+/* Bas de page */
+.o-footer-text {
+    color: #000000;
+}
+
+/* Icones des boutons */
+[class^="icon-"], [class*=" icon-"] {
+    color: #c19c75;
+}
