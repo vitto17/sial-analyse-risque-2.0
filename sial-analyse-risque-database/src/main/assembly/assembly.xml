@@ -1,0 +1,17 @@
+<assembly>
+    <id>assembly</id>
+    <formats>
+            <format>zip</format>
+    </formats>
+    <fileSets>
+            <fileSet>
+                    <directory>src/main/resources/fr/gouv/agriculture/dal/sial/arq/sql/patch</directory>
+                    <outputDirectory>sql/patch</outputDirectory>
+                    <includes>
+                            <include>*</include>
+                    </includes>
+                    <fileMode>0770</fileMode>
+                    <directoryMode>0770</directoryMode>
+            </fileSet>
+    </fileSets>
+</assembly>
